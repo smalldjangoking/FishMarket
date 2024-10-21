@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block section %}
+    {{ user.username }}
+    {{ user.first_name }}
+    {{ user.last_name }}
+    {{ user.email }}
+    <form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Выйти</button>
+</form>
+
+{% endblock %}

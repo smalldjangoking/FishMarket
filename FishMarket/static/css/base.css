@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+
+body {
+    background: whitesmoke;
+    height: 100vh;
+    min-height: 100vh;
+}
+
+header {
+    position: fixed;
+    top: 1%;
+    right: 10%;
+    left: 10%;
+    height: 85px;
+}
+
+nav {
+    background: white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2%;
+    box-shadow: 0 1px 0 grey;
+    height: 100%;
+}
+
+.main--section {
+    margin-top: 135px;
+    margin-left: 10%;
+    margin-right: 10%;
+    background: white;
+    min-height: 250px;
+}
+
+.header-logo {
+    width: 255px;
+}
+
+.main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-menu li {
+    position: relative;
+    float: left;
+}
+
+.main-menu li a {
+    padding: 10px;
+    font-size: 20px;
+    display: block;
+    color: black;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.main-menu li a:hover {
+    transform: scale(1.2);
+    color: deepskyblue;
+
+}
+
+.side-bar {
+    display: none;
+    background: white;
+    position: fixed;
+    flex-direction: column;
+    right: 0;
+    top: 0;
+    height: 100%;
+    z-index: 999;
+    box-shadow: -1px 0 35px grey;
+}
+
+.side-bar li {
+    position: relative;
+    text-align: center;
+    margin: 1.2em 2em;
+}
+
+.side-bar li a {
+    color: black;
+    font-size: 1.5em;
+}
+
+.sidebar-phone-img {
+    width: 25px;
+    height: auto;
+}
+
+.submit-button {
+    display: block;
+    padding: 0.5em 1em;
+    border: 2px solid #ccc;
+    background-color: whitesmoke;
+    color: black;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    transform: scale(1.2);
+    color: deepskyblue;
+}
+
+.page-footer {
+    display: inline-block;
+    margin-top: 2em;
+    margin-left: 10%;
+    margin-right: 10%;
+    background: white;
+    border-radius: 15px;
+    padding: 1% 2%;
+}
+
+.footer-text {
+    font-size: 0.57rem;
+    color: grey;
+}
+
+.page-footer-menu {
+    display: flex;
+    gap: 3rem;
+}
+
+.page-footer-menu li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.ul-nav-subfooter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ul-nav-subfooter li:last-child {
+    display: none;
+}
+
+.nav-subfooter .footer-text {
+    font-weight: bold;
+}
+
+.social-media-icons-footer {
+    width: 15%;
+}
+
+@media (max-width: 1187px) {
+    .HideOnMobile {
+        display: none;
+    }
+}
+
+@media (min-width: 1186px) {
+    .HideOnDesktop {
+        display: none;
+    }
+}
+
+

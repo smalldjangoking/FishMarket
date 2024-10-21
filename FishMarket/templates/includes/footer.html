@@ -1,0 +1,35 @@
+{% load static %}
+{% load my_tags %}
+
+<footer class="page-footer">
+    <ul class="page-footer-menu">
+        <li>
+            <img class="header-logo" src="{% static 'img/Official_Logo_Banner.avif' %}" alt="Logo of Website">
+            <p class="footer-text">© DryFishUA. All rights reserved.</p>
+        </li>
+        <li>
+            <ul class="ul-nav-subfooter">
+                <p class="footer-text">Навігація</p>
+                {% navmenu as menu %}
+                {% for name, url in menu.items %}
+                    <li><a href="{{ url }}">{{ name }}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="li-footer-phone">
+            <p class="footer-text">Оформити замовлення:</p>
+            <a href="tel:+1234567890" alt="telephone:1234567890">+38
+                098
+                8811617</a>
+        </li>
+        <li>
+            <p class="footer-text">Час роботи:</p>
+            <p class="footer-text">з 11:00 до 22:00</p>
+        </li>
+        <li>
+            <p class="footer-text">Ми в соцмережах:</p>
+            <img class="social-media-icons-footer" src="{% static 'img/instagram_logo.png' %}"
+                             alt="social media link: instagram">
+        </li>
+    </ul>
+</footer>

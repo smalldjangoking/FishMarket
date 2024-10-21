@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Вхід до особистого кабінету{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static '/css/login.css' %}">
+{% endblock %}
+{% block section %}
+    <div class="login-page">
+        <div class="login-box">
+            <h3>Вхід</h3>
+            <form class="login-form" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <div class="login-box-menu">
+                    <button class="submit-button" type="submit">Вхід</button>
+                    <a href="#">Забули свій пароль?</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="information-box">
+            <h3>Новий Користувач?</h3>
+            <br>
+            <p>Створення облікового запису дозволить вам здійснювати покупки швидше (адресу та контактну інформацію не
+                потрібно буде вводити повторно), переглядати стан замовлення, а також бачити історію попередніх
+                замовлень.
+                Ви також зможете накопичувати знижки та спеціальні пропозиції.</p>
+            <a href="{% url 'usersapp:signup' %}" class="button-continue">Продовжити</a>
+
+        </div>
+    </div>
+
+{% endblock %}
