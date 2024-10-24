@@ -1,0 +1,113 @@
+.profile-elems {
+    display: grid;
+    grid-template-columns: 250px auto;
+    gap: 1rem;
+    text-align: left; /* Добавлено для выравнивания контента влево */
+}
+
+.profile-elems li {
+    margin-bottom: 10px;
+}
+
+.menu-elem {
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 250px;
+}
+
+.span-user-email {
+    font-size: 0.6rem;
+    color: grey
+}
+
+.profile-elems .menu-elem a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    color: black;
+    text-align: left;
+}
+
+.profile-elems .menu-elem .active-link a {
+    background-color: deepskyblue;
+    color: white !important;
+}
+
+.profile-elems .menu-elem .active-link {
+    align-items: center;
+    display: flex;
+}
+
+.profile-menu {
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: white;
+}
+
+.profile-elems .menu-elem ul li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-elems .menu-elem ul li img {
+    max-width: 30px;
+    height: auto;
+    display: inline-block;
+}
+
+.profile-menu li a {
+    display: block;
+    color: black;
+    padding: 1rem 1rem;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    text-align: center;
+    max-width: fit-content;
+}
+
+.profile-menu li {
+    display: block;
+    margin-bottom: 3rem;
+}
+
+.a-exit {
+    color: red !important;
+}
+
+.profile-menu li a:hover {
+    outline: none;
+    transition: transform 1s ease, color 1s ease, box-shadow 0.5s ease;
+    box-shadow: 0 0 9px rgba(81, 203, 238, 1);
+    color: deepskyblue;
+}
+
+@media (max-width: 573px) {
+    .profile-elems {
+        display: block;
+        align-items: center;
+        text-align: center;
+
+    }
+
+    .profile-elems .menu-elem {
+        display: flex;
+    }
+
+    .menu-elem ul {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .profile-menu {
+        background: white;
+        border-radius: 1rem;
+    }
+    .profile-menu li{
+        display: flex;
+        margin: 1rem;
+        text-align: center;
+        justify-content: center;
+    }
+}

@@ -12,6 +12,23 @@
     padding: 3% 3%;
 }
 
+.information-box a {
+    color: black;
+    padding: 1rem 1rem;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    max-width: 10rem;
+    text-align: center;
+}
+
+.information-box a:hover {
+    outline: none;
+    transition: transform 1s ease, color 1s ease, box-shadow 0.5s ease;
+    box-shadow: 0 0 9px rgba(81, 203, 238, 1);
+    color: deepskyblue;
+}
+
 .login-page .login-box {
     display: block;
     background: white;

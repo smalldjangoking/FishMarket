@@ -1,1 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static '/css/registration.css' %}">
+{% endblock %}
+
+{% block title %}Реєстрація Пользователя{% endblock %}
+{% block section %}
+    <div class="registration-page">
+        <h3>Реєстрація</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label }}
+                <br>
+                {{ field }}
+                {{ field.errors }}
+                <br>
+            {% endfor %}
+            <button type="submit" class="submit-button">Реєстрація</button>
+        </form>
+    </div>
+{% endblock %}

@@ -15,7 +15,7 @@
                 <br>
                 <div class="login-box-menu">
                     <button class="submit-button" type="submit">Вхід</button>
-                    <a href="#">Забули свій пароль?</a>
+                    <a href="{% url 'usersapp:password_reset' %}">Забули свій пароль?</a>
                 </div>
             </form>
         </div>
@@ -27,7 +27,7 @@
                 потрібно буде вводити повторно), переглядати стан замовлення, а також бачити історію попередніх
                 замовлень.
                 Ви також зможете накопичувати знижки та спеціальні пропозиції.</p>
-            <a href="{% url 'usersapp:signup' %}" class="button-continue">Продовжити</a>
+            <a href="{% url 'usersapp:signup' %}" class="button-continue">Реєстрація</a>
 
         </div>
     </div>

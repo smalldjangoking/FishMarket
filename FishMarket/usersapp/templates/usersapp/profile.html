@@ -1,5 +1,41 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">{% endblock %}
 
 {% block section %}
-    <a href="/accounts/logout">click</a>
+    <section>
+        <ul class="profile-elems">
+            <li class="menu-elem">
+                <ul>
+                    <li class="active-link">
+                        <img src="{% static 'img/profile.png' %}" alt="profile icon">
+                        <a href="{% url 'usersapp:profile' %}">Профіль</a>
+                    </li>
+                    <li>
+                        <img src="{% static 'img/history.png' %}" alt="profile icon">
+                        <a href="#">Історія замовлень</a>
+                    </li>
+                    <li>
+                        <img src="{% static 'img/address.png' %}" alt="profile icon">
+                        <a href="#">Адреса доставки</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <ul class="profile-menu">
+                    <li><h3>Профіль користувача <span class="span-user-email">{{ user.email }}</span></h3></li>
+                    <li>
+                        <a href="{% url 'usersapp:password_change' %}">Змінити Пароль</a>
+                    </li>
+                    <li>
+                        <a class='a-exit' href="{% url 'usersapp:logout' %}">Вихід із профілю</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+
+            </li>
+        </ul>
+    </section>
 {% endblock %}

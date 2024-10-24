@@ -5,6 +5,14 @@
     font-family: sans-serif;
     list-style: none;
     text-decoration: none;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+@font-face {
+    font-family: 'Comfortaa';
+    src: url('/static/fonts/Comfortaa-VariableFont_wght.ttf') format('truetype');
+    font-weight: 300 700; /* Шрифт поддерживает веса от 300 до 700 */
+    font-style: normal;
 }
 
 body {
@@ -36,7 +44,6 @@ nav {
     margin-top: 135px;
     margin-left: 10%;
     margin-right: 10%;
-    background: white;
     min-height: 250px;
 }
 
@@ -98,21 +105,34 @@ nav {
 }
 
 .submit-button {
-    display: block;
-    padding: 0.5em 1em;
-    border: 2px solid #ccc;
-    background-color: whitesmoke;
     color: black;
-    cursor: pointer;
+    padding: 1rem 1rem;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.login-box a {
+    color: black;
+}
+
+.information-box a {
+    color: black;
 }
 
 .submit-button:hover {
-    transform: scale(1.2);
+    outline: none;
+    transition: transform 1s ease, color 1s ease, box-shadow 0.5s ease;
+    box-shadow: 0 0 9px rgba(81, 203, 238, 1);
+    color: deepskyblue;
+}
+
+.submit-button:hover {
     color: deepskyblue;
 }
 
 .page-footer {
-    display: inline-block;
+    display: flex;
     margin-top: 2em;
     margin-left: 10%;
     margin-right: 10%;
@@ -124,6 +144,7 @@ nav {
 .footer-text {
     font-size: 0.57rem;
     color: grey;
+    margin-bottom: 1rem;
 }
 
 .page-footer-menu {
@@ -144,14 +165,20 @@ nav {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
 }
 
 .ul-nav-subfooter li:last-child {
     display: none;
 }
 
+.ul-nav-subfooter a {
+    color: black;
+}
+
 .nav-subfooter .footer-text {
     font-weight: bold;
+
 }
 
 .social-media-icons-footer {
@@ -162,6 +189,27 @@ nav {
     .HideOnMobile {
         display: none;
     }
+
+    .page-footer-menu {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 5% 5%;
+    }
+
+    .page-footer-menu li:first-child {
+        order: 1;
+        grid-column: 1 / 3; /* Элемент займет обе колонки */
+        justify-self: center; /* Выровнять по горизонтали */
+        align-self: center; /* Выровнять по вертикали, если нужно */
+    }
+}
+
+@media (max-width: 741px) {
+    .page-footer-menu {
+        display: flex;
+        flex-direction: column;
+    }
+
 }
 
 @media (min-width: 1186px) {

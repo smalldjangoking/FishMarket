@@ -1,7 +1,10 @@
+from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
+from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
-from .forms import SignUpForm
+from .forms import SignUpForm, UserPasswordChangeForm
+
 
 class UserView(DetailView):
     template_name = 'usersapp/profile.html'
