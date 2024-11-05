@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+.slider-container {
+    position: relative;
+    width: 600px;
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+
+
+}
+
+.slider-image {
+    width: 25%;
+    height: 25%;
+    display: block;
+}
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    font-size: 2em;
+    color: deepskyblue;
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-button.prev {
+    left: 10px;
+}
+
+.nav-button.next {
+    right: 10px;
+}

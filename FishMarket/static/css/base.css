@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
     list-style: none;
     text-decoration: none;
     font-family: 'Comfortaa', sans-serif;
@@ -17,16 +16,10 @@
 
 body {
     background: whitesmoke;
-    height: 100vh;
-    min-height: 100vh;
 }
 
 header {
-    position: fixed;
-    top: 1%;
-    right: 10%;
-    left: 10%;
-    height: 85px;
+    margin: 1% 10% 0 10%;
 }
 
 nav {
@@ -41,14 +34,14 @@ nav {
 }
 
 .main--section {
-    margin-top: 135px;
+    margin-top: 2.4%;
     margin-left: 10%;
     margin-right: 10%;
     min-height: 250px;
 }
 
 .header-logo {
-    width: 255px;
+    width: 12rem;
 }
 
 .main-menu {
@@ -67,11 +60,11 @@ nav {
     font-size: 20px;
     display: block;
     color: black;
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition: transform 0.1s ease, color 0.1s ease;
 }
 
 .main-menu li a:hover {
-    transform: scale(1.2);
+    transform: scale(1.05);
     color: deepskyblue;
 
 }
@@ -96,7 +89,7 @@ nav {
 
 .side-bar li a {
     color: black;
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 .sidebar-phone-img {
@@ -133,12 +126,13 @@ nav {
 
 .page-footer {
     display: flex;
-    margin-top: 2em;
+    margin-top: 2rem;
     margin-left: 10%;
     margin-right: 10%;
     background: white;
-    border-radius: 15px;
+    border-radius: 10px 10px 0 0;
     padding: 1% 2%;
+
 }
 
 .footer-text {
@@ -165,7 +159,7 @@ nav {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 .ul-nav-subfooter li:last-child {
@@ -183,6 +177,43 @@ nav {
 
 .social-media-icons-footer {
     width: 15%;
+}
+
+.container .product-search {
+    display: block;
+    border: 3px solid deepskyblue;
+    border-radius: 1rem;
+    width: fit-content;
+    background: white;
+}
+
+.container .product-search form button {
+    border: none;
+    background: none;
+}
+
+.container .product-search form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container .product-search form button img {
+    width: 1.5rem;
+    height: auto;
+}
+
+.container .product-search form button img:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+}
+
+.container .product-search .form-control {
+    border: none;
+    background: none;
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+    text-align: center;
 }
 
 @media (max-width: 1187px) {

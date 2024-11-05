@@ -1,49 +1,53 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
+
 from usersapp.models import User
 
 
 class SeaCategory(models.Model):
     """Model of Categories (Камбала, Вугор, Філе)"""
     name = models.CharField(max_length=30, blank=False, null=False, unique=True, verbose_name='Название Категории')
-    image_category = models.ImageField(upload_to='sea_categories', blank=True, null=True)
+    slug = models.SlugField(max_length=100, unique=True, db_index=True, verbose_name='SLUG_URL')
+    description = models.CharField(max_length=255, blank=True, null=True, verbose_name='Описание Категории')
+    image_category = models.ImageField(upload_to='sea_categories', blank=True, null=True, verbose_name='Титульная картинка')
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Категория продукта'
-        verbose_name_plural = 'Категории продукта'
+        verbose_name = 'Категорія продукту'
+        verbose_name_plural = 'Категорії продукту'
 
+    def get_absolute_url(self):
+        return reverse('mainapp:CategorySelect', kwargs={'slug': self.slug})
 
-class ProductMenu(models.Model):
-    """Model of Product Menu(Камбала в'ялена, Камбала суха...)"""
-
-    name = models.CharField(max_length=30, unique=True, blank=False, null=False, verbose_name='Название подкатегории')
-    image_category = models.ImageField(upload_to='product_menu', blank=True, null=True)
-    description = models.TextField(verbose_name='Описание')
-    sea_category = models.ForeignKey(SeaCategory, on_delete=models.CASCADE, verbose_name='Категория продукта')
-
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Подкатегория продукта'
-        verbose_name_plural = 'Подкатегории продукта'
 
 class Product(models.Model):
     """Model of Products. Products characteristics are displayed at menu"""
-    product_menu = models.ForeignKey(ProductMenu, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    image_product = models.ImageField(upload_to='products', blank=True, null=True)
-    description = models.TextField()
-    price = models.IntegerField()
-    stock = models.IntegerField(null=True, blank=True, default=0)
+    product_category = models.ForeignKey(SeaCategory, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, verbose_name='Название')
+    slug = models.SlugField(max_length=100, unique=True, db_index=True, verbose_name='SLUG_URL')
+    image_product = models.ImageField(upload_to='products', blank=True, null=True, verbose_name='Титульная картинка')
+    description = models.TextField(verbose_name='Описание Продукта')
+    price = models.IntegerField(verbose_name='Цена за КГ')
+    stock = models.IntegerField(null=True, blank=True, default=0, verbose_name='Наличие')
+    time_create = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Продукт'
-        verbose_name_plural = 'Продукты'
+        verbose_name_plural = 'Продукти'
+        ordering = ['time_create']
+
+    def save(self, *args, **kwargs):
+        if self.name:
+            self.name = self.name.upper()
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('mainapp:product', kwargs={'slug': self.slug})
+
+
 
 class ProductWeight(models.Model):
     """Модель для хранения разных весов продукта."""
@@ -62,6 +66,20 @@ class ProductWeight(models.Model):
 
     def __str__(self):
         return f"{self.weight} {self.weight_calculus}"
+
+
+class ProductImage(models.Model):
+    """Модель для хранения дополнительных фотографий продукта."""
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='additional_images')
+    image = models.ImageField(upload_to='product_images')
+
+    class Meta:
+        verbose_name = 'Дополнительная фотография продукта'
+        verbose_name_plural = 'Дополнительные фотографии продуктов'
+
+    def __str__(self):
+        return f"Фото для {self.product.name}"
+
 
 class ProductComments(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

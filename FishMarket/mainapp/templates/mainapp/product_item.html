@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'mainapp/css/product_item.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/image_show_bar.css' %}">
+{% endblock %}
+
+
+{% block section %}
+    <div class="nav_product">
+        <a href="{% url 'mainapp:CategorySelect' product.product_category.slug %}" class="leg-new"><span>&#8592; Назад</span></a>
+        <a href="{% url 'mainapp:main' %}"><img src="{% static 'mainapp/img/homenav.png' %}"
+                                                alt="Back to main page"></a>
+        <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
+        <a href="{% url 'mainapp:Categories' %}">Категорії</a>
+        <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
+        <a href="{% url 'mainapp:Categories' %}{{ product.product_category.slug }}">{{ product.product_category.name }}</a>
+        <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
+        <p>{{ product.name }}</p>
+    </div>
+    <div class="col">
+        <div class="row">
+            {% include 'mainapp/includes/image_show_bar.html' %}
+        </div>
+        <div class="row-info-buy">
+            <fieldset>
+                <legend class="leg-new">Новинка</legend>
+                <h3>{{ product.name }}</h3>
+            </fieldset>
+            <p>{{ product.description }}</p>
+            <div class="product-choices">
+                <h4>{{ product.price }} / кг</h4>
+                <a href="#">Додати до Кошику</a>
+                <a href="#">Швидка покупка</a>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

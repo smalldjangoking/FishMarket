@@ -1,0 +1,7 @@
+{% load static %}
+<div class="product-search">
+    <form method="get" action="{% url 'mainapp:AllProducts' %}">
+        {{ search_form.search }}
+        <button type="submit"><img src="{% static "mainapp/img/search_img_button.png" %}" alt="Пошук товару"></button>
+    </form>
+</div>

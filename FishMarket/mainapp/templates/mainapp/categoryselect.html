@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'mainapp/css/index.css' %}">
+{% endblock %}
+
+{% block title %}Інтернет-магазин в'яленої і сушеної риби преміум класу{% endblock %}
+
+{% block section %}
+    <div class="container">
+        <a class="leg-new" href="{% url 'mainapp:Categories' %}">&#8592; Назад</a>
+        <div class="row">
+            {% for product in products %}
+                <div class="col">
+                    <fieldset>
+                        <img class="col-img" src="{{ product.image_product.url }}" alt="{{ product.name }}">
+                    </fieldset>
+
+                    <h4>{{ product.name }}</h4>
+                    <p class="col-grams">1 кг</p>
+                    <p class="col-descr">{{ product.description|truncatechars:211 }}</p>
+                    <div class="col-price-btn">
+                        <h5>{{ product.price }} <span>грн</span></h5> <a href="{{ product.get_absolute_url }}">Детальніше</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% if page_obj.paginator.num_pages > 1 %}
+                    <div class="pagination">
+                <div class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                    {% endif %}
+                    <p class="current" href="#">{{ page_obj.number }}</p>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                    {% endif %}
+                </div>
+            <div class="page-list">
+                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
