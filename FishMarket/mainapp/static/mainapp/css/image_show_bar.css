@@ -4,8 +4,8 @@
 
 .slider-container {
     position: relative;
-    width: 600px;
-    height: auto;
+    width: 100%;
+    height: 300px;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -14,10 +14,12 @@
 }
 
 .slider-image {
-    width: 25%;
-    height: 25%;
     display: block;
+    height: 100%;
+    width: auto;
+    object-fit: contain;
 }
+
 
 .nav-button {
     position: absolute;

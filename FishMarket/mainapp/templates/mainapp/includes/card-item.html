@@ -1,0 +1,13 @@
+<div class="col">
+    <fieldset>
+        <legend class="leg-new">Новинка</legend>
+        <img class="col-img" src="{{ product.image_product.url }}" alt="{{ product.name }}">
+    </fieldset>
+
+    <h4>{{ product.name }}</h4>
+    <p class="col-grams">1 кг</p>
+    <p class="col-descr">{{ product.description|truncatechars:25 }}</p>
+    <div class="col-price-btn">
+        <h5>{{ product.price }} <span>грн</span></h5> <a href="{{ product.get_absolute_url }}">Детальніше</a>
+    </div>
+</div>

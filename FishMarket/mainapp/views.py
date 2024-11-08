@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
-from mainapp.models import Product, SeaCategory, ProductImage
+from mainapp.models import Product, SeaCategory, ProductImage, ProductWeight
 from django.db.models import Q
 
 
@@ -10,19 +10,18 @@ class MainPageView(ListView):
     context_object_name = 'products'
     queryset = Product.objects.order_by('-time_create')[:6]
 
+
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'mainapp/product_item.html'
     context_object_name = 'product'
-    slug_field = 'slug'  # поле модели для поиска
-    slug_url_kwarg = 'slug'  # название параметра URL
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Пример дополнительного контекста
         context['related_products'] = ProductImage.objects.filter(product_id=self.object.id)
-        context['amount_of_photos'] = range(len(context['related_products']) +1)
-        print(context['amount_of_photos'])
+        context['product_weights'] = ProductWeight.objects.filter(product_id=self.object.id)
         return context
 
 class CategoryListView(ListView):
@@ -32,7 +31,7 @@ class CategoryListView(ListView):
 
 class CategorySelectView(ListView):
     model = Product
-    template_name = 'mainapp/categoryselect.html'
+    template_name = 'mainapp/AllProductsOrSearch.html'
     context_object_name = 'products'
 
     def get_queryset(self):
@@ -41,7 +40,7 @@ class CategorySelectView(ListView):
 
 class AllProductsOrSpecificView(ListView):
     model = Product
-    template_name = 'mainapp/categoryselect.html'
+    template_name = 'mainapp/AllProductsOrSearch.html'
     context_object_name = 'products'
     paginate_by = 5
 
