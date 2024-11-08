@@ -31,6 +31,11 @@ class SignUpForm(UserCreationForm):
             'placeholder': 'Введіть пароль повторно',
         })
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        email = email.lower()
+        return email
+
 
 class CustomAuthenticationForm(AuthenticationForm):
     def __init__(self, request=None, *args, **kwargs):

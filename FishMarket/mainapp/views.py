@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from lib2to3.fixes.fix_input import context
+
+from django.utils import timezone
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from mainapp.models import Product, SeaCategory, ProductImage, ProductWeight
-from django.db.models import Q
 
 
 class MainPageView(ListView):
@@ -21,7 +23,7 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['related_products'] = ProductImage.objects.filter(product_id=self.object.id)
-        context['product_weights'] = ProductWeight.objects.filter(product_id=self.object.id)
+        context['product_weights'] = ProductWeight.objects.filter(product_id=self.object.id).order_by('-weight')
         return context
 
 class CategoryListView(ListView):

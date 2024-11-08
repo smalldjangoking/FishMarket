@@ -11,18 +11,7 @@
         <a class="leg-new" href="{% url 'mainapp:Categories' %}">&#8592; Назад</a>
         <div class="row">
             {% for product in products %}
-                <div class="col">
-                    <fieldset>
-                        <img class="col-img" src="{{ product.image_product.url }}" alt="{{ product.name }}">
-                    </fieldset>
-
-                    <h4>{{ product.name }}</h4>
-                    <p class="col-grams">1 кг</p>
-                    <p class="col-descr">{{ product.description }}</p>
-                    <div class="col-price-btn">
-                        <h5>{{ product.price }} <span>грн</span></h5> <a href="{{ product.get_absolute_url }}">Детальніше</a>
-                    </div>
-                </div>
+                {% include 'mainapp/includes/card-item.html' %}
             {% endfor %}
         </div>
         {% if page_obj.paginator.num_pages > 1 %}

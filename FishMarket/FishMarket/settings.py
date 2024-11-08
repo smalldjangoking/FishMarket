@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # my_apps
     'mainapp.apps.MainappConfig',
     'usersapp.apps.UsersappConfig',
+    'cart.apps.CartConfig',
 
 ]
 
@@ -68,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'mainapp.context_processors.add_search_form',
+                'cart.context_processors.Cart',
             ],
         },
     },
@@ -131,12 +133,13 @@ AUTH_USER_MODEL = 'usersapp.User'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+CART_SESSION_ID = 'cart'
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.yandex.ru"
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "test"
-EMAIL_HOST_PASSWORD = "test"
+EMAIL_HOST_USER = "jetixanetru1@yandex.ru"
+EMAIL_HOST_PASSWORD = "ldraaxqjkdysbdez"
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER

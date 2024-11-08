@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load datetime-diffrence %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'mainapp/css/product_item.css' %}">
     <link rel="stylesheet" href="{% static 'mainapp/css/image_show_bar.css' %}">
@@ -16,19 +17,6 @@
         <a href="{% url 'mainapp:Categories' %}">Категорії</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
         <a href="
-
-
-
-
-
-
-
-
-
-
-
-                
-                
                 {% url 'mainapp:Categories' %}{{ product.product_category.slug }}">{{ product.product_category.name }}</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
         <p>{{ product.name }}</p>
@@ -39,7 +27,9 @@
         </div>
         <div class="row-info-buy">
             <fieldset>
-                <legend class="leg-new">Новинка</legend>
+                {% if product.time_create|time_difference < 30 %}
+                    <legend class="leg-new">Новинка</legend>
+                {% endif %}
                 <h3>{{ product.name }}</h3>
             </fieldset>
             <p>{{ product.description }}</p>
@@ -69,30 +59,30 @@
                 </form>
                 {% if not user.is_authenticated %}
                     <div class="discount-advertisement">
-                    <img src="{% static "mainapp/img/discount.png" %}" alt="discount image">
-                    <a href="{% url 'usersapp:login' %}">Увійдіть для збільшення накопичувальної знижки</a>
+                        <img src="{% static "mainapp/img/discount.png" %}" alt="discount image">
+                        <a href="{% url 'usersapp:login' %}">Увійдіть для збільшення накопичувальної знижки</a>
                     </div>
                 {% endif %}
-                </div>
             </div>
         </div>
+    </div>
 
-        <script>
-            function decreaseQuantity() {
-                const quantityInput = document.getElementById('quantity');
-                let currentValue = parseInt(quantityInput.value);
+    <script>
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            let currentValue = parseInt(quantityInput.value);
 
-                if (currentValue > parseInt(quantityInput.min)) {
-                    quantityInput.value = currentValue - 1;
-                }
+            if (currentValue > parseInt(quantityInput.min)) {
+                quantityInput.value = currentValue - 1;
             }
+        }
 
-            function increaseQuantity() {
-                const quantityInput = document.getElementById('quantity');
-                let currentValue = parseInt(quantityInput.value);
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            let currentValue = parseInt(quantityInput.value);
 
-                quantityInput.value = currentValue + 1;
-            }
+            quantityInput.value = currentValue + 1;
+        }
 
-        </script>
+    </script>
 {% endblock %}
