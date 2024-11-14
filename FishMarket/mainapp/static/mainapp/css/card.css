@@ -1,10 +1,10 @@
-.container .row {
+.card-container {
     display: grid;
     grid-template-columns: repeat(4, minmax(150px, 1fr));
     grid-gap: 1.5rem;
 }
 
-.container .row .col {
+.card-container .col {
     display: flex;
     flex-direction: column;
     min-height: 300px;
@@ -13,9 +13,19 @@
     border-radius: 10px;
     gap: 1rem;
     margin-top: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    border-image: linear-gradient(45deg, #1e3a8a, #3b82f6) 1;
 }
 
-.container .row .col img {
+.card-container .col:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+
+.card-container .col img {
     max-width: 200px;
     height: auto;
     width: 100%;
@@ -23,13 +33,13 @@
 
 }
 
-.container .row .col fieldset {
+.card-container .col fieldset {
     display: flex;
     justify-content: center;
     border: none;
 }
 
-.container .row .col fieldset .leg-new {
+.card-container .col fieldset .leg-new {
     color: lime;
     padding: 0.3rem;
     background-color: rgba(204, 245, 213, 0.5);
@@ -50,31 +60,17 @@
     font-size: 0.6rem;
 }
 
-.container .row .col .col-price-btn {
+.card-container .col .col-price-btn {
     display: flex;
     justify-content: space-between;
     margin-top: auto;
 }
 
-.container .row .col .col-price-btn h5 {
+.card-container .col .col-price-btn h5 {
     font-size: 1.2rem;
 }
 
-.col-price-btn a {
-    padding: 0.3rem;
-    background-color: rgba(0, 191, 255, 0.6);
-    border-radius: 10px;
-    font-size: 0.8rem;
-    color: white;
-}
-
-.col-price-btn a:hover {
-    transition: .2s ease;
-    background-color: rgb(16, 232, 66);
-    color: white;
-}
-
-.leg-new {
+.card-image-banner-new-product {
     color: lime !important;
     padding: 0.3rem;
     background-color: rgba(204, 245, 213, 0.5);
@@ -82,7 +78,8 @@
     font-size: 0.6rem;
 }
 
-.container .row .col .col-price-btn h5 span {
+.card-container .col .col-price-btn h5 span {
+    display: flex;
     color: grey;
     font-size: 0.8rem;
 }
@@ -107,6 +104,18 @@
 
 .pagination {
     margin-top: 2rem;
+}
+
+.card-image-banner {
+    position: relative;
+}
+
+.card-image-banner-currency-show {
+    position: absolute;
+    bottom: 10px;
+    left: 25px;
+    padding: 0;
+    margin: 10px;
 }
 
 .step-links {
@@ -141,13 +150,13 @@
 
 
 @media (max-width: 875px) {
-    .container .row {
+    .card-container {
         grid-template-columns: repeat(3, minmax(150px, 1fr));
     }
 }
 
 @media (max-width: 665px) {
-    .container .row {
+    .card-container {
         grid-template-columns: repeat(2, minmax(150px, 1fr));
     }
 }
@@ -166,7 +175,7 @@
         padding: 0 1rem;
     }
 
-    .container .row {
+    .card-container {
         grid-template-columns: repeat(1, minmax(150px, 1fr));
     }
 

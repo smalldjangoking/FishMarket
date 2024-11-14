@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'cart/css/cart_view.css' %}">{% endblock %}
+{% block section %}
+    <h3>Корзина покупок</h3>
+
+    <div class="cart-container">
+        <div class="full-cart-view">
+            <div class="grid-container">
+                <div class="grid-image">
+                    <img src="" alt="image"></img>
+                </div>
+                <div class="grid-inside-container">
+                    <div>Product name<br>1kg</div>
+                    <div>price</div>
+                    <div>add or deletedddddddddddddddddddddddddddddddddd</div>
+                </div>
+            </div>
+            <div class="grid-menu-mobile">
+                <div>add/kg-gr</div>
+                <div>delete</div>
+                <div>update</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

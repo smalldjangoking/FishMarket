@@ -2,7 +2,7 @@
 <div class="col">
     <fieldset>
         {% if product.time_create|time_difference < 30 %}
-            <legend class="leg-new">Новинка</legend>
+            <legend class="card-image-banner-new-product">Новинка</legend>
         {% endif %}
         <img class="col-img" src="{{ product.image_product.url }}" alt="{{ product.name }}">
     </fieldset>
@@ -11,6 +11,7 @@
     <p class="col-grams">1 кг</p>
     <p class="col-descr">{{ product.description|truncatechars:255 }}</p>
     <div class="col-price-btn">
-        <h5>{{ product.price }} <span>грн</span></h5> <a href="{{ product.get_absolute_url }}">Детальніше</a>
+            <p>{{ product.price }} грн</p>
+            <a class='btn' href="{{ product.get_absolute_url }}">Детальніше</a>
     </div>
 </div>

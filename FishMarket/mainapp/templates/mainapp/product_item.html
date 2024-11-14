@@ -17,6 +17,10 @@
         <a href="{% url 'mainapp:Categories' %}">Категорії</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
         <a href="
+
+
+
+                
                 {% url 'mainapp:Categories' %}{{ product.product_category.slug }}">{{ product.product_category.name }}</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
         <p>{{ product.name }}</p>
@@ -34,18 +38,24 @@
             </fieldset>
             <p>{{ product.description }}</p>
             <div class="product-choices">
-                <h4><span>Ціна за кілограм:</span> {{ product.price }}₴</h4>
+
                 <form id="add-to-cart-form">
                     <input type="hidden" id="product_id" value="{{ product.id }}">
-                    <div class="choose-weight-form">
-                        {% for product_weight in product_weights %}
-                            <input type="radio" id="weight{{ forloop.counter }}" name="weight"
-                                   value="{{ product_weight.weight }}" {% if forloop.first %}checked{% endif %}>
-                            <label for="weight{{ forloop.counter }}">
-                                {{ product_weight.weight }}{{ product_weight.weight_calculus }}
-                            </label>
-                        {% endfor %}
-                    </div>
+                    {% if product_weights %}
+                        <h4><span>Ціна за кілограм:</span> {{ product.price }}₴</h4>
+                        <div class="choose-weight-form">
+                            {% for product_weight in product_weights %}
+                                <input type="radio" id="weight{{ forloop.counter }}" name="weight"
+                                       value="{{ product_weight.weight }}" {% if forloop.first %}checked{% endif %}>
+                                <label for="weight{{ forloop.counter }}">
+                                    {{ product_weight.weight }}{{ product_weight.weight_calculus }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <h4><span>Ціна за одиницю:</span> {{ product.price }}₴</h4>
+                        <input type="hidden" id="weight" value="0">
+                    {% endif %}
                     <div class="choose-quantity-form">
                         <button type="button" onclick="decreaseQuantity()">-</button>
                         <input type="number" id="quantity" value="1" min="1" step="1">
@@ -53,7 +63,7 @@
                     </div>
 
                     <div>
-                        <button class="add-to-cart" type="submit" href="#">Додати до Кошику</button>
+                        <button id="add-to-cart" class="add-to-cart" type="submit" href="#">Додати до Кошику</button>
                         <button class="add-to-cart" href="#">Швидка покупка</button>
                     </div>
                 </form>
@@ -67,7 +77,9 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script>
+
         function decreaseQuantity() {
             const quantityInput = document.getElementById('quantity');
             let currentValue = parseInt(quantityInput.value);
@@ -83,6 +95,29 @@
 
             quantityInput.value = currentValue + 1;
         }
+
+        $(document).on('click', '#add-to-cart', function (e) {
+            e.preventDefault();
+            
+            $.ajax({
+                url: "{% url 'cart:cart-add' %}",
+                type: "POST",
+                data: {
+                    'product_id': {{ product.id }},
+                    'quantity': $('#quantity').val(),
+                    'weight': $('#weight').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        })
+
 
     </script>
 {% endblock %}

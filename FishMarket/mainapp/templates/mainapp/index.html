@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'mainapp/css/index.css' %}">{% endblock %}
+    <link rel="stylesheet" href="{% static 'mainapp/css/card.css' %}">{% endblock %}
 {% block title %}Інтернет-магазин в'яленої і сушеної риби преміум класу{% endblock %}
 
 
 {% block section %}
     <div class="container">
     {% include 'mainapp/includes/product_filter.html' %}
-        <div class="row">
+        <div class="card-container">
             {% for product in products %}
                 {% include 'mainapp/includes/card-item.html' %}
             {% endfor %}
@@ -16,7 +16,7 @@
                 <div class="more-products">
                     <a href="{% url 'mainapp:AllProducts' %}">
                         <img src="{% static 'mainapp/img/all_products_blue.png' %}" alt="" class="img-default">
-                        <p>Всі продукти</p>
+                        <p class="btn">Всі продукти</p>
                     </a>
                 </div>
             </div>

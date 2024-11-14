@@ -15,7 +15,7 @@
 }
 
 body {
-    background: whitesmoke;
+    background: linear-gradient(180deg, #f0f8ff, #ffffff);
 }
 
 header {
@@ -23,14 +23,22 @@ header {
 }
 
 nav {
-    background: white;
+    background: linear-gradient(#1e3a8a, #3b82f6);
     border-radius: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2%;
-    box-shadow: 0 1px 0 grey;
+    padding: 0.3% 2%;
     height: 100%;
+}
+
+.btn {
+    background: linear-gradient(90deg, #1e90ff, #00bfff);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 .main--section {
@@ -57,9 +65,10 @@ nav {
 
 .main-menu li a {
     padding: 10px;
-    font-size: 20px;
+    font-size: 1rem;
     display: block;
-    color: black;
+    color: #E0F7FA;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     transition: transform 0.1s ease, color 0.1s ease;
 }
 
@@ -129,7 +138,7 @@ nav {
     margin-top: 2rem;
     margin-left: 10%;
     margin-right: 10%;
-    background: white;
+    background: linear-gradient(#3b82f6, #1e3a8a);
     border-radius: 10px 10px 0 0;
     padding: 1% 2%;
 
@@ -137,7 +146,7 @@ nav {
 
 .footer-text {
     font-size: 0.57rem;
-    color: grey;
+    color: #E0F7FA;
     margin-bottom: 1rem;
 }
 
@@ -162,12 +171,27 @@ nav {
     gap: 0.5rem;
 }
 
-.ul-nav-subfooter li:last-child {
-    display: none;
+.li-footer-phone a {
+    padding: 5px;
+    font-size: 1.1rem;
+    display: block;
+    color: #E0F7FA;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: transform 0.1s ease, color 0.1s ease;
 }
 
 .ul-nav-subfooter a {
-    color: black;
+    padding: 5px;
+    font-size: 1.1rem;
+    display: block;
+    color: #E0F7FA;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: transform 0.1s ease, color 0.1s ease;
+}
+
+
+.ul-nav-subfooter li:last-child {
+    display: none;
 }
 
 .nav-subfooter .footer-text {
@@ -180,11 +204,15 @@ nav {
 }
 
 .container .product-search {
-    display: block;
-    border: 3px solid deepskyblue;
-    border-radius: 1rem;
     width: fit-content;
-    background: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background-color: #F9FAFB;
+    background-clip: padding-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
 .container .product-search form button {
@@ -214,6 +242,67 @@ nav {
     outline: none;
     box-shadow: none;
     text-align: center;
+}
+
+.mobile-bucket-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 25px;
+    width: fit-content;
+    background: deepskyblue;
+    padding: 1rem;
+    color: white;
+    border-radius: 10px;
+}
+
+.mobile-bucket-text-image a {
+    display: inline-flex;
+    align-items: center;
+    color: white;
+}
+
+.mobile-bucket-container {
+    position: fixed;
+    right: 25px;
+    bottom: 10px;
+}
+
+.mobile-bucket-text-image img {
+    margin-left: 0.5rem;
+    height: 20px;
+    width: auto;
+}
+
+.desktop-bucket-button {
+    position: relative;
+    border: none;
+}
+
+.nav-img-button {
+    height: 35px;
+    width: auto;
+}
+
+.desktop-bucket-quantity {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    min-width: 20px;
+    min-height: 20px;
+    padding: 4px;
+    font-size: 0.5rem;
+}
+
+.desktop-bucket img {
+    height: 35px;
 }
 
 @media (max-width: 1187px) {

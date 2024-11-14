@@ -69,7 +69,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'mainapp.context_processors.add_search_form',
-                'cart.context_processors.Cart',
+                'cart.context_processors.cart',
             ],
         },
     },

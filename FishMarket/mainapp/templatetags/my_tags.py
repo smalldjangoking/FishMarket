@@ -5,4 +5,5 @@ register = template.Library()
 
 @register.simple_tag
 def navmenu():
-    return {'Головна': reverse('mainapp:main'), 'Доставка': reverse('mainapp:delivery'), 'Про нас': reverse('mainapp:about'), 'Контакти': '#', '+38 (098) 8811617': 'tel:+1234567890'}
+    return {'Головна': reverse('mainapp:main'), 'Доставка': reverse('mainapp:delivery'),
+            'Контакти': '#', '+38 (098) 8811617': 'tel:+1234567890', }
