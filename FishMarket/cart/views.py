@@ -7,7 +7,7 @@ from django.http import JsonResponse
 
 def cart_view(request):
     """Bucket list of all products added to cart."""
-    return render(request, 'cart/cart_view.html')
+    return render(request, 'cart/bucket_view.html')
 
 def cart_add(request):
     cart = Cart(request)
@@ -18,7 +18,7 @@ def cart_add(request):
         weight = request.POST.get('weight')
 
         product = get_object_or_404(Product, id=product_id)
-        cart.add(product=product, quantity=quantity, weight=weight, price=product.price)
+        cart.add(product=product, quantity=quantity, weight=weight)
 
         response = JsonResponse({'qty': str(cart.__len__())})
         return response

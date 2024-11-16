@@ -10,12 +10,13 @@
 @font-face {
     font-family: 'Comfortaa';
     src: url('/static/fonts/Comfortaa-VariableFont_wght.ttf') format('truetype');
-    font-weight: 300 700; /* Шрифт поддерживает веса от 300 до 700 */
+    font-weight: 300 700;
     font-style: normal;
 }
 
 body {
     background: linear-gradient(180deg, #f0f8ff, #ffffff);
+    min-height: 100vh;
 }
 
 header {
@@ -30,6 +31,8 @@ nav {
     align-items: center;
     padding: 0.3% 2%;
     height: 100%;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Adds a soft, floating shadow */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
 }
 
 .btn {
@@ -45,7 +48,6 @@ nav {
     margin-top: 2.4%;
     margin-left: 10%;
     margin-right: 10%;
-    min-height: 250px;
 }
 
 .header-logo {
@@ -104,33 +106,6 @@ nav {
 .sidebar-phone-img {
     width: 25px;
     height: auto;
-}
-
-.submit-button {
-    color: black;
-    padding: 1rem 1rem;
-    background-color: white;
-    border-radius: 10px;
-    border: 1px solid black;
-}
-
-.login-box a {
-    color: black;
-}
-
-.information-box a {
-    color: black;
-}
-
-.submit-button:hover {
-    outline: none;
-    transition: transform 1s ease, color 1s ease, box-shadow 0.5s ease;
-    box-shadow: 0 0 9px rgba(81, 203, 238, 1);
-    color: deepskyblue;
-}
-
-.submit-button:hover {
-    color: deepskyblue;
 }
 
 .page-footer {
@@ -318,9 +293,9 @@ nav {
 
     .page-footer-menu li:first-child {
         order: 1;
-        grid-column: 1 / 3; /* Элемент займет обе колонки */
-        justify-self: center; /* Выровнять по горизонтали */
-        align-self: center; /* Выровнять по вертикали, если нужно */
+        grid-column: 1 / 3;
+        justify-self: center;
+        align-self: center;
     }
 }
 

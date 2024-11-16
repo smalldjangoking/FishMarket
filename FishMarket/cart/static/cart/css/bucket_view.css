@@ -1,0 +1,185 @@
+.cart-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.get_total_sum {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sum-view {
+    border: none;
+}
+
+.sum-view legend{
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: #0078d4;
+}
+
+.sum-view p {
+    color: black;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.sum-view p span {
+    color: #0078d4;
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.total_per_product {
+    text-align: right;
+    padding: 5px 20px 10px 0;
+    color: #0078d4;
+    font-weight: 300;
+
+}
+
+.discount-advertisement {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    margin-top: 10px;
+}
+
+.discount-advertisement a {
+    color: grey;
+    font-weight: 300;
+    font-size: 0.8rem;
+}
+
+.discount-advertisement img {
+    width: 1rem;
+    height: auto;
+}
+
+.total_per_product span {
+    color: black !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.cart-container h3 {
+    text-align: center;
+    color: #0078d4;
+    margin-bottom: 20px;
+}
+
+.product-info-cart {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.box-name {
+    border: none
+}
+
+.box-name legend{
+    font-size: 0.6rem;
+    color: #0078d4;
+}
+
+.box-name div p {
+    font-size: 0.9rem;
+    color: grey;
+}
+
+.box-name div span {
+    font-size: 0.8rem;
+    color: black;
+    margin-left: 4px;
+}
+
+.grid-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chosen-bold {
+    font-weight: bold;
+    font-size: 0.9rem !important;
+}
+
+.grid-image {
+    margin: auto;
+}
+
+.full-cart-view {
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(90deg, #3b82f6, #1e3a8a) border-box;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 20px;
+    max-height: 300px;
+}
+
+.grid-inside-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #F8FAFC;
+}
+
+.grid-inside-container:hover {
+    transform: translateY(-5px); /* Легкое поднятие при наведении */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform .7s;
+}
+
+.grid-image {
+    height: auto;
+    width: 150px;
+    align-items: center;
+    text-align: center;
+}
+
+.grid-menu-mobile {
+    display: none;
+}
+
+@media (max-width: 985px) {
+    .grid-inside-container {
+        display: grid;
+        grid-template-columns: auto 1fr; /* Adjusting this */
+        background-color: lightgray;
+        gap: 0 1rem;
+    }
+
+    .grid-inside-container div:last-child {
+        display: none;
+    }
+
+    .grid-menu-mobile {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        padding: 1rem;
+        justify-self: center;
+        text-align: center;
+    }
+
+}
+

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load total_per_product %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'cart/css/bucket_view.css' %}">{% endblock %}
+{% block section %}
+    <div class="cart-container">
+        <h3>Корзина покупок</h3>
+        {% for item in cart %}
+            <div class="full-cart-view">
+                <div class="grid-container">
+                    <div class="grid-image">
+                        <a href="{{ item.product.get_absolute_url }}"><img src="{{ item.product.image_product.url }}"
+                                                                           alt="{{ item.product.name }}"></a>
+                    </div>
+                    <div class="grid-inside-container">
+                        <fieldset class="box-name">
+                            <legend>Товар</legend>
+                            <div class="product-info-cart">
+                                <p>Назва: <span>{{ item.product.name|title }}</span></p>
+                                {% if item.product_weight %}
+                                    <p>Ціна/кг: <span>{{ item.product.price }}</span></p>
+                                {% else %}
+                                    <p>Ціна/од: <span>{{ item.product.price }}</span></p>
+                                {% endif %}
+                            </div>
+                        </fieldset>
+                        <fieldset class="box-name">
+                            <legend>
+                                Замовлення
+                            </legend>
+                            <div>
+                                {% if item.product_weight %}
+                                    {% if item.product_weight >= 1.000 %}
+                                        <p>Кілограм вибрано: <span
+                                                class="chosen-bold">{{ item.product_weight|floatformat:1 }}кг.</span>
+                                        </p>
+                                    {% else %}
+                                        <p>Грам вибрано: <span class="chosen-bold">{{ item.product_weight }}гр.</span>
+                                        </p>
+                                    {% endif %}
+
+                                {% endif %}
+
+                                <p>Кількість вибрано:<span class="chosen-bold">{{ item.product_quantity }}</span></p>
+                            </div>
+                        </fieldset>
+                        <fieldset class="box-name">
+                            <legend>
+                                Управління товаром
+                            </legend>
+                            <div><p>add or deleteddddвввввввввввввввddddddddd</p></div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="grid-menu-mobile">
+                    <div>add/kg-gr</div>
+                    <div>delete</div>
+                    <div>update</div>
+                </div>
+                {% total_per_product item.product_price item.product_weight item.product_quantity as total %}
+                <p class="total_per_product">Сума за товар: <span>{{ total|floatformat:2 }}</span></p>
+            </div>
+        {% endfor %}
+        <div class="get_total_sum">
+            <a class="btn" href="#">Оформити замовлення</a>
+            <fieldset class="sum-view">
+                <legend>Разом:</legend>
+                <p>124124 <span>грн</span></p>
+            </fieldset>
+        </div>
+        {% if not user.is_authenticated %}
+            <div class="discount-advertisement">
+                <img src="{% static "mainapp/img/discount.png" %}" alt="discount image">
+                <a href="{% url 'usersapp:login' %}">Увійдіть для збільшення накопичувальної знижки</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

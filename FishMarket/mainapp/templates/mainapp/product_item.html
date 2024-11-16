@@ -76,8 +76,10 @@
             </div>
         </div>
     </div>
+    
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    
     <script>
 
         function decreaseQuantity() {
@@ -98,19 +100,21 @@
 
         $(document).on('click', '#add-to-cart', function (e) {
             e.preventDefault();
-            
-            $.ajax({
+            let selectedWeight = $('input[name="weight"]:checked').val();
+
+                $.ajax({
                 url: "{% url 'cart:cart-add' %}",
                 type: "POST",
                 data: {
                     'product_id': {{ product.id }},
                     'quantity': $('#quantity').val(),
-                    'weight': $('#weight').val(),
+                    'weight': selectedWeight,
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     action: 'post'
                 },
                 success: function (response) {
                     console.log(response);
+                    document.getElementById('bucket-change-quantity').innerText = response.qty;
                 },
                 error: function (error) {
                     console.log(error);

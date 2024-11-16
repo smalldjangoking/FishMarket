@@ -29,7 +29,9 @@
             {% endfor %}
             <li>
                 <fieldset class="desktop-bucket-button">
-                    <legend class="desktop-bucket-quantity">{{ cart|length }}</legend>
+                    {% if cart|length > 0 %}
+                    <legend id="bucket-change-quantity" class="desktop-bucket-quantity">{{ cart|length }}</legend>
+                    {% endif %}
                     <a class="desktop-bucket" href="{% url 'cart:cart-view' %}"><img
                             src="{% static 'img/shopping_basket.png' %}" alt=""></a>
                 </fieldset>
