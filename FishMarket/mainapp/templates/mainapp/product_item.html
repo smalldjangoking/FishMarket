@@ -21,6 +21,12 @@
 
 
                 
+
+
+                
+                
+                
+                
                 {% url 'mainapp:Categories' %}{{ product.product_category.slug }}">{{ product.product_category.name }}</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
         <p>{{ product.name }}</p>
@@ -76,10 +82,10 @@
             </div>
         </div>
     </div>
-    
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
-    
+
     <script>
 
         function decreaseQuantity() {
@@ -102,7 +108,7 @@
             e.preventDefault();
             let selectedWeight = $('input[name="weight"]:checked').val();
 
-                $.ajax({
+            $.ajax({
                 url: "{% url 'cart:cart-add' %}",
                 type: "POST",
                 data: {
@@ -114,6 +120,13 @@
                 },
                 success: function (response) {
                     console.log(response);
+                    const BucketTag = document.getElementsByClassName('desktop-bucket-quantity');
+                    if (!BucketTag.length) {
+                        document.querySelector('.desktop-bucket-button').innerHTML += `
+                            <legend id="bucket-change-quantity" class="desktop-bucket-quantity">
+                            ${response.qty}
+                            </legend>`;
+                    }
                     document.getElementById('bucket-change-quantity').innerText = response.qty;
                 },
                 error: function (error) {
@@ -121,7 +134,6 @@
                 }
             })
         })
-
 
     </script>
 {% endblock %}

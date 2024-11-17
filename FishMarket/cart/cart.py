@@ -13,6 +13,7 @@ class Cart():
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
+
     def __len__(self):
         total_quantity = sum(
             int(quantity)
@@ -36,7 +37,6 @@ class Cart():
                     key = ''
                 else:
                     key = Decimal(key.replace(',', '.'))
-                print(key)
                 yield {
                     'product_weight': key,
                     'product_quantity': int(value),
@@ -45,7 +45,7 @@ class Cart():
                 }
 
 
-    def add(self, product, weight=0, quantity=1):
+    def add(self, product, price, weight=0, quantity=1):
         """
         Addeding products into the cart.
         If weight=0 it is product without any weight. Count by number in stock."""
@@ -53,15 +53,26 @@ class Cart():
         product_id = str(product.id)
         product_weight = str(weight)
         product_quantity = str(quantity)
+        product_price = str(price)
 
 
         if product_id not in self.cart:
-            self.cart[product_id] = {'product_detail': {product_weight: product_quantity}}
+            self.cart[product_id] = {
+                'product_price': product_price,
+                'product_detail': {product_weight: product_quantity}}
         elif product_id in self.cart:
             self.cart[product_id]['product_detail'][product_weight] = product_quantity
 
         self.session.modified = True
 
 
-
-
+    def get_full_price(self):
+        calculation = sum(
+            [
+                float(item['product_price']) * int(quantity)
+                if weight == 'None' or weight == ''
+                else float(item['product_price']) * float(weight) * int(quantity)
+                for item in self.cart.values()
+                for weight, quantity in item['product_detail'].items()
+            ])
+        return calculation

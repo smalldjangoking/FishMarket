@@ -18,7 +18,7 @@ def cart_add(request):
         weight = request.POST.get('weight')
 
         product = get_object_or_404(Product, id=product_id)
-        cart.add(product=product, quantity=quantity, weight=weight)
+        cart.add(product=product, price=product.price, quantity=quantity, weight=weight)
 
         response = JsonResponse({'qty': str(cart.__len__())})
         return response
