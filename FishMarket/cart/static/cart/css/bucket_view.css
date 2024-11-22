@@ -17,7 +17,7 @@
     border: none;
 }
 
-.sum-view legend{
+.sum-view legend {
     font-size: 0.7rem;
     font-weight: 300;
     color: #0078d4;
@@ -85,7 +85,7 @@
     border: none
 }
 
-.box-name legend{
+.box-name legend {
     font-size: 0.6rem;
     color: #0078d4;
 }
@@ -122,7 +122,7 @@
     padding: 15px;
     margin-bottom: 15px;
     background: linear-gradient(white, white) padding-box,
-                linear-gradient(90deg, #3b82f6, #1e3a8a) border-box;
+    linear-gradient(90deg, #3b82f6, #1e3a8a) border-box;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -159,6 +159,30 @@
 
 .grid-menu-mobile {
     display: none;
+}
+
+.delete-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #da0909;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.6rem;
+    color: white;
+    font-weight: bold;
+    gap: 5px;
+    margin-top: 4px;
+}
+
+.delete-form:hover {
+    background: red;
+    transition: ease 1s;
+}
+
+.delete-img {
+    width: 20px;
 }
 
 @media (max-width: 985px) {

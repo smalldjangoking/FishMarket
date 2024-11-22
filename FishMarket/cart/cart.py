@@ -33,10 +33,11 @@ class Cart():
         for item in cart.values():
             product = item['product']
             for key, value in item['product_detail'].items():
-                if key == 'None':
+                if '.' not in key:
                     key = ''
                 else:
-                    key = Decimal(key.replace(',', '.'))
+                    key = Decimal(key)
+
                 yield {
                     'product_weight': key,
                     'product_quantity': int(value),
@@ -70,9 +71,19 @@ class Cart():
         calculation = sum(
             [
                 float(item['product_price']) * int(quantity)
-                if weight == 'None' or weight == ''
+                if '.' not in weight
                 else float(item['product_price']) * float(weight) * int(quantity)
                 for item in self.cart.values()
                 for weight, quantity in item['product_detail'].items()
             ])
         return calculation
+
+
+    def delete_product(self, product_id, product_weight):
+        if self.cart[product_id]['product_detail'][product_weight]:
+            del self.cart[product_id]['product_detail'][product_weight]
+
+        if not self.cart[product_id]['product_detail']:
+            del self.cart[product_id]
+
+        self.session.modified = True

@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.shortcuts import render, get_object_or_404, redirect
 
 from cart.cart import Cart
@@ -6,7 +8,6 @@ from django.http import JsonResponse
 
 
 def cart_view(request):
-    """Bucket list of all products added to cart."""
     return render(request, 'cart/bucket_view.html')
 
 def cart_add(request):
@@ -26,7 +27,17 @@ def cart_add(request):
 
 
 def cart_del(request):
-    ...
+    cart = Cart(request)
+
+    if request.POST.get('action') == 'POST':
+        product_id = request.POST.get('product_id')
+        product_weight = request.POST.get('product_weight')
+
+
+        cart.delete_product(product_id=product_id, product_weight=product_weight)
+        response = JsonResponse({'qty': str(cart.__len__()), 'total_price': cart.get_full_price()})
+        return response
+
 
 def cart_update(request):
     ...

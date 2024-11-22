@@ -5,75 +5,135 @@
     <link rel="stylesheet" href="{% static 'cart/css/bucket_view.css' %}">{% endblock %}
 {% block section %}
     <div class="cart-container">
-        <h3>Корзина покупок</h3>
-        {% for item in cart %}
-            <div class="full-cart-view">
-                <div class="grid-container">
-                    <div class="grid-image">
-                        <a href="{{ item.product.get_absolute_url }}"><img src="{{ item.product.image_product.url }}"
-                                                                           alt="{{ item.product.name }}"></a>
-                    </div>
-                    <div class="grid-inside-container">
-                        <fieldset class="box-name">
-                            <legend>Товар</legend>
-                            <div class="product-info-cart">
-                                <p>Назва: <span>{{ item.product.name|title }}</span></p>
-                                {% if item.product_weight %}
-                                    <p>Ціна/кг: <span>{{ item.product.price }}</span></p>
-                                {% else %}
-                                    <p>Ціна/од: <span>{{ item.product.price }}</span></p>
-                                {% endif %}
-                            </div>
-                        </fieldset>
-                        <fieldset class="box-name">
-                            <legend>
-                                Замовлення
-                            </legend>
-                            <div>
-                                {% if item.product_weight %}
-                                    {% if item.product_weight >= 1.000 %}
-                                        <p>Кілограм вибрано: <span
-                                                class="chosen-bold">{{ item.product_weight|floatformat:1 }}кг.</span>
-                                        </p>
+        {% if cart.get_full_price %}
+            <h3>Кошик покупок</h3>
+            {% for item in cart %}
+                <div id="full-cart-view{{ item.product.id }}" class="full-cart-view">
+                    <div class="grid-container">
+                        <div class="grid-image">
+                            <a href="{{ item.product.get_absolute_url }}"><img
+                                    src="{{ item.product.image_product.url }}"
+                                    alt="{{ item.product.name }}"></a>
+                        </div>
+                        <div class="grid-inside-container">
+                            <fieldset class="box-name">
+                                <legend>Товар</legend>
+                                <div class="product-info-cart">
+                                    <p>Назва: <span>{{ item.product.name|title }}</span></p>
+                                    {% if item.product_weight %}
+                                        <p>Ціна/кг: <span>{{ item.product.price }}</span></p>
                                     {% else %}
-                                        <p>Грам вибрано: <span class="chosen-bold">{{ item.product_weight }}гр.</span>
-                                        </p>
+                                        <p>Ціна/од: <span>{{ item.product.price }}</span></p>
+                                    {% endif %}
+                                </div>
+                            </fieldset>
+                            <fieldset class="box-name">
+                                <legend>
+                                    Замовлення
+                                </legend>
+                                <div>
+                                    {% if item.product_weight %}
+                                        {% if item.product_weight >= 1.000 %}
+                                            <p>Кілограм вибрано: <span class="chosen-bold">
+                                            {{ item.product_weight|floatformat:1 }}кг.</span>
+                                            </p>
+                                        {% else %}
+                                            <p>Грам вибрано: <span
+                                                    class="chosen-bold">{{ item.product_weight }}гр.</span>
+                                            </p>
+                                        {% endif %}
+
                                     {% endif %}
 
-                                {% endif %}
-
-                                <p>Кількість вибрано:<span class="chosen-bold">{{ item.product_quantity }}</span></p>
-                            </div>
-                        </fieldset>
-                        <fieldset class="box-name">
-                            <legend>
-                                Управління товаром
-                            </legend>
-                            <div><p>add or deleteddddвввввввввввввввddddddddd</p></div>
-                        </fieldset>
+                                    <p>Кількість вибрано:<span class="chosen-bold">{{ item.product_quantity }}</span>
+                                    </p>
+                                </div>
+                            </fieldset>
+                            <fieldset class="box-name">
+                                <legend>
+                                    Управління товаром
+                                </legend>
+                                <div>
+                                    <form method="POST">
+                                        <input id="delete-id" type="hidden" name="product_id"
+                                               value="{{ item.product.id }}">
+                                        {% if item.product_weight %}
+                                            <input id="delete-weight" type="hidden" name="product_weight"
+                                                   value="{{ item.product_weight }}">
+                                        {% else %}
+                                            <input id="delete-weight" type="hidden" name="product_weight"
+                                                   value="{{ item.product.slug }}">
+                                        {% endif %}
+                                        <button class="delete-form"><img class="delete-img" src="{% static 'cart/img/delete-img.png' %}"
+                                                                         alt="Видалити продукт">Видалити
+                                        </button>
+                                    </form>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
+                    <div class="grid-menu-mobile">
+                        <div>add/kg-gr</div>
+                        <div>delete</div>
+                        <div>update</div>
+                    </div>
+                    {% total_per_product item.product_price item.product_weight item.product_quantity as total %}
+                    <p class="total_per_product">Сума за товар: <span>{{ total|floatformat }}</span> грн</p>
                 </div>
-                <div class="grid-menu-mobile">
-                    <div>add/kg-gr</div>
-                    <div>delete</div>
-                    <div>update</div>
+            {% endfor %}
+            <div class="get_total_sum">
+                <a class="btn" href="#">Оформити замовлення</a>
+                <fieldset class="sum-view">
+                    <legend>Разом:</legend>
+                    <p class="full_price_cart">{{ cart.get_full_price|floatformat }} <span> грн</span></p>
+                </fieldset>
+            </div>
+
+            {% if not user.is_authenticated %}
+                <div class="discount-advertisement">
+                    <img src="{% static 'mainapp/img/discount.png' %}" alt="discount image">
+                    <a href="{% url 'usersapp:login' %}">Увійдіть для збільшення накопичувальної знижки</a>
                 </div>
-                {% total_per_product item.product_price item.product_weight item.product_quantity as total %}
-                <p class="total_per_product">Сума за товар: <span>{{ total|floatformat:2 }}</span> грн</p>
-            </div>
-        {% endfor %}
-        <div class="get_total_sum">
-            <a class="btn" href="#">Оформити замовлення</a>
-            <fieldset class="sum-view">
-                <legend>Разом:</legend>
-                <p>{{ cart.get_full_price|floatformat }} <span>грн</span></p>
-            </fieldset>
-        </div>
-        {% if not user.is_authenticated %}
-            <div class="discount-advertisement">
-                <img src="{% static "mainapp/img/discount.png" %}" alt="discount image">
-                <a href="{% url 'usersapp:login' %}">Увійдіть для збільшення накопичувальної знижки</a>
-            </div>
+            {% endif %}
+        {% else %}
+            <h3>Кошик покупок порожній :(</h3>
         {% endif %}
     </div>
-{% endblock %}5
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).on('click', '.delete-form', function (e) {
+            e.preventDefault();
+
+            const form = $(this).closest('form');
+            const productId = form.find('input[name="product_id"]').val();
+            const productWeight = form.find('input[name="product_weight"]').val();
+
+            $.ajax({
+                url: "{% url 'cart:cart-delete' %}",
+                type: "POST",
+                data: {
+                    'product_id': productId,
+                    'product_weight': productWeight,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'POST'
+                },
+                success: function (response) {
+                    console.log(response);
+                    const cartView = document.querySelector('#full-cart-view' + productId);
+                    if (cartView) {
+                        cartView.style.display = 'none';
+                    }
+                    document.getElementsByClassName('full_price_cart')[0].firstChild.nodeValue = response.total_price;
+                    document.getElementById('bucket-change-quantity').innerText = response.qty;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
