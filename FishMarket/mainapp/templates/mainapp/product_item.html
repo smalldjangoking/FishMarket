@@ -16,7 +16,12 @@
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
         <a href="{% url 'mainapp:Categories' %}">Категорії</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
-        <a href="{% url 'mainapp:Categories' %}{{ product.product_category.slug }}">{{ product.product_category.name }}</a>
+        <a href="
+
+
+
+
+                {% url 'mainapp:Categories' %}{{ product.product_category.slug }}">{{ product.product_category.name }}</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
         <p>{{ product.name }}</p>
     </div>
@@ -25,19 +30,26 @@
             {% include 'mainapp/includes/image_show_bar.html' %}
         </div>
         <div class="row-info-buy">
-            <fieldset>
-                {% if product.time_create|time_difference < 30 %}
-                    <legend class="leg-new">Новинка</legend>
-                {% endif %}
-                <h3>{{ product.name }}</h3>
-            </fieldset>
-            <p>{{ product.description }}</p>
+            <div class="cart-top">
+                <fieldset>
+                    {% if product.time_create|time_difference < 30 %}
+                        <legend class="leg-new">Новинка</legend>
+                    {% endif %}
+                    <h3>{{ product.name }}</h3>
+                </fieldset>
+                <div class="product-price-banner">
+                    {% if product_weights %}
+                        <p>кг / <span>{{ product.price }}</span> грн.</p>
+                    {% else %}
+                        <p>шт. / <span>{{ product.price }}</span> грн.</p>
+                    {% endif %}
+                </div>
+            </div>
             <div class="product-choices">
-
                 <form id="add-to-cart-form">
                     <input type="hidden" id="product_id" value="{{ product.id }}">
                     {% if product_weights %}
-                        <h4><span>Ціна за кілограм:</span> {{ product.price }}₴</h4>
+                        <p>Виберіть вагу</p>
                         <div class="choose-weight-form">
                             {% for product_weight in product_weights %}
                                 <input type="radio" id="weight{{ forloop.counter }}" name="weight"
@@ -48,9 +60,9 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        <h4><span>Ціна за одиницю:</span> {{ product.price }}₴</h4>
                         <input type="hidden" id="weight" value="0">
                     {% endif %}
+                    <p>Виберіть кількість</p>
                     <div class="choose-quantity-form">
                         <button type="button" onclick="decreaseQuantity()">-</button>
                         <input type="number" id="quantity" value="1" min="1" step="1">
@@ -58,8 +70,8 @@
                     </div>
 
                     <div>
-                        <button id="add-to-cart" class="add-to-cart" type="submit" href="#">Додати до Кошику</button>
-                        <button class="add-to-cart" href="#">Швидка покупка</button>
+                        <button id="add-to-cart" class="btn" type="submit" href="#">Додати до Кошику</button>
+                        <button class="btn" href="#">Швидка покупка</button>
                     </div>
                 </form>
                 {% if not user.is_authenticated %}
@@ -69,6 +81,42 @@
                     </div>
                 {% endif %}
             </div>
+        </div>
+    </div>
+    <div class="product-additional">
+    <div class="product-desc">
+            <h3>Опис товару</h3>
+            <p>{{ product.description }}</p>
+        </div>
+        <div class="right-side">
+            <div class="additional_info">
+            <h3>Більше інформації</h3>
+            <ul>
+                <li><img src="{% static 'mainapp/img/world.png' %}" alt="Країна"> {{ more_information.region }}</li>
+                <li><img src="{% static 'mainapp/img/ingredients.png' %}"
+                         alt="Інгредієнти"> {{ more_information.ingredients }}</li>
+                <li><img src="{% static 'mainapp/img/box.png' %}" alt="Упаковка"> {{ more_information.packing }}</li>
+                <li><img src="{% static 'mainapp/img/weight.png' %}"
+                         alt="Різниця у вазі"> {{ more_information.weight_difference }}</li>
+                <li><img src="{% static 'mainapp/img/salt.png' %}" alt="Рівень солі">
+                    {% for _ in "x"|ljust:'5' %}
+                        {% if forloop.counter <= more_information.salt_level %}
+                        <img src="{% static 'mainapp/img/star.png' %}" alt="">
+                        {% else %}
+                        <img src="{% static 'mainapp/img/star_grey.png' %}" alt="">
+                        {% endif %}
+                    {% endfor %}
+                </li>
+                <li><img src="{% static 'mainapp/img/time.png' %}"
+                         alt="Термін зберігання"> {{ more_information.shelf_life }}</li>
+                <li></li>
+            </ul>
+        </div>
+        <div class="additional_info">
+            <img class="nova_banner" src="{% static 'mainapp/img/nova_pochta_banner.png' %}" alt="nova_pochta">
+            <p class="nova-text">Доставка Новою Поштою: у відділення чи поштомат, згідно з тарифами логістичної компанії.</p>
+            
+        </div>
         </div>
     </div>
 
@@ -95,7 +143,7 @@
 
         $(document).on('click', '#add-to-cart', function (e) {
             e.preventDefault();
-            
+
             let selectedWeight = $('input[name="weight"]:checked').val() || '{{ product.slug|escapejs }}';
 
             $.ajax({

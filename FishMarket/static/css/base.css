@@ -42,7 +42,17 @@ nav {
     border-radius: 20px;
     cursor: pointer;
     transition: background 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
+
+.btn:hover {
+    color: #f0f8ff; /* Ярче текст */
+    transform: scale(1.02); /* Легкое увеличение */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* Более выраженная тень */
+    transition: all 0.4s ease-in-out;
+}
+
 
 .main--section {
     margin-top: 2.4%;

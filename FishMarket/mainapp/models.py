@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from usersapp.models import User
 
@@ -44,6 +45,9 @@ class Product(models.Model):
             self.name = self.name.upper()
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.name
+
     def get_absolute_url(self):
         return reverse('mainapp:product', kwargs={'slug': self.slug})
 
@@ -79,6 +83,19 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"Фото для {self.product.name}"
+
+
+class MoreInformation(models.Model):
+    """Модель для хранения хароктеристик продукта и его свойствах."""
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='information')
+    region = models.CharField(max_length=40, verbose_name='Регіон походження')
+    ingredients = models.CharField(max_length=100, verbose_name='Інгредієнти')
+    packing = models.CharField(max_length=100, verbose_name='Упаковка')
+    weight_difference = models.CharField(max_length=100, verbose_name='Різниця у вагах')
+    salt_level = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)], verbose_name='Солоність')
+    shelf_life = models.CharField(max_length=100, verbose_name='Час зберігання')
+
 
 
 class ProductComments(models.Model):

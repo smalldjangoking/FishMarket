@@ -1,9 +1,14 @@
 from django.contrib import admin
-from .models import SeaCategory, Product, ProductWeight, ProductImage
+from .models import SeaCategory, Product, ProductWeight, ProductImage, MoreInformation
 from django.utils.safestring import mark_safe
 
 class ProductWeightInline(admin.TabularInline):
     model = ProductWeight
+    extra = 1
+
+class MoreInfo(admin.StackedInline):
+    model = MoreInformation
+    max_num = 1
     extra = 1
 
 class ProductImageInline(admin.TabularInline):
@@ -11,7 +16,7 @@ class ProductImageInline(admin.TabularInline):
     extra = 1
 
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [ProductWeightInline, ProductImageInline]
+    inlines = [ProductWeightInline, ProductImageInline, MoreInfo]
     list_display = ('name', 'price', 'stock', 'image_product_show')
     search_fields = ('name',)
     list_filter = ('product_category',)

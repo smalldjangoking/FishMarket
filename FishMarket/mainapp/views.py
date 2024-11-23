@@ -3,7 +3,7 @@ from lib2to3.fixes.fix_input import context
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from mainapp.models import Product, SeaCategory, ProductImage, ProductWeight
+from mainapp.models import Product, SeaCategory, ProductImage, ProductWeight, MoreInformation
 
 
 class MainPageView(ListView):
@@ -24,6 +24,7 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['related_products'] = ProductImage.objects.filter(product_id=self.object.id)
         context['product_weights'] = ProductWeight.objects.filter(product_id=self.object.id).order_by('-weight')
+        context['more_information'] = MoreInformation.objects.filter(product_id=self.object.id).first()
         return context
 
 class CategoryListView(ListView):
