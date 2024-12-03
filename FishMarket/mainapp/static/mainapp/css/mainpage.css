@@ -1,0 +1,119 @@
+nav {
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.main-menu li a {
+    font-size: 25px !important;
+}
+
+.main--section {
+    margin-top: initial;
+    margin-left: initial;
+    margin-right: initial;
+}
+
+.video-section {
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 75vh;
+    pointer-events: none;
+}
+
+#background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+#video-text {
+    position: absolute;
+    top: 50%; /* Центрирование по вертикали */
+    left: 50%; /* Центрирование по горизонтали */
+    transform: translate(-50%, -50%); /* Смещение для точного центрирования */
+    z-index: 1; /* Поверх видео */
+    color: #E0F7FA; /* Цвет текста */
+    text-align: center; /* Выравнивание текста */
+    font-size: 2rem; /* Размер шрифта */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+#video-product-button {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translate(-50%, -50%); /* Смещение для точного центрирования */
+    z-index: 2; /* Поверх видео */
+    text-align: center;
+}
+
+.content-section {
+    position: relative;
+    z-index: 2;
+    margin-top: 70vh;
+    padding: 0 0 0 0;
+}
+
+.section-info {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.info-text {
+    color: #3b82f6;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 4rem;
+}
+
+.section-banners {
+    display: flex;
+    flex-direction: row;
+    margin-top: 6rem;
+    gap: 2rem;
+}
+
+.section-banners p {
+    font-size: 0.7rem;
+    color: grey;
+    font-weight: bolder;
+    margin-top: 0.5rem;
+}
+
+.section-banners img {
+    width: 55px;
+    height: auto;
+    margin-top: 0.5rem;
+}
+
+.section-banners h5 {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 1.2rem;
+    color: grey;
+}
+
+
+@media (max-width: 800px) {
+    #video-text {
+        font-size: 1.2rem;
+    }
+
+    .info-text {
+        font-size: 1.4rem;
+    }
+
+    .section-banners {
+        display: flex;
+        flex-direction: column;
+    }
+
+}

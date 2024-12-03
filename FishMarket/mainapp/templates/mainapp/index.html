@@ -1,25 +1,42 @@
 {% extends "base.html" %}
 {% load static %}
+{% load my_tags %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'mainapp/css/card.css' %}">{% endblock %}
+    <link rel="stylesheet" href="{% static 'mainapp/css/mainpage.css' %}">{% endblock %}
 {% block title %}Інтернет-магазин в'яленої і сушеної риби преміум класу{% endblock %}
 
-
 {% block section %}
-    <div class="container">
-    {% include 'mainapp/includes/product_filter.html' %}
-        <div class="card-container">
-            {% for product in products %}
-                {% include 'mainapp/includes/card-item.html' %}
-            {% endfor %}
-            <div class="col">
-                <div class="more-products">
-                    <a href="{% url 'mainapp:AllProducts' %}">
-                        <img src="{% static 'mainapp/img/all_products_blue.png' %}" alt="" class="img-default">
-                        <p class="btn">Всі продукти</p>
-                    </a>
+    <section class="video-section">
+        <video id="background-video" src="{% static 'video/video.mp4' %}" autoplay loop muted></video>
+        <div id="video-text">
+            <p>Ласкаво просимо до світу смаку! У нас ви знайдете сушену та в'ялену рибу найвищої якості – ідеально
+                свіжу, з насиченим смаком і ароматом, які підкорять навіть найвибагливіших гурманів.</p>
+        </div>
+        <div id="video-product-button">
+            <a class="btn" href="{% url 'mainapp:AllProducts' %}">Продукти</a>
+        </div>
+    </section>
+    <section class="content-section">
+        <div class="section-info">
+            <p class="info-text">Те, що робить нас особливими</p>
+            <div class="section-banners">
+                <div>
+                    <h5>Швидкість</h5>
+                    <img src="{% static "img/rocket.png" %}" alt="швидкість доставки">
+                    <p>Ми працюємо для вас без вихідних</p>
+                </div>
+                <div>
+                    <h5>Безпека</h5>
+                    <img src="{% static 'img/heart.png' %}" alt="">
+                    <p>Свіжість продукту – наша головна турбота</p>
+                </div>
+                <div>
+                    <h5>Натуральність</h5>
+                    <img src="{% static "img/natural.png" %}" alt="">
+                    <p>Риба без секретів – 100% натуральна</p>
                 </div>
             </div>
+
         </div>
-    </div>
+    </section>
 {% endblock %}

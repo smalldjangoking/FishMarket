@@ -1,0 +1,99 @@
+.nav-filter {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    overflow: hidden;
+    transition: all 0.5s ease;
+    z-index: -1;
+}
+
+.noUi-connect {
+    background-color: #1e90ff!important;
+}
+
+.nav-filter.active {
+    width: 350px;
+    background-color: rgba(25, 115, 184, 0.5); /* Более насыщенный фон для улучшения контраста */
+    backdrop-filter: blur(5px); /* Больше размытия для более мягкого эффекта */
+    -webkit-backdrop-filter: blur(5px); /* Для совместимости с WebKit-браузерами */
+    z-index: 999;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Тень для глубины */
+    border-radius: 10px; /* Скругленные углы для более современного вида */
+    transition: all 0.3s ease-in-out; /* Плавный переход при изменении стиля */
+}
+
+
+.price-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.price-in {
+    border: none;
+    text-align: center;
+    outline: none;
+    -moz-appearance: textfield;
+    max-width: 100px;
+
+    ::-webkit-inner-spin-button
+;
+
+    ::-webkit-outer-spin-button
+;
+    color: grey;
+    font-weight: bolder;
+    width: 100px;
+    padding: 5px;
+    background: rgba(128, 128, 128, 0.6) !important;
+}
+
+.range-values {
+    display: inline-flex;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.range-values input {
+    background: grey;
+    color: white;
+}
+
+.range-values-mobile {
+    background: #00bfff;
+    border-radius: 15px;
+}
+
+.range-values-mobile input {
+    background: linear-gradient(90deg, #1e90ff, #00bfff) !important;
+    color: white;
+}
+
+.range-values-mobile input:last-child {
+    background: linear-gradient(90deg, #00bfff, #1e90ff) !important;
+    color: white;
+}
+
+
+
+.top-menu-filter {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    align-items: center;
+    text-align: center;
+}
+
+.nav-burger-list {
+    display: flex;
+    gap: 35px;
+    color: white;
+}
+
+.nav-burger-list p {
+    margin-bottom: 25px;
+}

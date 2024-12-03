@@ -117,6 +117,8 @@
 }
 
 .full-cart-view {
+    display: flex;
+    flex-direction: column;
     border: 2px solid transparent;
     border-radius: 10px;
     padding: 15px;
@@ -130,7 +132,6 @@
     display: grid;
     grid-template-columns: auto auto;
     padding: 20px;
-    max-height: 300px;
 }
 
 .grid-inside-container {
@@ -185,25 +186,38 @@
     width: 20px;
 }
 
-@media (max-width: 985px) {
-    .grid-inside-container {
-        display: grid;
-        grid-template-columns: auto 1fr; /* Adjusting this */
-        background-color: lightgray;
-        gap: 0 1rem;
-    }
-
-    .grid-inside-container div:last-child {
-        display: none;
-    }
-
-    .grid-menu-mobile {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        padding: 1rem;
-        justify-self: center;
-        text-align: center;
-    }
-
+.mobile-bucket-container {
+    display: none;
 }
+
+@media (max-width: 709px) {
+    .grid-inside-container {
+    }
+
+    .cart-container {
+        width: 100%;
+    }
+
+    .grid-container {
+        grid-template-columns: none;
+        padding: 0 0 0 0;
+
+    }
+
+    .grid-image {
+        width: 100px; /* Restrict image size on mobile */
+        height: auto;
+        margin: auto;
+    }
+
+    .delete-form {
+        font-size: 0.7rem; /* Adjust button font size */
+        padding: 6px;
+    }
+
+    .full-cart-view {
+        padding: 10px; /* Ensure the card has consistent padding */
+    }
+}
+
 

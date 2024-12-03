@@ -1,8 +1,8 @@
-from lib2to3.fixes.fix_input import context
-
-from django.utils import timezone
+from django.db.models import Max, Min
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
+
+from mainapp.forms import PriceFilterForm
 from mainapp.models import Product, SeaCategory, ProductImage, ProductWeight, MoreInformation
 
 
@@ -10,7 +10,7 @@ class MainPageView(ListView):
     model = Product
     template_name = 'mainapp/index.html'
     context_object_name = 'products'
-    queryset = Product.objects.order_by('-time_create')[:6]
+    queryset = Product.objects.order_by('-time_create')[:4]
 
 
 class ProductDetailView(DetailView):
@@ -27,10 +27,12 @@ class ProductDetailView(DetailView):
         context['more_information'] = MoreInformation.objects.filter(product_id=self.object.id).first()
         return context
 
+
 class CategoryListView(ListView):
     model = SeaCategory
     template_name = 'mainapp/category.html'
     context_object_name = 'categories'
+
 
 class CategorySelectView(ListView):
     model = Product
@@ -41,23 +43,80 @@ class CategorySelectView(ListView):
         category = get_object_or_404(SeaCategory, slug=self.kwargs['slug'])
         return Product.objects.filter(product_category=category.id)
 
+
 class AllProductsOrSpecificView(ListView):
     model = Product
     template_name = 'mainapp/AllProductsOrSearch.html'
     context_object_name = 'products'
-    paginate_by = 5
+    paginate_by = 4
 
     def get_queryset(self):
-        name = self.request.GET.get('search')
+        """
+        Receiving and returning quary of products with filters for [search, price-range]
+        """
+        queryset = super().get_queryset()
 
-        if name:
-            return Product.objects.filter(name__icontains=name.upper())
-        else:
-            return Product.objects.all()
+        if self.request.GET.get('search'):
+            search_products = self.request.GET.get('search')
+
+            queryset = queryset.filter(name__icontains=search_products.upper())
+
+        if self.request.GET.get('sort'):
+            sort_products = self.request.GET.get('sort')
+
+            if sort_products == 'DESC':
+                queryset = queryset.order_by('-price')
+            else:
+                queryset = queryset.order_by('price')
+
+        price_aggregate = queryset.aggregate(
+            min_price=Min('price'),
+            max_price=Max('price')
+        )
+
+        if len(price_aggregate) == 2:
+            min_product_price = price_aggregate['min_price']
+            max_product_price = price_aggregate['max_price']
+
+            if self.request.GET.get('min_price') or self.request.GET.get('max_price'):
+                self.requests = {'min_price': self.request.GET.get('min_price'),
+                                 'max_price': self.request.GET.get('max_price')}
+                self.form = PriceFilterForm(
+                    self.requests,
+                    min_price=min_product_price,
+                    max_price=max_product_price,
+                    initial={
+                        'min_price': min_product_price,
+                        'max_price': max_product_price,
+                    }
+                )
+            else:
+                self.form = PriceFilterForm(
+                    None,
+                    min_price=min_product_price,
+                    max_price=max_product_price,
+                    initial={
+                        'min_price': min_product_price,
+                        'max_price': max_product_price,
+                    }
+                )
+
+            if self.form.is_valid():
+                min_price = self.form.cleaned_data['min_price']
+                max_price = self.form.cleaned_data['max_price']
+                queryset = queryset.filter(price__gte=min_price, price__lte=max_price)
+
+            return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form or None
+        return context
 
 
 def delivery(request):
     return render(request, 'mainapp/delivery.html')
+
 
 def about(request):
     return render(request, 'mainapp/about.html')

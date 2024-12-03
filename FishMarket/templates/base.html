@@ -10,6 +10,7 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static '/css/base.css' %}">
     <link rel="icon" href="{% static '/img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/burgermenu.css' %}">
     {% block head %}{% endblock %}
 </head>
 <body>
@@ -19,8 +20,10 @@
 
     {% endblock %}
 </main>
-{% include 'includes/sidebar-js.html' %}
 {% include 'includes/mobile-bucket.html' %}
 {% include 'includes/footer.html' %}
+{% block js %}
+        <script src="{% static 'js/base.js' %}"></script>
+{% endblock %}
 </body>
 </html>

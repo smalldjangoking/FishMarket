@@ -10,20 +10,15 @@
 {% block section %}
     <div class="nav_product">
         <a href="{% url 'mainapp:CategorySelect' product.product_category.slug %}"
-           class="leg-new"><span>&#8592; Назад</span></a>
-        <a href="{% url 'mainapp:main' %}"><img src="{% static 'mainapp/img/homenav.png' %}"
+           class="btn-grey"><span>&#8592; Назад</span></a>
+        <a class="home-image" href="{% url 'mainapp:main' %}"><img src="{% static 'mainapp/img/homenav.png' %}"
                                                 alt="Back to main page"></a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
-        <a href="{% url 'mainapp:Categories' %}">Категорії</a>
+        <a class="list-direction" href="{% url 'mainapp:Categories' %}">Категорії</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
-        <a href="
-
-
-
-
-                {% url 'mainapp:Categories' %}{{ product.product_category.slug }}">{{ product.product_category.name }}</a>
+        <a class="list-direction" href="{% url 'mainapp:Categories' %}{{ product.product_category.slug }}">{{ product.product_category.name }}</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
-        <p>{{ product.name }}</p>
+        <p class="list-direction">{{ product.name }}</p>
     </div>
     <div class="col">
         <div class="row">
@@ -69,7 +64,7 @@
                         <button type="button" onclick="increaseQuantity()">+</button>
                     </div>
 
-                    <div>
+                    <div class="button-buy">
                         <button id="add-to-cart" class="btn" type="submit" href="#">Додати до Кошику</button>
                         <button class="btn" href="#">Швидка покупка</button>
                     </div>
@@ -84,39 +79,41 @@
         </div>
     </div>
     <div class="product-additional">
-    <div class="product-desc">
+        <div class="product-desc">
             <h3>Опис товару</h3>
             <p>{{ product.description }}</p>
         </div>
         <div class="right-side">
             <div class="additional_info">
-            <h3>Більше інформації</h3>
-            <ul>
-                <li><img src="{% static 'mainapp/img/world.png' %}" alt="Країна"> {{ more_information.region }}</li>
-                <li><img src="{% static 'mainapp/img/ingredients.png' %}"
-                         alt="Інгредієнти"> {{ more_information.ingredients }}</li>
-                <li><img src="{% static 'mainapp/img/box.png' %}" alt="Упаковка"> {{ more_information.packing }}</li>
-                <li><img src="{% static 'mainapp/img/weight.png' %}"
-                         alt="Різниця у вазі"> {{ more_information.weight_difference }}</li>
-                <li><img src="{% static 'mainapp/img/salt.png' %}" alt="Рівень солі">
-                    {% for _ in "x"|ljust:'5' %}
-                        {% if forloop.counter <= more_information.salt_level %}
-                        <img src="{% static 'mainapp/img/star.png' %}" alt="">
-                        {% else %}
-                        <img src="{% static 'mainapp/img/star_grey.png' %}" alt="">
-                        {% endif %}
-                    {% endfor %}
-                </li>
-                <li><img src="{% static 'mainapp/img/time.png' %}"
-                         alt="Термін зберігання"> {{ more_information.shelf_life }}</li>
-                <li></li>
-            </ul>
-        </div>
-        <div class="additional_info">
-            <img class="nova_banner" src="{% static 'mainapp/img/nova_pochta_banner.png' %}" alt="nova_pochta">
-            <p class="nova-text">Доставка Новою Поштою: у відділення чи поштомат, згідно з тарифами логістичної компанії.</p>
-            
-        </div>
+                <h3>Більше інформації</h3>
+                <ul>
+                    <li><img src="{% static 'mainapp/img/world.png' %}" alt="Країна"> {{ more_information.region }}</li>
+                    <li><img src="{% static 'mainapp/img/ingredients.png' %}"
+                             alt="Інгредієнти"> {{ more_information.ingredients }}</li>
+                    <li><img src="{% static 'mainapp/img/box.png' %}" alt="Упаковка"> {{ more_information.packing }}
+                    </li>
+                    <li><img src="{% static 'mainapp/img/weight.png' %}"
+                             alt="Різниця у вазі"> {{ more_information.weight_difference }}</li>
+                    <li><img src="{% static 'mainapp/img/salt.png' %}" alt="Рівень солі">
+                        {% for _ in "x"|ljust:'5' %}
+                            {% if forloop.counter <= more_information.salt_level %}
+                                <img src="{% static 'mainapp/img/star.png' %}" alt="">
+                            {% else %}
+                                <img src="{% static 'mainapp/img/star_grey.png' %}" alt="">
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li><img src="{% static 'mainapp/img/time.png' %}"
+                             alt="Термін зберігання"> {{ more_information.shelf_life }}</li>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="additional_info">
+                <img class="nova_banner" src="{% static 'mainapp/img/nova_pochta_banner.png' %}" alt="nova_pochta">
+                <p class="nova-text">Доставка Новою Поштою: у відділення чи поштомат, згідно з тарифами логістичної
+                    компанії.</p>
+
+            </div>
         </div>
     </div>
 

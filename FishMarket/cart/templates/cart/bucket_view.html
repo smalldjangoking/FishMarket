@@ -64,21 +64,17 @@
                                             <input id="delete-weight" type="hidden" name="product_weight"
                                                    value="{{ item.product.slug }}">
                                         {% endif %}
-                                        <button class="delete-form"><img class="delete-img" src="{% static 'cart/img/delete-img.png' %}"
-                                                                         alt="Видалити продукт">Видалити
+                                        <button class="delete-form"><img class="delete-img"
+                                                                         src="{% static 'cart/img/delete-img.png' %}"
+                                                                         alt="Видалити продукт">
                                         </button>
                                     </form>
                                 </div>
                             </fieldset>
+                            {% total_per_product item.product_price item.product_weight item.product_quantity as total %}
+                            <p class="total_per_product">Сума за товар: <span>{{ total|floatformat }}</span> грн</p>
                         </div>
                     </div>
-                    <div class="grid-menu-mobile">
-                        <div>add/kg-gr</div>
-                        <div>delete</div>
-                        <div>update</div>
-                    </div>
-                    {% total_per_product item.product_price item.product_weight item.product_quantity as total %}
-                    <p class="total_per_product">Сума за товар: <span>{{ total|floatformat }}</span> грн</p>
                 </div>
             {% endfor %}
             <div class="get_total_sum">

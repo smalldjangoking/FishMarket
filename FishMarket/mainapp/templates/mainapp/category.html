@@ -6,17 +6,17 @@
 
 {% block section %}
     <div class="container">
-    {% include 'mainapp/includes/product_filter.html' %}
-        <div class="row">
+    {% include 'mainapp/includes/desktop-search.html' %}
+        <div class="card-container">
             {% for category in categories %}
                 <div class="col">
+                <h4 class="gategory-name">{{ category.name }}</h4>
                     <fieldset>
                         <img class="col-img" src="{{ category.image_category.url }}" alt="{{ category.slug }}">
                     </fieldset>
-                    <h4>{{ category.name }}</h4>
-                    <p class="col-descr">{{ category.description|truncatechars:23 }}</p>
+                    <p class="col-descr">{{ category.description|truncatechars:255 }}</p>
                     <div class="col-price-btn">
-                        <a href="{{ category.get_absolute_url }}">Детальніше</a>
+                        <a class="btn" href="{{ category.get_absolute_url }}">Перейти</a>
                     </div>
                 </div>
             {% endfor %}

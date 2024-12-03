@@ -18,6 +18,17 @@
     border-image: linear-gradient(45deg, #1e3a8a, #3b82f6) 1;
 }
 
+.nothing-found {
+    display: flex;
+    width: 100%;
+    margin-top: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 300px;
+}
+
 .card-container .col:hover {
     transform: scale(1.03);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
@@ -39,16 +50,33 @@
     border: none;
 }
 
+.btn-all-products {
+    width: 100%;
+}
+
 .card-container .col fieldset .leg-new {
     color: lime;
     padding: 0.3rem;
-    background-color: rgba(204, 245, 213, 0.5);
+    background: rgba(128, 128, 128, 0.5);
     border-radius: 10px;
     font-size: 0.5rem;
 }
 
+.leg-new {
+    color: lime !important;
+    padding: 0.3rem;
+    background: rgba(128, 128, 128, 0.5);
+    border-radius: 10px;
+    font-size: 0.6rem;
+}
+
 .col-img {
     pointer-events: none;
+    width: 140px !important;
+}
+
+.card-name-title {
+    margin-top: 0.5rem;
 }
 
 .col-grams {
@@ -73,9 +101,10 @@
 .card-image-banner-new-product {
     color: lime !important;
     padding: 0.3rem;
-    background-color: rgba(204, 245, 213, 0.5);
+    background: rgba(211, 211, 211, 0.3);
     border-radius: 10px;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: bold;
 }
 
 .card-container .col .col-price-btn h5 span {
@@ -103,7 +132,49 @@
 }
 
 .pagination {
-    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: fit-content;
+    min-width: 150px;
+    margin-top: 35px;
+    color: grey;
+    padding: 15px 0;
+    border-radius: 10px;
+    gap: 1rem;
+}
+
+.paginator-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.page-list {
+    font-size: 0.9rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.step-links {
+    display: inline-flex;
+    gap: 1rem;
+}
+
+.btn-paginator {
+    background: #1e90ff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.btn-paginator-selected {
+    background: darkgrey;
+
 }
 
 .card-image-banner {
@@ -118,68 +189,22 @@
     margin: 10px;
 }
 
-.step-links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-}
-
-.pagination .page-list {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
+.gategory-name {
+    text-align: center;
+    color: #0078d4;
 }
 
 
-.step-links a {
-    background-color: deepskyblue;
-    padding: 0.4rem;
-    border-radius: 0.4rem;
-    color: white;
-    margin: 0 2rem 0 2rem;
-}
-
-.step-links .current {
-    background-color: grey;
-    padding: 0.4rem;
-    border-radius: 0.4rem;
-    color: white;
-}
-
-
-@media (max-width: 875px) {
+@media (max-width: 1200px) {
     .card-container {
-        grid-template-columns: repeat(3, minmax(150px, 1fr));
+        grid-template-columns: 1fr 1fr;
+        min-width: 200px;
     }
 }
 
-@media (max-width: 665px) {
+@media (max-width: 700px) {
     .card-container {
-        grid-template-columns: repeat(2, minmax(150px, 1fr));
-    }
-}
-
-@media (max-width: 550px) {
-    .container {
-        padding-top: 80px;
+        grid-template-columns: 1fr;
     }
 
-    header {
-        position: fixed;
-        width: 100%;
-        left: 0;
-        right: 0;
-        margin: 0;
-        padding: 0 1rem;
-    }
-
-    .card-container {
-        grid-template-columns: repeat(1, minmax(150px, 1fr));
-    }
-
-    .container .product-search {
-        width: 9rem;
-    }
 }

@@ -31,8 +31,8 @@ nav {
     align-items: center;
     padding: 0.3% 2%;
     height: 100%;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Adds a soft, floating shadow */
-    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
 .btn {
@@ -44,6 +44,25 @@ nav {
     transition: background 0.3s ease;
     border: none;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-grey {
+    color: white;
+    padding: 3px 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border: none;
+    background: rgba(128, 128, 128, 0.6); /* Серый цвет с прозрачностью */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-size: 0.8rem;
+}
+
+.btn-grey:hover {
+    color: #f0f8ff; /* Ярче текст */
+    transform: scale(1.02); /* Легкое увеличение */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* Более выраженная тень */
+    transition: all 0.4s ease-in-out;
 }
 
 .btn:hover {
@@ -61,7 +80,8 @@ nav {
 }
 
 .header-logo {
-    width: 12rem;
+    width: 90px;
+    height: auto;
 }
 
 .main-menu {
@@ -88,29 +108,6 @@ nav {
     transform: scale(1.05);
     color: deepskyblue;
 
-}
-
-.side-bar {
-    display: none;
-    background: white;
-    position: fixed;
-    flex-direction: column;
-    right: 0;
-    top: 0;
-    height: 100%;
-    z-index: 999;
-    box-shadow: -1px 0 35px grey;
-}
-
-.side-bar li {
-    position: relative;
-    text-align: center;
-    margin: 1.2em 2em;
-}
-
-.side-bar li a {
-    color: black;
-    font-size: 1.3em;
 }
 
 .sidebar-phone-img {
@@ -188,46 +185,71 @@ nav {
     width: 15%;
 }
 
-.container .product-search {
-    width: fit-content;
-    padding: 10px 20px;
-    border-radius: 20px;
-    border: 2px solid transparent;
-    background-color: #F9FAFB;
-    background-clip: padding-box;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-
-.container .product-search form button {
-    border: none;
-    background: none;
-}
-
-.container .product-search form {
+.product-search {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    background: rgba(128, 128, 128, 0.5);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: 70px;
+    max-width: fit-content;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
-.container .product-search form button img {
-    width: 1.5rem;
+.product-search .form-control {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+.product-search .form-control:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 5px rgba(24, 95, 189, 0.5);
+}
+
+.product-search .search-image {
+    width: 20px;
     height: auto;
 }
 
-.container .product-search form button img:hover {
-    transform: scale(1.05);
-    transition: 0.2s;
-}
-
-.container .product-search .form-control {
+.product-search button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     border: none;
     background: none;
-    width: 100%;
-    outline: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #1e3a8a;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.product-search button:hover {
+    transform: scale(1.1);
+}
+
+.product-search-nav-slider {
+    background: none;
     box-shadow: none;
+}
+
+.product-search-nav-slider .form-control {
     text-align: center;
 }
+
+
 
 .mobile-bucket-container {
     display: flex;
@@ -241,6 +263,7 @@ nav {
     padding: 1rem;
     color: white;
     border-radius: 10px;
+    z-index: 5;
 }
 
 .mobile-bucket-text-image a {
@@ -292,7 +315,7 @@ nav {
 
 @media (max-width: 1187px) {
     .HideOnMobile {
-        display: none;
+        display: none !important;
     }
 
     .page-footer-menu {
@@ -309,10 +332,35 @@ nav {
     }
 }
 
-@media (max-width: 741px) {
+@media (max-width: 600px) {
     .page-footer-menu {
         display: flex;
         flex-direction: column;
+        gap: 2px;
+    }
+
+    .btn {
+        width: 150px;
+    }
+
+    .desktop-bucket-button {
+        display: none;
+    }
+
+    .user-profile {
+        display: none;
+    }
+
+    header {
+        position: fixed;
+        width: 100%;
+        margin: 0;
+        padding: 0 1rem;
+        z-index: 100;
+    }
+
+    .main--section {
+        padding-top: 80px;
     }
 
 }
@@ -322,5 +370,6 @@ nav {
         display: none;
     }
 }
+
 
 

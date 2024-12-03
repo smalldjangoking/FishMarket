@@ -1,34 +1,110 @@
 {% extends "base.html" %}
 {% load static %}
+{% load query_get %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'mainapp/css/card.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/slider.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.css"/>
 {% endblock %}
 
 {% block title %}Інтернет-магазин в'яленої і сушеної риби преміум класу{% endblock %}
 
 {% block section %}
     <div class="container">
-        <a class="leg-new" href="{% url 'mainapp:Categories' %}">&#8592; Назад</a>
-        <div class="row">
-            {% for product in products %}
-                {% include 'mainapp/includes/card-item.html' %}
-            {% endfor %}
-        </div>
-        {% if page_obj.paginator.num_pages > 1 %}
-                    <div class="pagination">
-                <div class="step-links">
-                    {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
-                    {% endif %}
-                    <p class="current" href="#">{{ page_obj.number }}</p>
-                    {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
-                    {% endif %}
+        {% if products %}
+            <div class="top-menu-filter">
+                <a class="btn-grey" href="{% url 'mainapp:Categories' %}">&#8592; Назад</a>
+                {% include 'mainapp/includes/desktop-search.html' %}
+                <form class="HideOnMobile" method="GET" id="filterForm">
+                    <div id="price-slider"></div>
+                    <div class="range-values">
+                        {{ form.min_price }}
+                        {{ form.max_price }}
+                    </div>
+                </form>
+                <div class="price-filter HideOnMobile">
+                    <div class="price-filter">
+                        <a href="?{% url_replace request 'sort' 'ASC' %}" class="btn-grey">Спочатку дешевше</a>
+                        <a href="?{% url_replace request 'sort' 'DESC' %}" class="btn-grey">Спочатку дорожче</a>
+                    </div>
                 </div>
-            <div class="page-list">
-                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                <button class="burger HideOnDesktop"
+                        onclick="document.querySelector('.nav-filter').classList.toggle('active');">
+                    <img class="nav-img-button" src="{% static 'mainapp/img/settings.png' %}" alt="">
+                </button>
+                <div class="nav-filter">
+                    <div class="up-menu">
+                        <div class="close">
+                            <button class="burger"
+                                    onclick="document.querySelector('.nav-filter').classList.remove('active');">
+                                <img src="{% static 'img/close.png' %}" alt="Закрыть">
+                            </button>
+                        </div>
+                    </div>
+                    <ul class="nav-burger-list">
+                        <li>
+                            {% include 'mainapp/includes/mobile-search.html' %}
+                        </li>
+                        <li>
+                            <p>Сортувати за:</p>
+                            <div class="price-filter">
+                                <a href="{% url_replace request 'sort' 'ASC' %}" class="btn">Спочатку дешевше</a>
+                                <a href="{% url_replace request 'sort' 'DESC' %}" class="btn">Спочатку дорожче</a>
+                            </div>
+                        </li>
+                        <li>
+                            <p>Фільтр ціни</p>
+                            <form method="GET" id="filterForm">
+                                <div id="price-slider"></div>
+                                <div class="range-values-mobile">
+                                    {{ form.min_price }}
+                                    {{ form.max_price }}
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
-        </div>
+
+            </div>
+            <div id="product-list">
+                <div class="card-container">
+                    {% for product in products %}
+                        {% include 'mainapp/includes/card-item.html' %}
+                    {% endfor %}
+                </div>
+
+                {% if page_obj.paginator.num_pages > 1 %}
+                    <div class="paginator-container">
+                        <div class="pagination">
+                            <div class="step-links">
+                                {% if page_obj.has_previous %}
+                                    <a class="btn-paginator"
+                                       href="?{% url_replace request 'page' page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+                                {% endif %}
+                                <p class="btn-paginator btn-paginator-selected" href="#">{{ page_obj.number }}</p>
+                                {% if page_obj.has_next %}
+                                    <a class="btn-paginator"
+                                       href="?{% url_replace request 'page' page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+                                {% endif %}
+                            </div>
+                            <div class="page-list">
+                                сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
+            <script src="{% static 'mainapp/js/slider.js' %}"></script>
+
+        {% else %}
+            <div class="nothing-found">
+            <p>Упс! Здається, нічого не знайшлося. Спробуйте змінити пошуковий запит.</p>
+            {% include 'mainapp/includes/desktop-search.html' %}
+            {% include 'mainapp/includes/mobile-search.html' %}
+            </div>
         {% endif %}
     </div>
+
 {% endblock %}

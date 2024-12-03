@@ -4,33 +4,15 @@
 <header>
     <nav>
         {% navmenu as menu %}
-        <ul class="side-bar">
-            <div onclick="hideSidebar()">
-                <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px"
-                     fill="#454647">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-            {% for name, url in menu.items %}
-                <li><a href="{{ url }}">{{ name }}</a></li>
-            {% endfor %}
-            <li>
-                <p>Замовлення Пн-Сб з 9:00 до 18:00</p>
-                <a href="tel:+1234567890"><img class="sidebar-phone-img" src="{% static 'img/call.png' %}"
-                                               alt="telephone:">+38
-                    098
-                    8811617</a>
-            </li>
-        </ul>
-        <img class="header-logo" src="{% static 'img/Official_Logo_Banner.avif' %}" alt="">
+        <img class="header-logo" src="{% static 'img/logo-banner.png' %}" alt="">
         <ul class="main-menu">
             {% for name, url in menu.items %}
                 <li class="HideOnMobile"><a href="{{ url }}">{{ name }}</a></li>
             {% endfor %}
             <li>
-                <fieldset class="desktop-bucket-button">
+                <fieldset class="desktop-bucket-button HideOnMobile">
                     {% if cart|length > 0 %}
-                    <legend id="bucket-change-quantity" class="desktop-bucket-quantity">{{ cart|length }}</legend>
+                        <legend id="bucket-change-quantity" class="desktop-bucket-quantity">{{ cart|length }}</legend>
                     {% endif %}
                     <a class="desktop-bucket" href="{% url 'cart:cart-view' %}"><img
                             src="{% static 'img/shopping_basket.png' %}" alt=""></a>
@@ -38,17 +20,46 @@
             </li>
             {% if user.is_anonymous %}
                 <li>
-                    <a href="{% url 'usersapp:login' %}"><img class='nav-img-button' src="{% static 'img/login.png' %}" alt=""></a>
+                    <a href="{% url 'usersapp:login' %}"><img class='nav-img-button' src="{% static 'img/login.png' %}"
+                                                              alt=""></a>
                 </li>
             {% elif user.is_authenticated %}
-                <li>
+                <li class="user-profile">
                     <a href="{% url 'usersapp:profile' %}">
                         <img class='nav-img-button' src="{% static 'img/profile.png' %}" alt="Аккаунт">
                     </a>
                 </li>
             {% endif %}
-            <li class='HideOnDesktop' onclick="showSidebar()">
-                <img class="nav-img-button" src="{% static 'img/burger-menu.png' %}" alt="site-menu">
+            <li>
+                <button class="burger HideOnDesktop" onclick="document.querySelector('.nav-burger').classList.toggle('active');">
+                    <img class="nav-img-button" src="{% static 'img/burger-menu.png' %}" alt="">
+                </button>
+
+                <div class="nav-burger">
+                    <div class="up-menu">
+                        <div class="profile">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'usersapp:profile' %}"><img src="{% static 'img/profile.png' %}"
+                                                                            alt="Профиль"></a>
+                            {% else %}
+                                <a href="{% url 'usersapp:login' %}"><img src="{% static 'img/login.png' %}" alt="Вход"></a>
+                            {% endif %}
+                        </div>
+                        <div class="close">
+                            <button class="burger"
+                                    onclick="document.querySelector('.nav-burger').classList.remove('active');">
+                                <img src="{% static 'img/close.png' %}" alt="Закрыть">
+                            </button>
+                        </div>
+                    </div>
+                    <ul class="nav-burger-list">
+                        {% navmenu as menu %}
+                        {% for name, url in menu.items %}
+                            <li class="nav-burger-list-item"><a href="{{ url }}">{{ name }}</a></li>
+                        {% endfor %}
+                        <li class="nav-burger-list-item"><p>Замовлення Пн-Сб з 9:00 до 18:00</p></li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </nav>
