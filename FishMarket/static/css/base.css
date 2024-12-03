@@ -33,6 +33,9 @@ nav {
     height: 100%;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 10;
+
 }
 
 .btn {
@@ -80,7 +83,7 @@ nav {
 }
 
 .header-logo {
-    width: 90px;
+    width: 70px;
     height: auto;
 }
 
@@ -248,7 +251,6 @@ nav {
 .product-search-nav-slider .form-control {
     text-align: center;
 }
-
 
 
 .mobile-bucket-container {

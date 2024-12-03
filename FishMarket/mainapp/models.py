@@ -33,7 +33,8 @@ class Product(models.Model):
     description = models.TextField(verbose_name='Описание Продукта')
     price = models.IntegerField(verbose_name='Цена за КГ')
     stock = models.IntegerField(null=True, blank=True, default=0, verbose_name='Наличие')
-    time_create = models.DateTimeField(auto_now_add=True)
+    time_create = models.DateTimeField(auto_now_add=True, db_index=True)
+    meta = models.CharField(max_length=140, blank=True, default='')
 
     class Meta:
         verbose_name = 'Продукт'
@@ -61,7 +62,7 @@ class ProductWeight(models.Model):
     ]
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='weights')
-    weight = models.DecimalField(max_digits=6, decimal_places=3)
+    weight = models.DecimalField(max_digits=6, decimal_places=3, db_index=True)
     weight_calculus = models.CharField(choices=status_choices, max_length=50)
 
     class Meta:

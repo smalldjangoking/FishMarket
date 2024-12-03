@@ -2,7 +2,13 @@
 {% load static %}
 {% load my_tags %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'mainapp/css/mainpage.css' %}">{% endblock %}
+    <link rel="stylesheet" href="{% static 'mainapp/css/mainpage.css' %}">
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'mainapp/css/card.css' %}">
+{% endblock %}
 {% block title %}Інтернет-магазин в'яленої і сушеної риби преміум класу{% endblock %}
 
 {% block section %}
@@ -36,7 +42,56 @@
                     <p>Риба без секретів – 100% натуральна</p>
                 </div>
             </div>
-
         </div>
     </section>
+    <section class="slider-section">
+        <h5 class="info-text">Нові продукти</h5>
+        <div>
+            <!-- Slider main container -->
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    {% for product in products %}
+                        <div class="swiper-slide">
+                            <div class="card-container">
+                                {% include "mainapp/includes/card-item.html" %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            direction: 'horizontal',
+            loop: true, // Цикличный слайдер
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+
+        document.addEventListener("scroll", function () {
+            var scroll = window.scrollY;
+            var nav = document.querySelector("nav");
+
+            if (scroll > 100) {
+                nav.style.background = "linear-gradient(#1e3a8a, #3b82f6)";
+            } else {
+                nav.style.background = "";
+            }
+        });
+    </script>
 {% endblock %}

@@ -7,7 +7,8 @@
 .card-container .col {
     display: flex;
     flex-direction: column;
-    min-height: 300px;
+    min-height: 400px;
+    max-height: 400px;
     padding: 5% 5%;
     background-color: white;
     border-radius: 10px;
