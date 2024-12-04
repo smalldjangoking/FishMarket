@@ -29,7 +29,7 @@ class Product(models.Model):
     product_category = models.ForeignKey(SeaCategory, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, verbose_name='Название')
     slug = models.SlugField(max_length=100, unique=True, db_index=True, verbose_name='SLUG_URL')
-    image_product = models.ImageField(upload_to='products', blank=True, null=True, verbose_name='Титульная картинка')
+    image_product = models.ImageField(upload_to='products', blank=False, null=False, verbose_name='Титульная картинка')
     description = models.TextField(verbose_name='Описание Продукта')
     price = models.IntegerField(verbose_name='Цена за КГ')
     stock = models.IntegerField(null=True, blank=True, default=0, verbose_name='Наличие')

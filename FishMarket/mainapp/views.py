@@ -25,6 +25,7 @@ class ProductDetailView(DetailView):
         context['related_products'] = ProductImage.objects.filter(product_id=self.object.id)
         context['product_weights'] = ProductWeight.objects.filter(product_id=self.object.id).order_by('-weight')
         context['more_information'] = MoreInformation.objects.filter(product_id=self.object.id).first()
+        context['category_related'] = Product.objects.filter(product_category_id=self.object.product_category_id)
         return context
 
 

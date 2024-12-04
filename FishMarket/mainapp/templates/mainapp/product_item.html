@@ -4,6 +4,8 @@
 {% block head %}
     <link rel="stylesheet" href="{% static 'mainapp/css/product_item.css' %}">
     <link rel="stylesheet" href="{% static 'mainapp/css/image_show_bar.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="{% static 'mainapp/css/card.css' %}">
 {% endblock %}
 
 
@@ -12,11 +14,15 @@
         <a href="{% url 'mainapp:CategorySelect' product.product_category.slug %}"
            class="btn-grey"><span>&#8592; Назад</span></a>
         <a class="home-image" href="{% url 'mainapp:main' %}"><img src="{% static 'mainapp/img/homenav.png' %}"
-                                                alt="Back to main page"></a>
+                                                                   alt="Back to main page"></a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
         <a class="list-direction" href="{% url 'mainapp:Categories' %}">Категорії</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
-        <a class="list-direction" href="{% url 'mainapp:Categories' %}{{ product.product_category.slug }}">{{ product.product_category.name }}</a>
+        <a class="list-direction" href="
+
+
+
+                {% url 'mainapp:Categories' %}{{ product.product_category.slug }}">{{ product.product_category.name }}</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
         <p class="list-direction">{{ product.name }}</p>
     </div>
@@ -30,7 +36,7 @@
                     {% if product.time_create|time_difference < 30 %}
                         <legend class="leg-new">Новинка</legend>
                     {% endif %}
-                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.name }}</p>
                 </fieldset>
                 <div class="product-price-banner">
                     {% if product_weights %}
@@ -66,7 +72,6 @@
 
                     <div class="button-buy">
                         <button id="add-to-cart" class="btn" type="submit" href="#">Додати до Кошику</button>
-                        <button class="btn" href="#">Швидка покупка</button>
                     </div>
                 </form>
                 {% if not user.is_authenticated %}
@@ -108,19 +113,62 @@
                     <li></li>
                 </ul>
             </div>
-            <div class="additional_info">
+            <div class="additional_info novabanner">
                 <img class="nova_banner" src="{% static 'mainapp/img/nova_pochta_banner.png' %}" alt="nova_pochta">
                 <p class="nova-text">Доставка Новою Поштою: у відділення чи поштомат, згідно з тарифами логістичної
                     компанії.</p>
-
             </div>
         </div>
     </div>
+    {% if category_related %}
+    <section class="slider-category-selected">
+        <h5 class="info-text">Разом смачніше</h5>
+            <!-- Slider main container -->
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    {% for product in category_related %}
+                        <div class="swiper-slide">
+                            <div class="card-container">
+                                {% include "mainapp/includes/card-item.html" %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+    </section>
+    {% endif %}
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        const swiper = new Swiper('.swiper', {
+            direction: 'horizontal',
+            loop: true, // Цикличный слайдер
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            slidesPerView: 4,
+            watchOverflow: true,
+            spaceBetween: 15,
+
+            breakpoints: {
+                900: {
+                    slidesPerView: 3,
+                },
+                650: {
+                    slidesPerView: 1,
+                },
+            }
+        });
 
         function decreaseQuantity() {
             const quantityInput = document.getElementById('quantity');

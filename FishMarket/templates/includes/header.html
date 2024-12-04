@@ -4,7 +4,7 @@
 <header>
     <nav>
         {% navmenu as menu %}
-        <img class="header-logo" src="{% static 'img/logo-banner.png' %}" alt="">
+        <a href="{% url 'mainapp:AllProducts' %}"><img class="header-logo" src="{% static 'img/logo-banner.png' %}" alt=""></a>
         <ul class="main-menu">
             {% for name, url in menu.items %}
                 <li class="HideOnMobile"><a href="{{ url }}">{{ name }}</a></li>

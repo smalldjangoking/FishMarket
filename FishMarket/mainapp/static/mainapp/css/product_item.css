@@ -165,6 +165,8 @@
 .cart-top {
     display: flex;
     justify-content: space-between;
+    text-align: center;
+    align-items: center;
 }
 
 .product-price-banner {
@@ -207,6 +209,12 @@
     color: grey;
 }
 
+.cart-top p {
+    font-size: 0.8rem;
+    color: black;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
 .nav_product {
     display: flex;
     height: 10px;
@@ -247,18 +255,19 @@
 .product-desc {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     margin-top: 3rem;
-    margin-right: 10rem;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #333;
-    background-color: whitesmoke;
-    border: 1px solid #ddd;
+    border: 2px solid transparent;
     border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: linear-gradient(white, white) padding-box,
+    linear-gradient(90deg, #3b82f6, #1e3a8a) border-box;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    max-width: 1100px;
+    min-height: 505px;
+    margin-right: 25px;
 }
 
 .nova_banner {
@@ -268,6 +277,32 @@
 
 .nova-text {
     color: grey;
+}
+
+.slider-category-selected {
+    height: auto;
+    position: relative;
+    left: 0;
+    right: 0;
+
+}
+
+.swiper {
+    padding: 25px !important;
+}
+
+.card-container {
+    display: initial !important;
+    grid-template-columns: initial !important;
+    grid-gap: initial !important;
+}
+
+.info-text {
+    color: #3b82f6;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 4rem;
+    text-align: center;
+    margin-top: 1rem;
 }
 
 .additional_info {
@@ -286,6 +321,7 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     width: fit-content;
     height: fit-content;
+    min-width: 300px;
     max-width: 300px;
 }
 
@@ -304,6 +340,11 @@
     height: auto;
 }
 
+.novabanner {
+    background: none;
+    box-shadow: none;
+}
+
 .additional_info h3 {
     color: #0078d4;
 }
@@ -312,12 +353,17 @@
     .row-info-buy p {
         font-size: 0.9rem;
     }
+
+    .cart-top p {
+        font-size: 1.2rem !important;
+    }
 }
 
 @media (max-width: 880px) {
     .row-info-buy p {
         font-size: 0.7rem;
     }
+
 }
 
 @media (max-width: 550px) {
@@ -329,15 +375,7 @@
 }
 
 @media (max-width: 950px) {
-    .nav_product a {
-        font-size: 0.6rem;
-    }
-
-    .nav_product p {
-        font-size: 0.5rem;
-    }
-
-    .nav_product a:first-child {
+    .nav_product {
         display: none;
     }
 
@@ -369,7 +407,7 @@
     }
 
     .product-desc {
-        width: 100%;
+        min-height: fit-content;
     }
 
     .additional_info {

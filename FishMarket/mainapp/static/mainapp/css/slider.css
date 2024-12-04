@@ -18,13 +18,13 @@
 
 .nav-filter.active {
     width: 350px;
-    background-color: rgba(25, 115, 184, 0.5); /* Более насыщенный фон для улучшения контраста */
-    backdrop-filter: blur(5px); /* Больше размытия для более мягкого эффекта */
-    -webkit-backdrop-filter: blur(5px); /* Для совместимости с WebKit-браузерами */
+    background-color: rgba(25, 115, 184, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     z-index: 999;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Тень для глубины */
-    border-radius: 10px; /* Скругленные углы для более современного вида */
-    transition: all 0.3s ease-in-out; /* Плавный переход при изменении стиля */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
 }
 
 

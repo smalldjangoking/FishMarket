@@ -115,7 +115,7 @@ nav {
 }
 
 .card-container {
-    grid-template-columns: auto !important;
+    grid-template-columns: initial !important;
 }
 
 @media (max-width: 800px) {

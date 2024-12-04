@@ -341,6 +341,11 @@ nav {
         gap: 2px;
     }
 
+    .page-footer {
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+
     .btn {
         width: 150px;
     }
@@ -363,7 +368,10 @@ nav {
 
     .main--section {
         padding-top: 80px;
+        margin-left: 2%;
+        margin-right: 2%;
     }
+
 
 }
 
