@@ -61,7 +61,6 @@
 
 }
 
-
 .choose-weight-form label {
     display: inline-flex;
     align-items: center;
@@ -150,8 +149,12 @@
     text-align: center;
     outline: none;
     -moz-appearance: textfield;
-    ::-webkit-inner-spin-button;
-    ::-webkit-outer-spin-button;
+
+    ::-webkit-inner-spin-button
+;
+
+    ::-webkit-outer-spin-button
+;
     max-width: 50px;
 }
 
@@ -186,11 +189,6 @@
 .product-price-banner p span {
     color: black;
     font-weight: bolder;
-}
-
-.row img {
-    width: 250px;
-    height: auto;
 }
 
 .row-info-buy {
@@ -287,8 +285,29 @@
 
 }
 
-.swiper {
+.swiper-slide img {
+    width: auto;
+    max-width: 250px;
+}
+
+.swiper1 {
     padding: 25px !important;
+}
+
+.swiper2 {
+    max-height: 400px !important;
+}
+
+.swiper2 .swiper-wrapper .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.image-bar {
+    min-height: 0;
+    min-width: 0;
 }
 
 .card-container {

@@ -2,33 +2,46 @@
 {% load static %}
 {% load datetime-diffrence %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'mainapp/css/product_item.css' %}">
-    <link rel="stylesheet" href="{% static 'mainapp/css/image_show_bar.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="{% static 'mainapp/css/product_item.css' %}">
     <link rel="stylesheet" href="{% static 'mainapp/css/card.css' %}">
 {% endblock %}
-
 
 {% block section %}
     <div class="nav_product">
         <a href="{% url 'mainapp:CategorySelect' product.product_category.slug %}"
            class="btn-grey"><span>&#8592; Назад</span></a>
-        <a class="home-image" href="{% url 'mainapp:main' %}"><img src="{% static 'mainapp/img/homenav.png' %}"
-                                                                   alt="Back to main page"></a>
+        <a class="home-image" href="{% url 'mainapp:main' %}">
+            <img src="{% static 'mainapp/img/homenav.png' %}" alt="Back to main page">
+        </a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
         <a class="list-direction" href="{% url 'mainapp:Categories' %}">Категорії</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
-        <a class="list-direction" href="
-
-
-
-                {% url 'mainapp:Categories' %}{{ product.product_category.slug }}">{{ product.product_category.name }}</a>
+        <a class="list-direction" href="{% url 'mainapp:CategorySelect' product.product_category.slug %}">
+            {{ product.product_category.name }}
+        </a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
         <p class="list-direction">{{ product.name }}</p>
     </div>
     <div class="col">
-        <div class="row">
-            {% include 'mainapp/includes/image_show_bar.html' %}
+        <div class="image-bar">
+            <div class="swiper swiper2">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="{{ product.image_product.url }}" alt="">
+                    </div>
+                    {% for image in related_products %}
+                        <div class="swiper-slide">
+                            <img src="{{ image.image.url }}" alt="">
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- Пагинация и навигация для первого слайдера -->
+                <div class="swiper-pagination pagination2"></div>
+                <div class="swiper-button-next next2"></div>
+                <div class="swiper-button-prev prev2"></div>
+            </div>
         </div>
         <div class="row-info-buy">
             <div class="cart-top">
@@ -69,14 +82,13 @@
                         <input type="number" id="quantity" value="1" min="1" step="1">
                         <button type="button" onclick="increaseQuantity()">+</button>
                     </div>
-
                     <div class="button-buy">
-                        <button id="add-to-cart" class="btn" type="submit" href="#">Додати до Кошику</button>
+                        <button id="add-to-cart" class="btn" type="submit">Додати до Кошику</button>
                     </div>
                 </form>
                 {% if not user.is_authenticated %}
                     <div class="discount-advertisement">
-                        <img src="{% static "mainapp/img/discount.png" %}" alt="discount image">
+                        <img src="{% static 'mainapp/img/discount.png' %}" alt="discount image">
                         <a href="{% url 'usersapp:login' %}">Увійдіть для збільшення накопичувальної знижки</a>
                     </div>
                 {% endif %}
@@ -92,14 +104,24 @@
             <div class="additional_info">
                 <h3>Більше інформації</h3>
                 <ul>
-                    <li><img src="{% static 'mainapp/img/world.png' %}" alt="Країна"> {{ more_information.region }}</li>
-                    <li><img src="{% static 'mainapp/img/ingredients.png' %}"
-                             alt="Інгредієнти"> {{ more_information.ingredients }}</li>
-                    <li><img src="{% static 'mainapp/img/box.png' %}" alt="Упаковка"> {{ more_information.packing }}
+                    <li>
+                        <img src="{% static 'mainapp/img/world.png' %}" alt="Країна">
+                        {{ more_information.region }}
                     </li>
-                    <li><img src="{% static 'mainapp/img/weight.png' %}"
-                             alt="Різниця у вазі"> {{ more_information.weight_difference }}</li>
-                    <li><img src="{% static 'mainapp/img/salt.png' %}" alt="Рівень солі">
+                    <li>
+                        <img src="{% static 'mainapp/img/ingredients.png' %}" alt="Інгредієнти">
+                        {{ more_information.ingredients }}
+                    </li>
+                    <li>
+                        <img src="{% static 'mainapp/img/box.png' %}" alt="Упаковка">
+                        {{ more_information.packing }}
+                    </li>
+                    <li>
+                        <img src="{% static 'mainapp/img/weight.png' %}" alt="Різниця у вазі">
+                        {{ more_information.weight_difference }}
+                    </li>
+                    <li>
+                        <img src="{% static 'mainapp/img/salt.png' %}" alt="Рівень солі">
                         {% for _ in "x"|ljust:'5' %}
                             {% if forloop.counter <= more_information.salt_level %}
                                 <img src="{% static 'mainapp/img/star.png' %}" alt="">
@@ -108,9 +130,10 @@
                             {% endif %}
                         {% endfor %}
                     </li>
-                    <li><img src="{% static 'mainapp/img/time.png' %}"
-                             alt="Термін зберігання"> {{ more_information.shelf_life }}</li>
-                    <li></li>
+                    <li>
+                        <img src="{% static 'mainapp/img/time.png' %}" alt="Термін зберігання">
+                        {{ more_information.shelf_life }}
+                    </li>
                 </ul>
             </div>
             <div class="additional_info novabanner">
@@ -121,10 +144,10 @@
         </div>
     </div>
     {% if category_related %}
-    <section class="slider-category-selected">
-        <h5 class="info-text">Разом смачніше</h5>
+        <section class="slider-category-selected">
+            <h5 class="info-text">Разом смачніше</h5>
             <!-- Slider main container -->
-            <div class="swiper">
+            <div class="swiper swiper1">
                 <!-- Additional required wrapper -->
                 <div class="swiper-wrapper">
                     {% for product in category_related %}
@@ -135,26 +158,42 @@
                         </div>
                     {% endfor %}
                 </div>
-                <!-- If we need pagination -->
-                <div class="swiper-pagination"></div>
+                <div class="swiper-pagination pagination1"></div>
+                <div class="swiper-button-next next1"></div>
+                <div class="swiper-button-prev prev1"></div>
             </div>
-    </section>
+        </section>
     {% endif %}
 
-
+    <!-- Подключение скриптов -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        const swiper = new Swiper('.swiper', {
+        const swiper2 = new Swiper('.swiper2', {
             direction: 'horizontal',
-            loop: true, // Цикличный слайдер
+            loop: true,
             pagination: {
-                el: '.swiper-pagination',
+                el: '.pagination2',
                 clickable: true,
             },
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: '.next2',
+                prevEl: '.prev2',
+            },
+
+        });
+
+        // Инициализация первого слайдера
+        const swiper1 = new Swiper('.swiper1', {
+            direction: 'horizontal',
+            loop: true, // Цикличный слайдер
+            pagination: {
+                el: 'pagination1',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.next1',
+                prevEl: '.prev1',
             },
             slidesPerView: 4,
             watchOverflow: true,
@@ -170,6 +209,7 @@
             }
         });
 
+        // Функции изменения количества товара
         function decreaseQuantity() {
             const quantityInput = document.getElementById('quantity');
             let currentValue = parseInt(quantityInput.value);
@@ -186,6 +226,7 @@
             quantityInput.value = currentValue + 1;
         }
 
+        // Обработка добавления товара в корзину
         $(document).on('click', '#add-to-cart', function (e) {
             e.preventDefault();
 
@@ -216,7 +257,6 @@
                     console.log(error);
                 }
             })
-        })
-
+        });
     </script>
 {% endblock %}
