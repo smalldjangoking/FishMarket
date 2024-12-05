@@ -2,7 +2,7 @@ from django import forms
 from django.forms import Form
 
 class SearchForm(Form):
-    search = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Пошук товару'}))
+    search = forms.CharField(widget=forms.TextInput(attrs={'class': 'search', 'type': 'search', 'placeholder': 'Пошук товару'}))
 
 class PriceFilterForm(Form):
     min_price = forms.IntegerField(

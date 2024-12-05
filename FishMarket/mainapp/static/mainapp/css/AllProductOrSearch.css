@@ -13,7 +13,7 @@
 }
 
 .noUi-connect {
-    background-color: #1e90ff!important;
+    background-color: #1e90ff !important;
 }
 
 .nav-filter.active {
@@ -25,13 +25,6 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     transition: all 0.3s ease-in-out;
-}
-
-
-.price-filter {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
 
 .price-in {
@@ -79,13 +72,17 @@
 }
 
 
-
 .top-menu-filter {
     display: flex;
-    justify-content: space-between;
-    padding: 15px 0;
+    flex-direction: row;
+    gap: 35px;
     align-items: center;
-    text-align: center;
+    padding: 15px 5px;
+    background-color: #21D4FD;
+    background-image: linear-gradient(250deg, #21D4FD 0%, #B721FF 100%);
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
 }
 
 .nav-burger-list {

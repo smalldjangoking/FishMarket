@@ -2,9 +2,11 @@
 {% load static %}
 {% load query_get %}
 {% block head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.css"/>
     <link rel="stylesheet" href="{% static 'mainapp/css/card.css' %}">
     <link rel="stylesheet" href="{% static 'mainapp/css/AllProductOrSearch.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.css"/>
+    <link rel="stylesheet" href="{% static 'mainapp/css/searchform.css' %}">
 {% endblock %}
 
 {% block title %}Інтернет-магазин в'яленої і сушеної риби преміум класу{% endblock %}
@@ -13,7 +15,12 @@
     <div class="container">
         {% if products %}
             <div class="top-menu-filter">
-                {% include 'mainapp/includes/desktop-search.html' %}
+                <div class="search-container">
+                    <form class="search-form" method="get">
+                        {{ search_form.search }}
+                        <button type="submit" class="fa fa-search"></button>
+                    </form>
+                </div>
                 <form class="HideOnMobile" method="GET" id="filterForm">
                     <div id="price-slider"></div>
                     <div class="range-values">
@@ -21,12 +28,8 @@
                         {{ form.max_price }}
                     </div>
                 </form>
-                <div class="price-filter HideOnMobile">
-                    <div class="price-filter">
-                        <a href="?{% url_replace request 'sort' 'ASC' %}" class="btn-grey">Спочатку дешевше</a>
-                        <a href="?{% url_replace request 'sort' 'DESC' %}" class="btn-grey">Спочатку дорожче</a>
-                    </div>
-                </div>
+                <a href="?{% url_replace request 'sort' 'ASC' %}" class="btn-grey">Спочатку дешевше</a>
+                <a href="?{% url_replace request 'sort' 'DESC' %}" class="btn-grey">Спочатку дорожче</a>
                 <button class="burger HideOnDesktop"
                         onclick="document.querySelector('.nav-filter').classList.toggle('active');">
                     <img class="nav-img-button" src="{% static 'mainapp/img/settings.png' %}" alt="">
@@ -99,9 +102,9 @@
 
         {% else %}
             <div class="nothing-found">
-            <p>Упс! Здається, нічого не знайшлося. Спробуйте змінити пошуковий запит.</p>
-            {% include 'mainapp/includes/desktop-search.html' %}
-            {% include 'mainapp/includes/mobile-search.html' %}
+                <p>Упс! Здається, нічого не знайшлося. Спробуйте змінити пошуковий запит.</p>
+                {% include 'mainapp/includes/desktop-search.html' %}
+                {% include 'mainapp/includes/mobile-search.html' %}
             </div>
         {% endif %}
     </div>
