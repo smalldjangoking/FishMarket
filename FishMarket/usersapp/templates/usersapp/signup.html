@@ -7,7 +7,7 @@
 {% block title %}Реєстрація Пользователя{% endblock %}
 {% block section %}
     <div class="registration-page">
-        <h3>Реєстрація</h3>
+        <h3 class="blue-bold-text">Реєстрація</h3>
         <form method="POST">
             {% csrf_token %}
             {% for field in form %}
@@ -17,7 +17,7 @@
                 {{ field.errors }}
                 <br>
             {% endfor %}
-            <button type="submit" class="submit-button">Реєстрація</button>
+            <button type="submit" class="btn">Реєстрація</button>
         </form>
     </div>
 {% endblock %}

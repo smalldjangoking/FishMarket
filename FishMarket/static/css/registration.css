@@ -1,5 +1,15 @@
 .registration-page {
     display: block;
+    width: auto;
+    margin-top: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 200px;
+}
+
+.blue-bold-text {
     text-align: center;
 }
 
@@ -9,8 +19,8 @@
     gap: 1rem;
     margin: 5% 25%;
     align-items: center;
-
 }
+
 
 .form-control {
     width: fit-content;
@@ -32,18 +42,5 @@
     box-shadow: 0 0 9px rgba(81, 203, 238, 1);
 }
 
-.submit-button:hover {
-    outline: none;
-    transition: transform 1s ease, color 1s ease, box-shadow 0.5s ease;
-    box-shadow: 0 0 9px rgba(81, 203, 238, 1);
-}
-
-.submit-button {
-    padding: 1rem 1rem;
-    background: linear-gradient(90deg, #00bfff, #1e90ff);
-    border-radius: 15px;
-    border: none;
-    color: white;
-}
 
 

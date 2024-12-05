@@ -242,6 +242,7 @@
 
 .product-desc h3 {
     color: #0078d4;
+    margin-bottom: 0.7rem;
 }
 
 .right-side {
@@ -343,6 +344,15 @@
     min-width: 300px;
     max-width: 300px;
 }
+
+.tippy-box {
+        background: #007acc;
+        color: white; /* Цвет текста */
+        border-radius: 8px; /* Скруглённые углы */
+        padding: 8px; /* Внутренние отступы */
+        font-size: 14px; /* Размер шрифта */
+        font-family: Arial, sans-serif;
+    }
 
 .additional_info ul li {
     display: flex;

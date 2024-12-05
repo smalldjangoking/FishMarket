@@ -3,6 +3,12 @@
     justify-content: space-between;
 }
 
+.open-door {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .information-box {
     background-color: #ffffff;
     border-radius: 12px;
@@ -95,6 +101,10 @@
 
     .login-page .login-box {
         width: 80%;
+    }
+
+    .open-door {
+        display: none;
     }
 
 

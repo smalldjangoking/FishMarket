@@ -105,23 +105,28 @@
                 <h3>Більше інформації</h3>
                 <ul>
                     <li>
-                        <img src="{% static 'mainapp/img/world.png' %}" alt="Країна">
+                        <img src="{% static 'mainapp/img/world.png' %}" data-tippy-content="Страна виробник"
+                             alt="Країна">
                         {{ more_information.region }}
                     </li>
                     <li>
-                        <img src="{% static 'mainapp/img/ingredients.png' %}" alt="Інгредієнти">
+                        <img src="{% static 'mainapp/img/ingredients.png' %}" data-tippy-content="Інгредієнти"
+                             alt="Інгредієнти">
                         {{ more_information.ingredients }}
                     </li>
                     <li>
-                        <img src="{% static 'mainapp/img/box.png' %}" alt="Упаковка">
+                        <img src="{% static 'mainapp/img/box.png' %}" data-tippy-content="Упаковка продукту"
+                             alt="Упаковка">
                         {{ more_information.packing }}
                     </li>
                     <li>
-                        <img src="{% static 'mainapp/img/weight.png' %}" alt="Різниця у вазі">
+                        <img src="{% static 'mainapp/img/weight.png' %}" data-tippy-content="Різниця у вазі"
+                             alt="Різниця у вазі">
                         {{ more_information.weight_difference }}
                     </li>
                     <li>
-                        <img src="{% static 'mainapp/img/salt.png' %}" alt="Рівень солі">
+                        <img src="{% static 'mainapp/img/salt.png' %}" data-tippy-content="Рівень солі"
+                             alt="Рівень солі">
                         {% for _ in "x"|ljust:'5' %}
                             {% if forloop.counter <= more_information.salt_level %}
                                 <img src="{% static 'mainapp/img/star.png' %}" alt="">
@@ -131,7 +136,8 @@
                         {% endfor %}
                     </li>
                     <li>
-                        <img src="{% static 'mainapp/img/time.png' %}" alt="Термін зберігання">
+                        <img src="{% static 'mainapp/img/time.png' %}" data-tippy-content="Термін зберігання продукту"
+                             alt="Термін зберігання">
                         {{ more_information.shelf_life }}
                     </li>
                 </ul>
@@ -159,8 +165,6 @@
                     {% endfor %}
                 </div>
                 <div class="swiper-pagination pagination1"></div>
-                <div class="swiper-button-next next1"></div>
-                <div class="swiper-button-prev prev1"></div>
             </div>
         </section>
     {% endif %}
@@ -168,7 +172,12 @@
     <!-- Подключение скриптов -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
     <script>
+        tippy('[data-tippy-content]');
+
         const swiper2 = new Swiper('.swiper2', {
             direction: 'horizontal',
             loop: true,
@@ -195,7 +204,6 @@
                 nextEl: '.next1',
                 prevEl: '.prev1',
             },
-            slidesPerView: 4,
             watchOverflow: true,
             spaceBetween: 15,
 

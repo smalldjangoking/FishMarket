@@ -3,7 +3,7 @@
 {% load query_get %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'mainapp/css/card.css' %}">
-    <link rel="stylesheet" href="{% static 'mainapp/css/slider.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/AllProductOrSearch.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.css"/>
 {% endblock %}
 
@@ -13,7 +13,6 @@
     <div class="container">
         {% if products %}
             <div class="top-menu-filter">
-                <a class="btn-grey" href="{% url 'mainapp:Categories' %}">&#8592; Назад</a>
                 {% include 'mainapp/includes/desktop-search.html' %}
                 <form class="HideOnMobile" method="GET" id="filterForm">
                     <div id="price-slider"></div>
