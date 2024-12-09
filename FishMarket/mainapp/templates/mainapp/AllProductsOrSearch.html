@@ -34,16 +34,17 @@
                             class="fas fa-filter"></i></button>
                     <div class="price-filter-dropmenu">
                         <div class="price-filter-dropmenu-settings">
-                            <button onclick="document.querySelector('.price-filter-dropmenu').classList.remove('active');">
+                            <button class="close-filter-btn" onclick="document.querySelector('.price-filter-dropmenu').classList.remove('active');">
                                 <i class="fas fa-times" style="color: red;"></i></button>
-                            <a href="?{% url_delete request 'sort' %}"><i class="fas fa-redo" style="color: #B721FF"></i></a>
+                            <a href="?{% url_delete request 'sort' %}"><i class="fas fa-redo"
+                                                                          style="color: #B721FF"></i></a>
                         </div>
 
                         <div class="price-filter-dropmenu-chooses">
                             <p class="price-filter-dropmenu-title">Спочатку:</p>
-                            <a class="price-filter-dropmenu-elem btn-grey"
+                            <a class="btn-white"
                                href="?{% url_replace request 'sort' 'ASC' %}">дешевше</a>
-                            <a class="price-filter-dropmenu-elem btn-grey"
+                            <a class=" btn-white"
                                href="?{% url_replace request 'sort' 'DESC' %}">дорожче</a>
                         </div>
                     </div>
@@ -116,13 +117,13 @@
                 {% endif %}
             </div>
 
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
-            <script src="{% static 'mainapp/js/slider.js' %}"></script>
-
         {% else %}
             <div class="nothing-found">
                 <p>Упс! Здається, нічого не знайшлося. Спробуйте змінити пошуковий запит.</p>
             </div>
         {% endif %}
     </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
+    <script src="{% static 'mainapp/js/slider.js' %}"></script>
 {% endblock %}

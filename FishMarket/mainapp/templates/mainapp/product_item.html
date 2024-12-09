@@ -10,7 +10,7 @@
 {% block section %}
     <div class="nav_product">
         <a href="{% url 'mainapp:CategorySelect' product.product_category.slug %}"
-           class="btn-grey"><span>&#8592; Назад</span></a>
+           class="btn"><span>&#8592; Назад</span></a>
         <a class="home-image" href="{% url 'mainapp:main' %}">
             <img src="{% static 'mainapp/img/homenav.png' %}" alt="Back to main page">
         </a>

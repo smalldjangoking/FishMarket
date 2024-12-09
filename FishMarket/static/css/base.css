@@ -49,19 +49,20 @@ nav {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.btn-grey {
+.btn-white {
     color: white;
     padding: 3px 8px;
     border-radius: 10px;
     cursor: pointer;
     transition: background 0.3s ease;
     border: none;
-    background: rgba(128, 128, 128, 0.6);
+    background: rgba(29, 59, 200, 0.6);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     font-size: 0.8rem;
+    width: fit-content;
 }
 
-.btn-grey:hover {
+.btn-white:hover {
     color: #f0f8ff;
     transform: scale(1.02);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);

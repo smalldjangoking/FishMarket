@@ -49,3 +49,29 @@ document.addEventListener('DOMContentLoaded', function
         window.location.search = params.toString();
     }
 });
+
+
+document.addEventListener('click', function (e) {
+    const product_dropdown = document.querySelector('.price-filter-dropmenu');
+    const product_dropdown_main = document.querySelector('.product-dropmenu-container');
+    let product_drop_menu_desk = document.querySelector('.product-dropmenu-desk');
+    const close_filter_btn = document.querySelector('.close-filter-btn');
+
+    if (product_dropdown_main.contains(e.target)) {
+        product_drop_menu_desk.style.background = '#1e90ff';
+        product_drop_menu_desk.style.color = 'white';
+    }
+
+    if (
+        (product_dropdown.classList.contains('active') &&
+        !product_dropdown.contains(e.target) &&
+        !product_dropdown_main.contains(e.target)) || close_filter_btn.contains(e.target)
+    ) {
+        product_dropdown.classList.remove('active');
+        product_drop_menu_desk.style.background = 'white';
+        product_drop_menu_desk.style.color = '#B721FF';
+    }
+});
+
+
+
