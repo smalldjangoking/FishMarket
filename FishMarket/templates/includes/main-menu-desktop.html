@@ -1,0 +1,21 @@
+{% load categories %}
+{% load menu %}
+{% navmenu as menu %}
+
+{% for name, url in menu.items %}
+    {% if url.class %}
+        <li class="{{ url.class }} HideOnMobile">
+            <button class="btn-category" onclick="document.querySelector('.drop-down-category', event.stopPropagation()).style.display = 'flex'">{{ name }}</button>
+            <ul class="drop-down-category">
+                {% categories as categories_list %}
+                {% for category in categories_list %}
+                    <li>
+                        <a href="{% url 'mainapp:AllProducts' %}?category={{ category.slug }}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% else %}
+        <li class="HideOnMobile"><a href="{{ url.url }}">{{ name }}</a></li>
+    {% endif %}
+{% endfor %}

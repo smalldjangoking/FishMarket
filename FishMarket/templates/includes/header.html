@@ -1,14 +1,11 @@
-{% load menu %}
 {% load static %}
 
 <header>
     <nav>
-        {% navmenu as menu %}
-        <a href="{% url 'mainapp:AllProducts' %}"><img class="header-logo" src="{% static 'img/logo-banner.png' %}" alt=""></a>
+        <a href="{% url 'mainapp:AllProducts' %}"><img class="header-logo" src="{% static 'img/logo-banner.png' %}"
+                                                       alt=""></a>
         <ul class="main-menu">
-            {% for name, url in menu.items %}
-                <li class="HideOnMobile"><a href="{{ url }}">{{ name }}</a></li>
-            {% endfor %}
+            {% include 'includes/main-menu-desktop.html' %}
             <li>
                 <fieldset class="desktop-bucket-button HideOnMobile">
                     {% if cart|length > 0 %}
@@ -31,7 +28,8 @@
                 </li>
             {% endif %}
             <li>
-                <button class="burger HideOnDesktop" onclick="document.querySelector('.nav-burger').classList.toggle('active');">
+                <button class="burger HideOnDesktop"
+                        onclick="document.querySelector('.nav-burger').classList.toggle('active');">
                     <img class="nav-img-button" src="{% static 'img/burger-menu.png' %}" alt="">
                 </button>
 
@@ -52,15 +50,19 @@
                             </button>
                         </div>
                     </div>
-                    <ul class="nav-burger-list">
-                        {% navmenu as menu %}
-                        {% for name, url in menu.items %}
-                            <li class="nav-burger-list-item"><a href="{{ url }}">{{ name }}</a></li>
-                        {% endfor %}
-                        <li class="nav-burger-list-item"><p>Замовлення Пн-Сб з 9:00 до 18:00</p></li>
-                    </ul>
+                    {% include 'includes/main-menu-mobile.html' %}
                 </div>
             </li>
         </ul>
     </nav>
+
+    <script>
+        let dropdown = document.querySelector('.drop-down-category');
+        // Закрытие окна при клике вне его
+        document.addEventListener('click', function (e) {
+            if (dropdown.style.display === 'flex' && !dropdown.contains(e.target)) {
+                dropdown.style.display = "none";
+            }
+        });
+    </script>
 </header>

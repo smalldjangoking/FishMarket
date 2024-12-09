@@ -7,15 +7,6 @@
             <img class="header-logo" src="{% static 'img/logo-banner.png' %}" alt="Logo of Website">
             <p class="footer-text">© DryFishUA. All rights reserved.</p>
         </li>
-        <li>
-            <ul class="ul-nav-subfooter">
-                <p class="footer-text">Навігація</p>
-                {% navmenu as menu %}
-                {% for name, url in menu.items %}
-                    <li><a href="{{ url }}">{{ name }}</a></li>
-                {% endfor %}
-            </ul>
-        </li>
         <li class="li-footer-phone">
             <p class="footer-text">Оформити замовлення:</p>
             <a href="tel:+380988811617" alt="telephone:+380988811617">+380988811617</a>

@@ -1,0 +1,9 @@
+{% load menu %}
+
+<ul class="nav-burger-list">
+                        {% navmenu as menu %}
+                        {% for name, url in menu.items %}
+                            <li class="nav-burger-list-item"><a href="{{ url }}">{{ name }}</a></li>
+                        {% endfor %}
+                        <li class="nav-burger-list-item"><p>Замовлення Пн-Сб з 9:00 до 18:00</p></li>
+                    </ul>
