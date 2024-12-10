@@ -33,11 +33,4 @@
     background: none;
 }
 
-.nav-burger-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    margin: 0 0 0 0;
-}
+

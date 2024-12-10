@@ -1,11 +1,14 @@
 {% load categories %}
 {% load menu %}
 {% navmenu as menu %}
+{% load static %}
 
 {% for name, url in menu.items %}
     {% if url.class %}
         <li class="{{ url.class }} HideOnMobile">
-            <button class="btn-category" onclick="document.querySelector('.drop-down-category', event.stopPropagation()).style.display = 'flex'">{{ name }}</button>
+            <button class="btn-category"
+                    onclick="document.querySelector('.drop-down-category', event.stopPropagation()).style.display = 'flex'">{{ name }}</button>
+            <img class="btn-category-dropdown" src="{% static 'img/dropdown.png' %}" alt="">
             <ul class="drop-down-category">
                 {% categories as categories_list %}
                 {% for category in categories_list %}

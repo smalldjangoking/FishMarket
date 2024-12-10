@@ -15,78 +15,33 @@
     <div class="container">
         {% if products %}
             <div class="top-menu-filter">
-                <div class="search-container">
-                    <form class="search-form" method="get">
-                        {{ search_form.search }}
-                        <button type="submit" class="fa fa-search"></button>
-                    </form>
-                </div>
-                <form class="filter-price-slider HideOnMobile" method="GET" id="filterForm">
-                    <div id="price-slider"></div>
-                    <div class="range-values">
-                        {{ form.min_price }}
-                        {{ form.max_price }}
-                    </div>
-                </form>
-                <div class="product-dropmenu-container">
-                    <button class="product-dropmenu-desk"
-                            onclick="document.querySelector('.price-filter-dropmenu').classList.toggle('active');"><i
-                            class="fas fa-filter"></i></button>
-                    <div class="price-filter-dropmenu">
-                        <div class="price-filter-dropmenu-settings">
-                            <button class="close-filter-btn" onclick="document.querySelector('.price-filter-dropmenu').classList.remove('active');">
-                                <i class="fas fa-times" style="color: red;"></i></button>
-                            <a href="?{% url_delete request 'sort' %}"><i class="fas fa-redo"
-                                                                          style="color: #B721FF"></i></a>
-                        </div>
-
-                        <div class="price-filter-dropmenu-chooses">
-                            <p class="price-filter-dropmenu-title">Спочатку:</p>
-                            <a class="btn-white"
-                               href="?{% url_replace request 'sort' 'ASC' %}">дешевше</a>
-                            <a class=" btn-white"
-                               href="?{% url_replace request 'sort' 'DESC' %}">дорожче</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="burger HideOnDesktop"
-                    onclick="document.querySelector('.nav-filter').classList.toggle('active');">
-                <img class="nav-img-button" src="{% static 'mainapp/img/settings.png' %}" alt="">
-            </button>
-            <div class="nav-filter">
-                <div class="up-menu">
+                <div class="up-menu HideOnDesktop">
                     <div class="close">
                         <button class="burger"
-                                onclick="document.querySelector('.nav-filter').classList.remove('active');">
+                                onclick="document.querySelector('.top-menu-filter').classList.remove('active');">
                             <img src="{% static 'img/close.png' %}" alt="Закрыть">
                         </button>
                     </div>
                 </div>
-                <ul class="nav-burger-list">
-                    <li>
-                        {% include 'mainapp/includes/mobile-search.html' %}
-                    </li>
-                    <li>
-                        <p>Сортувати за:</p>
-                        <div class="price-filter">
-                            <a href="{% url_replace request 'sort' 'ASC' %}" class="btn">Спочатку дешевше</a>
-                            <a href="{% url_replace request 'sort' 'DESC' %}" class="btn">Спочатку дорожче</a>
-                        </div>
-                    </li>
-                    <li>
-                        <p>Фільтр ціни</p>
-                        <form method="GET" id="filterForm">
-                            <div id="price-slider"></div>
-                            <div class="range-values-mobile">
-                                {{ form.min_price }}
-                                {{ form.max_price }}
-                            </div>
-                        </form>
-                    </li>
-                </ul>
+                {% include 'mainapp/includes/search-desktop.html' %}
+                {% include 'mainapp/includes/search-mobile.html' %}
+                {% include 'mainapp/includes/sory_by_price_range_MOB_DESK.html' %}
+                {% include 'mainapp/includes/sort-by-dropmenu-container-desk.html' %}
+                {% include 'mainapp/includes/sort-by-dropmenu-container-mob.html' %}
             </div>
-
+            <button class="burger-filter HideOnDesktop"
+                    onclick="document.querySelector('.top-menu-filter').classList.toggle('active');">
+                <i class="fas fa-filter"></i>
+            </button>
+            {% request_tags request as filtred_request %}
+            {% if filtred_request %}
+                <div class="query-container">
+                    <p class="query-text">Фільтр:</p>
+                    {% for name, value in filtred_request.items %}
+                        <a class="query-item" href="?{% url_delete request name %}">{{ value }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
             </div>
             <div id="product-list">
                 <div class="card-container">
@@ -106,7 +61,8 @@
                                 <p class="btn-paginator btn-paginator-selected" href="#">{{ page_obj.number }}</p>
                                 {% if page_obj.has_next %}
                                     <a class="btn-paginator"
-                                       href="?{% url_replace request 'page' page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+                                       href="?{% url_replace request 'page' page_obj.next_page_number %}">
+                                        {{ page_obj.next_page_number }}</a>
                                 {% endif %}
                             </div>
                             <div class="page-list">
@@ -123,7 +79,7 @@
             </div>
         {% endif %}
     </div>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
     <script src="{% static 'mainapp/js/slider.js' %}"></script>
 {% endblock %}

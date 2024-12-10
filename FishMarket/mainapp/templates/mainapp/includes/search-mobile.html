@@ -1,0 +1,9 @@
+{% load static %}
+
+<div class="search-mobile-container HideOnDesktop">
+    <form class="search-form-mob" method="get">
+        {{ search_form.search }}
+        <button type="submit" class="search-form-mob-button"><img
+                src="{% static 'mainapp/img/search_img_button.png' %}" alt=""></button>
+    </form>
+</div>

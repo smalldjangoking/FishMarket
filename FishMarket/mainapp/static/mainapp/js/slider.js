@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function
     }
 });
 
-
 document.addEventListener('click', function (e) {
     const product_dropdown = document.querySelector('.price-filter-dropmenu');
     const product_dropdown_main = document.querySelector('.product-dropmenu-container');

@@ -49,17 +49,12 @@ nav {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.btn-white {
-    color: white;
-    padding: 3px 8px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    border: none;
-    background: rgba(29, 59, 200, 0.6);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    font-size: 0.8rem;
-    width: fit-content;
+.btn-category-dropdown {
+    position: absolute;
+    top: 45%;
+    left: 38%;
+    width: 25px;
+    pointer-events: none;
 }
 
 .btn-white:hover {
@@ -336,7 +331,7 @@ nav {
         position: fixed;
         width: 100%;
         margin: 0;
-        padding: 0 1rem;
+        padding: 0 5px;
         z-index: 100;
     }
 
@@ -351,7 +346,7 @@ nav {
 
 @media (min-width: 1186px) {
     .HideOnDesktop {
-        display: none;
+        display: none !important;
     }
 }
 

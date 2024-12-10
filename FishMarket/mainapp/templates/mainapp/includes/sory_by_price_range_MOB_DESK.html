@@ -1,0 +1,13 @@
+{% load query_get %}
+
+<div class="filter-container">
+    <p class="filter-down-menu-title HideOnDesktop">Вибрати діапазон цін:</p>
+    <form class="filter-price-slider" method="GET" id="filterForm">
+        <p class="filter-price-range HideOnMobile">Вибрати діапазон цін</p>
+        <div id="price-slider"></div>
+        <div class="range-values">
+            <div>{{ form.min_price }}</div>
+            <div>{{ form.max_price }}</div>
+        </div>
+    </form>
+</div>

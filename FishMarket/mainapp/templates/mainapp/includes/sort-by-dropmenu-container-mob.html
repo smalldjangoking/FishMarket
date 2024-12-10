@@ -1,0 +1,8 @@
+{% load query_get %}
+<div class="sort-container HideOnDesktop">
+    <p class="filter-down-menu-title">Сортувати за ціною:</p>
+    <a class="btn-purple"
+       href="?{% url_replace request 'sort' 'ASC' %}">ціна від меншої до більшої</a>
+    <a class="btn-purple"
+       href="?{% url_replace request 'sort' 'DESC' %}">ціна від більшої до меншої</a>
+</div>
