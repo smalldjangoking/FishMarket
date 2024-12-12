@@ -30,22 +30,6 @@ class ProductDetailView(DetailView):
         return context
 
 
-class CategoryListView(ListView):
-    model = SeaCategory
-    template_name = 'mainapp/category.html'
-    context_object_name = 'categories'
-
-
-class CategorySelectView(ListView):
-    model = Product
-    template_name = 'mainapp/AllProductsOrSearch.html'
-    context_object_name = 'products'
-
-    def get_queryset(self):
-        category = get_object_or_404(SeaCategory, slug=self.kwargs['slug'])
-        return Product.objects.filter(product_category=category.id)
-
-
 class AllProductsOrSpecificView(ListView):
     model = Product
     template_name = 'mainapp/AllProductsOrSearch.html'

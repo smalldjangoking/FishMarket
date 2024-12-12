@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
+from urllib.parse import urlencode
 
 from usersapp.models import User
 
@@ -21,7 +22,9 @@ class SeaCategory(models.Model):
         verbose_name_plural = 'Категорії продукту'
 
     def get_absolute_url(self):
-        return reverse('mainapp:CategorySelect', kwargs={'slug': self.slug})
+        base_url = reverse('mainapp:AllProducts')
+        query = urlencode({'category': self.slug})
+        return f'{base_url}?{query}'
 
 
 class Product(models.Model):
