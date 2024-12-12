@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load query_get %}
+
 {% block head %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.css"/>
@@ -26,6 +27,7 @@
                 {% include 'mainapp/includes/search-desktop.html' %}
                 {% include 'mainapp/includes/search-mobile.html' %}
                 {% include 'mainapp/includes/sory_by_price_range_MOB_DESK.html' %}
+                {% include 'mainapp/includes/dropdown-category.html' %}
                 {% include 'mainapp/includes/sort-by-dropmenu-container-desk.html' %}
                 {% include 'mainapp/includes/sort-by-dropmenu-container-mob.html' %}
             </div>
@@ -81,5 +83,5 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
-    <script src="{% static 'mainapp/js/slider.js' %}"></script>
+    <script src="{% static 'mainapp/js/allproductsorsearch.js' %}"></script>
 {% endblock %}

@@ -57,13 +57,6 @@ nav {
     pointer-events: none;
 }
 
-.btn-white:hover {
-    color: #f0f8ff;
-    transform: scale(1.02);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-    transition: all 0.4s ease-in-out;
-}
-
 .btn:hover {
     color: #f0f8ff;
     transform: scale(1.02);
@@ -212,6 +205,7 @@ nav {
     color: white;
     border-radius: 10px;
     z-index: 5;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
 }
 
 .mobile-bucket-text-image a {
@@ -261,7 +255,7 @@ nav {
     height: 35px;
 }
 
-@media (max-width: 1187px) {
+@media (max-width: 1099px) {
     .HideOnMobile {
         display: none !important;
     }
@@ -292,6 +286,7 @@ nav {
 }
 
 .drop-down-category {
+    margin-top: 14px;
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -344,7 +339,7 @@ nav {
 
 }
 
-@media (min-width: 1186px) {
+@media (min-width: 1100px) {
     .HideOnDesktop {
         display: none !important;
     }

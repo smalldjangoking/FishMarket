@@ -63,14 +63,43 @@ document.addEventListener('click', function (e) {
 
     if (
         (product_dropdown.classList.contains('active') &&
-        !product_dropdown.contains(e.target) &&
-        !product_dropdown_main.contains(e.target)) || close_filter_btn.contains(e.target)
+            !product_dropdown.contains(e.target) &&
+            !product_dropdown_main.contains(e.target)) || close_filter_btn.contains(e.target)
     ) {
         product_dropdown.classList.remove('active');
         product_drop_menu_desk.style.background = 'white';
         product_drop_menu_desk.style.color = '#B721FF';
     }
 });
+
+
+const urlParams = new URLSearchParams(window.location.search);
+
+if (urlParams.has('category')) {
+    const category = urlParams.get('category');
+    const dropDown = document.querySelector('#dropdown');
+
+    for (const option of dropDown.options) {
+        if (option.value === category) {
+            option.selected = true;
+            break;
+        }
+    }
+}
+
+document.querySelector('#dropdown').addEventListener('change', () => {
+    const selected = document.querySelector('#dropdown');
+    let url = new URL(window.location.href); // Создаем объект URL
+    const selectedValue = selected.value; // Получаем выбранное значение
+
+    if (!selectedValue) {
+        url.searchParams.delete('category');
+    } else {
+        url.searchParams.set('category', selectedValue);
+    }
+    window.location.href = url.toString();
+});
+
 
 
 

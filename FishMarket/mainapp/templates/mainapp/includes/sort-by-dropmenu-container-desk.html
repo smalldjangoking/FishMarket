@@ -13,11 +13,11 @@
         </div>
 
         <div class="price-filter-dropmenu-chooses">
-            <p class="price-filter-dropmenu-title">Спочатку:</p>
-            <a class="btn-white"
-               href="?{% url_replace request 'sort' 'ASC' %}">дешевше</a>
-            <a class=" btn-white"
-               href="?{% url_replace request 'sort' 'DESC' %}">дорожче</a>
+            <p class="btn-white">Спочатку:</p>
+            <a class="btn"
+               href="?{% url_replace request 'sort' 'ASC' %}">ціна від меншої до більшої</a>
+            <a class="btn"
+               href="?{% url_replace request 'sort' 'DESC' %}">ціна від більшої до меншої</a>
         </div>
     </div>
 </div>

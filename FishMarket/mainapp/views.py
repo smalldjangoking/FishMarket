@@ -58,6 +58,10 @@ class AllProductsOrSpecificView(ListView):
         """
         queryset = super().get_queryset()
 
+        if self.request.GET.get('category'):
+            category = self.request.GET.get('category')
+            queryset = queryset.filter(product_category__slug=category)
+
         if self.request.GET.get('search'):
             search_products = self.request.GET.get('search')
 

@@ -9,15 +9,13 @@
 
 {% block section %}
     <div class="nav_product">
-        <a href="{% url 'mainapp:CategorySelect' product.product_category.slug %}"
-           class="btn"><span>&#8592; Назад</span></a>
         <a class="home-image" href="{% url 'mainapp:main' %}">
             <img src="{% static 'mainapp/img/homenav.png' %}" alt="Back to main page">
         </a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
-        <a class="list-direction" href="{% url 'mainapp:Categories' %}">Категорії</a>
+        <a class="list-direction" href="{% url 'mainapp:AllProducts' %}">Продукти</a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">
-        <a class="list-direction" href="{% url 'mainapp:CategorySelect' product.product_category.slug %}">
+        <a class="list-direction" href="{% url 'mainapp:AllProducts' %}?category={{ product.product_category.slug }}">
             {{ product.product_category.name }}
         </a>
         <img src="{% static 'mainapp/img/arrow_.png' %}" alt="">

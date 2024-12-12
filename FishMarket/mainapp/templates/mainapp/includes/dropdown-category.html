@@ -1,0 +1,10 @@
+{% load categories %}
+<div class="category-container">
+    <select id="dropdown">
+        {% categories as category_list %}
+        <option value="">Усі категорії</option>
+        {% for cat in category_list %}
+            <option value="{{ cat.slug }}">{{ cat.name }}</option>
+        {% endfor %}
+    </select>
+</div>
