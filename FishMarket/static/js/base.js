@@ -5,3 +5,22 @@ document.addEventListener('click', function (e) {
         dropdown.style.display = "none";
     }
 });
+
+// уменьшение nav для mobile
+document.addEventListener("scroll", function () {
+    var scroll = window.scrollY;
+    var nav = document.querySelector("nav");
+    var header = document.querySelector("header");
+
+
+    if (scroll > 100) {
+        nav.querySelector("a").style.display = "none";
+        nav.classList.add("active");
+        header.classList.add("active");
+
+    } else {
+        nav.querySelector("a").style.display = "flex";
+        nav.classList.remove("active");
+        header.classList.remove("active");
+    }
+});

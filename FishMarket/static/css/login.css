@@ -88,19 +88,19 @@
     width: 100%;
 }
 
+.login-page h3 {
+    text-align: center;
+    color: #0078d4;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
 @media (max-width: 1187px) {
     .login-page {
         flex-direction: column;
         gap: 2rem;
         align-items: center;
-    }
-
-    .login-page .information-box {
-        width: 80%;
-    }
-
-    .login-page .login-box {
-        width: 80%;
     }
 
     .open-door {

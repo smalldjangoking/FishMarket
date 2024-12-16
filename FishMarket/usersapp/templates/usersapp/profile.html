@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">{% endblock %}
-
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'usersapp/css/form-control.css' %}">
+    <script src="https://unpkg.com/imask"></script>
+{% endblock %}
 {% block section %}
     <section>
         <ul class="profile-elems">
             <li class="menu-elem">
                 <ul>
                     <li class="active-link">
-                        <img src="{% static 'img/profile.png' %}" alt="profile icon">
+                        <img src="{% static 'usersapp/img/settings-profile.png' %}" alt="profile icon">
                         <a href="{% url 'usersapp:profile' %}">Профіль</a>
                     </li>
                     <li>
@@ -20,16 +22,38 @@
                         <img src="{% static 'img/address.png' %}" alt="profile icon">
                         <a href="#">Адреса доставки</a>
                     </li>
+                    <li>
+                        <img src="{% static 'usersapp/img/password.png' %}" alt="пароль">
+                        <a href="{% url 'usersapp:password_change' %}">Змінити пароль</a>
+                    </li>
+                    <li class="exit-button">
+                        <img src="{% static 'usersapp/img/exit.png' %}" alt="выхiд з аккаунту">
+                        <a class='a-exit' href="{% url 'usersapp:logout' %}">Вийти з кабінету</a>
+                    </li>
                 </ul>
             </li>
             <li>
                 <ul class="profile-menu">
-                    <li><h3>Профіль користувача <span class="span-user-email">{{ user.email }}</span></h3></li>
                     <li>
-                        <a href="{% url 'usersapp:password_change' %}">Змінити Пароль</a>
+                        <form class="form-user-data" method="POST" action="">
+                            <h3 class="blue-bold-text">Моя інформація <br><span
+                                    class="span-user-email">{{ user.email }}</span></h3>
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                            {% endfor %}
+
+                            <button class='btn' type="submit">Обновить</button>
+                        </form>
                     </li>
-                    <li>
-                        <a class='a-exit' href="{% url 'usersapp:logout' %}">Вихід із профілю</a>
+                </ul>
+            </li>
+            <li>
+                <ul class="discount-container">
+                    <li class="banner-discount-show">
+                        <h3 class="white-bold-text">Моя знижка</h3>
+                        <h3 class="span-user-discount">{{ user.discount }}%</h3>
                     </li>
                 </ul>
             </li>
@@ -38,4 +62,13 @@
             </li>
         </ul>
     </section>
+
+    <script>
+        const element = document.getElementById('phonenumber');
+        const maskOptions = {
+            mask: '+{38}(000)-000-00-00'
+        };
+        const mask = IMask(element, maskOptions);
+    </script>
+
 {% endblock %}

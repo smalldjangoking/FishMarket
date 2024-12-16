@@ -1,0 +1,19 @@
+.form-control {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #1e90ff;
+    border-radius: 25px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: 0 0 9px rgba(81, 203, 238, 1);
+}

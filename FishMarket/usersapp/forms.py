@@ -99,3 +99,16 @@ class CustomSetPasswordForm(SetPasswordForm):
             'class': 'form-control',
             'placeholder': 'Повторно Пароль',
         })
+
+class UserChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('name', 'last_name', 'email', 'phone_number')
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Ім'я"}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Прізвище:'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Електронна пошта:'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control', 'id': 'phonenumber', 'placeholder': "+38(000)-000-00-00"}),
+        }
+
+

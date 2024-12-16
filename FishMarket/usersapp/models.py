@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from django.core.validators import MinLengthValidator
 
 
 class UserManager(BaseUserManager):
@@ -32,14 +33,18 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(max_length=100, unique=True)
-    name = models.CharField(max_length=25, null=True, blank=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    last_login = models.DateTimeField(null=True, blank=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
-    is_email_confirmed = models.BooleanField(default=False)
+    email = models.EmailField(max_length=100, unique=True, verbose_name='Електронна пошта')
+    name = models.CharField(max_length=25, null=True, blank=True, verbose_name="Ім'я")
+    last_name = models.CharField(max_length=25, null=True, blank=True, verbose_name='Прізвище')
+    discount = models.DecimalField(max_digits=4, decimal_places=2, null=True, default=0, verbose_name='Знижка (%)')
+    is_staff = models.BooleanField(default=False, verbose_name='Співробітник')
+    is_superuser = models.BooleanField(default=False, verbose_name='Власник')
+    is_active = models.BooleanField(default=True, verbose_name='Активний')
+    last_login = models.DateTimeField(null=True, blank=True, verbose_name='Останній вхід')
+    date_joined = models.DateTimeField(auto_now_add=True, verbose_name='Дата реєстрації')
+    is_email_confirmed = models.BooleanField(default=False, verbose_name='Підтверджено електронну пошту')
+    phone_number = models.CharField(validators=[MinLengthValidator(8)], max_length=18, null=True, blank=True, verbose_name='Номер телефону')
+
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
@@ -53,4 +58,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'Користувач'
         verbose_name_plural = 'Користувачі'
-
