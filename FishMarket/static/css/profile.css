@@ -1,7 +1,6 @@
 .profile-elems {
     display: grid;
-    grid-template-columns: 250px 400px auto;
-    width: 100%;
+    grid-template-columns: auto auto auto;
     margin-top: 1rem;
     background-color: #ffffff;
     border-radius: 8px;
@@ -66,6 +65,9 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 100%;
+    text-align: center;
+
 }
 
 .white-bold-text {
@@ -136,5 +138,48 @@
 
     .btn {
         width: 100%;
+    }
+
+    .white-bold-text {
+        color: white;
+        font-weight: bold;
+        font-size: 2rem !important;
+    }
+
+    .banner-discount-show {
+        background-color: #0078d4;
+        padding: 100px !important;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        align-items: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+}
+
+@media (max-width: 1480px) {
+    .banner-discount-show {
+        padding: 55px;
+        margin-left: 15px;
+    }
+
+    .white-bold-text {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 1220px) {
+    .banner-discount-show {
+        padding: 35px;
+        margin-left: 10px;
+    }
+
+    .white-bold-text {
+        font-size: 1.3rem;
+    }
+
+    .span-user-discount {
+        font-size: 1.2rem;
     }
 }
