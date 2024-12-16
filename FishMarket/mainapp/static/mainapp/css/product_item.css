@@ -131,7 +131,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 0.2rem;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .discount-advertisement a {
@@ -346,13 +347,13 @@
 }
 
 .tippy-box {
-        background: #007acc;
-        color: white; /* Цвет текста */
-        border-radius: 8px; /* Скруглённые углы */
-        padding: 8px; /* Внутренние отступы */
-        font-size: 14px; /* Размер шрифта */
-        font-family: Arial, sans-serif;
-    }
+    background: #007acc;
+    color: white; /* Цвет текста */
+    border-radius: 8px; /* Скруглённые углы */
+    padding: 8px; /* Внутренние отступы */
+    font-size: 14px; /* Размер шрифта */
+    font-family: Arial, sans-serif;
+}
 
 .additional_info ul li {
     display: flex;
@@ -378,9 +379,13 @@
     color: #0078d4;
 }
 
-@media (max-width: 1145px) {
+@media (max-width: 1100px) {
     .row-info-buy p {
         font-size: 0.9rem;
+    }
+
+    .cart-top {
+        flex-direction: column;
     }
 
     .cart-top p {
@@ -412,7 +417,6 @@
         display: grid;
         grid-template-columns: 1fr;
         grid-gap: 1rem;
-        margin-top: 2rem;
     }
 
     .row-info-buy p {

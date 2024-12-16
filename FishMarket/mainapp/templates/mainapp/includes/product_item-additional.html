@@ -1,0 +1,121 @@
+<script>
+    tippy('[data-tippy-content]');
+
+    const swiper2 = new Swiper('.swiper2', {
+        direction: 'horizontal',
+        loop: true,
+        pagination: {
+            el: '.pagination2',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.next2',
+            prevEl: '.prev2',
+        },
+
+    });
+
+    // Инициализация первого слайдера
+    const swiper1 = new Swiper('.swiper1', {
+        direction: 'horizontal',
+        loop: true, // Цикличный слайдер
+        pagination: {
+            el: 'pagination1',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.next1',
+            prevEl: '.prev1',
+        },
+        watchOverflow: true,
+        spaceBetween: 15,
+
+        breakpoints: {
+            900: {
+                slidesPerView: 3,
+            },
+            650: {
+                slidesPerView: 1,
+            },
+        }
+    });
+
+    // Функции изменения количества товара
+    function decreaseQuantity() {
+        const quantityInput = document.getElementById('quantity');
+        let currentValue = parseInt(quantityInput.value);
+
+        if (currentValue > parseInt(quantityInput.min)) {
+            quantityInput.value = currentValue - 1;
+        }
+    }
+
+    function increaseQuantity() {
+        const quantityInput = document.getElementById('quantity');
+        let currentValue = parseInt(quantityInput.value);
+
+        quantityInput.value = currentValue + 1;
+    }
+
+    // Обработка добавления товара в корзину
+    $(document).on('click', '#add-to-cart', function (e) {
+        e.preventDefault();
+
+        let selectedWeight = $('input[name="weight"]:checked').val() || '{{ product.slug|escapejs }}';
+
+        $.ajax({
+            url: "{% url 'cart:cart-add' %}",
+            type: "POST",
+            data: {
+                'product_id': {{ product.id }},
+                'quantity': $('#quantity').val(),
+                'weight': selectedWeight,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function (response) {
+                const BucketTag = document.getElementsByClassName('desktop-bucket-quantity');
+                toastr.options = {
+                positionClass: 'toast-top-center',
+                timeOut: 1500,
+                closeButton: true,
+                showMethod: 'slideDown',
+                showDuration: 255,
+                hideMethod: 'fadeOut',
+                hideDuration: 1000,
+                }; // Закрываем toastr.options
+
+                toastr.options.progressBar = true;
+                toastr.success('{{ product.name|title }}', 'Доданий до кошика');
+                if (!BucketTag.length) {
+                    document.querySelector('.desktop-bucket-button').innerHTML += `
+                            <legend id="bucket-change-quantity" class="desktop-bucket-quantity">
+                            ${response.qty}
+                            </legend>`;
+                }
+                document.getElementById('bucket-change-quantity').innerText = response.qty;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    });
+    
+    document.addEventListener("scroll", function () {
+            var scroll = window.scrollY;
+            var nav = document.querySelector("nav");
+            var header = document.querySelector("header");
+
+
+            if (scroll > 100) {
+                nav.querySelector("a").style.display = "none";
+                nav.classList.add("active");
+                header.classList.add("active");
+
+            } else {
+                nav.querySelector("a").style.display = "flex";
+                nav.classList.remove("active");
+                header.classList.remove("active");
+            }
+        });
+</script>

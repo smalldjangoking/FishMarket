@@ -3,6 +3,7 @@
 {% load datetime-diffrence %}
 {% block head %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'mainapp/css/product_item.css' %}">
     <link rel="stylesheet" href="{% static 'mainapp/css/card.css' %}">
 {% endblock %}
@@ -173,96 +174,7 @@
 
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
-    <script>
-        tippy('[data-tippy-content]');
 
-        const swiper2 = new Swiper('.swiper2', {
-            direction: 'horizontal',
-            loop: true,
-            pagination: {
-                el: '.pagination2',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.next2',
-                prevEl: '.prev2',
-            },
-
-        });
-
-        // Инициализация первого слайдера
-        const swiper1 = new Swiper('.swiper1', {
-            direction: 'horizontal',
-            loop: true, // Цикличный слайдер
-            pagination: {
-                el: 'pagination1',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.next1',
-                prevEl: '.prev1',
-            },
-            watchOverflow: true,
-            spaceBetween: 15,
-
-            breakpoints: {
-                900: {
-                    slidesPerView: 3,
-                },
-                650: {
-                    slidesPerView: 1,
-                },
-            }
-        });
-
-        // Функции изменения количества товара
-        function decreaseQuantity() {
-            const quantityInput = document.getElementById('quantity');
-            let currentValue = parseInt(quantityInput.value);
-
-            if (currentValue > parseInt(quantityInput.min)) {
-                quantityInput.value = currentValue - 1;
-            }
-        }
-
-        function increaseQuantity() {
-            const quantityInput = document.getElementById('quantity');
-            let currentValue = parseInt(quantityInput.value);
-
-            quantityInput.value = currentValue + 1;
-        }
-
-        // Обработка добавления товара в корзину
-        $(document).on('click', '#add-to-cart', function (e) {
-            e.preventDefault();
-
-            let selectedWeight = $('input[name="weight"]:checked').val() || '{{ product.slug|escapejs }}';
-
-            $.ajax({
-                url: "{% url 'cart:cart-add' %}",
-                type: "POST",
-                data: {
-                    'product_id': {{ product.id }},
-                    'quantity': $('#quantity').val(),
-                    'weight': selectedWeight,
-                    csrfmiddlewaretoken: '{{ csrf_token }}',
-                    action: 'post'
-                },
-                success: function (response) {
-                    console.log(response);
-                    const BucketTag = document.getElementsByClassName('desktop-bucket-quantity');
-                    if (!BucketTag.length) {
-                        document.querySelector('.desktop-bucket-button').innerHTML += `
-                            <legend id="bucket-change-quantity" class="desktop-bucket-quantity">
-                            ${response.qty}
-                            </legend>`;
-                    }
-                    document.getElementById('bucket-change-quantity').innerText = response.qty;
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            })
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    {% include 'mainapp/includes/product_item-additional.html' %}
 {% endblock %}

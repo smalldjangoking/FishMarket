@@ -14,6 +14,7 @@ class Cart():
         self.cart = cart
 
 
+
     def __len__(self):
         total_quantity = sum(
             int(quantity)

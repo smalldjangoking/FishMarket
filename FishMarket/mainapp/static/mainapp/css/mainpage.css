@@ -118,9 +118,13 @@ nav {
     grid-template-columns: initial !important;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1099px) {
     #video-text {
         font-size: 1.2rem;
+    }
+
+    header.active {
+        top: 2%;
     }
 
     .info-text {

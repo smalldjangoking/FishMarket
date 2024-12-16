@@ -1,8 +1,8 @@
 {% load static %}
 
 <header>
-    <nav>
-        <a href="{% url 'mainapp:AllProducts' %}"><img class="header-logo" src="{% static 'img/logo-banner.png' %}"
+    <nav class="">
+        <a class="" href="{% url 'mainapp:AllProducts' %}"><img class="header-logo" src="{% static 'img/logo-banner.png' %}"
                                                        alt=""></a>
         <ul class="main-menu">
             {% include 'includes/main-menu-desktop.html' %}

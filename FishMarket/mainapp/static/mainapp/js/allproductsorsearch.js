@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', function
     const maxPriceInput = document.getElementById('maxPriceInput');
     const slider = document.getElementById('price-slider');
 
+    if (parseInt(minPriceInput.value) === parseInt(maxPriceInput.value)) {
+        document.querySelector('.filter-container').style.display = 'none';
+    }
+
     noUiSlider.create(slider, {
         start: [parseInt(minPriceInput.value), parseInt(maxPriceInput.value)],
         connect: true,
