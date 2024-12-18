@@ -2,7 +2,7 @@
 {% load static %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <link rel="stylesheet" href="{% static 'usersapp/css/form-control.css' %}">
+    <link rel="stylesheet" href="{% static 'users/css/form-control.css' %}">
     <script src="https://unpkg.com/imask"></script>
 {% endblock %}
 {% block section %}
@@ -11,8 +11,8 @@
             <li class="menu-elem">
                 <ul>
                     <li class="active-link">
-                        <img src="{% static 'usersapp/img/settings-profile.png' %}" alt="profile icon">
-                        <a href="{% url 'usersapp:profile' %}">Профіль</a>
+                        <img src="{% static 'users/img/settings-profile.png' %}" alt="profile icon">
+                        <a href="{% url 'users:profile' %}">Профіль</a>
                     </li>
                     <li>
                         <img src="{% static 'img/history.png' %}" alt="profile icon">
@@ -23,12 +23,12 @@
                         <a href="#">Адреса доставки</a>
                     </li>
                     <li>
-                        <img src="{% static 'usersapp/img/password.png' %}" alt="пароль">
-                        <a href="{% url 'usersapp:password_change' %}">Змінити пароль</a>
+                        <img src="{% static 'users/img/password.png' %}" alt="пароль">
+                        <a href="{% url 'users:password_change' %}">Змінити пароль</a>
                     </li>
                     <li class="exit-button">
-                        <img src="{% static 'usersapp/img/exit.png' %}" alt="выхiд з аккаунту">
-                        <a class='a-exit' href="{% url 'usersapp:logout' %}">Вийти з кабінету</a>
+                        <img src="{% static 'users/img/exit.png' %}" alt="выхiд з аккаунту">
+                        <a class='a-exit' href="{% url 'users:logout' %}">Вийти з кабінету</a>
                     </li>
                 </ul>
             </li>

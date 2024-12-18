@@ -39,8 +39,9 @@ INSTALLED_APPS = [
 
     # my_apps
     'mainapp.apps.MainappConfig',
-    'usersapp.apps.UsersappConfig',
+    'users.apps.usersConfig',
     'cart.apps.CartConfig',
+    'checkout.apps.CheckoutConfig',
 
 ]
 
@@ -129,7 +130,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'users/login'
-AUTH_USER_MODEL = 'usersapp.User'
+AUTH_USER_MODEL = 'users.User'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 

@@ -9,9 +9,9 @@ from .forms import UserChangeForm
 
 class UserView(UpdateView):
     model = User
-    template_name = 'usersapp/profile.html'
+    template_name = 'users/profile.html'
     form_class = UserChangeForm
-    success_url = reverse_lazy('usersapp:profile')
+    success_url = reverse_lazy('users:profile')
 
     def get_object(self, queryset=None):
         return self.request.user
@@ -27,7 +27,7 @@ def signup(request):
                 login(request, user)
             else:
                 print("user is not authenticated")
-            return redirect('usersapp:profile')
+            return redirect('users:profile')
     else:
         form = SignUpForm()
-    return render(request, 'usersapp/signup.html', {'form': form})
+    return render(request, 'users/signup.html', {'form': form})

@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from urllib.parse import urlencode
 
-from usersapp.models import User
+from users.models import User
 
 
 class SeaCategory(models.Model):

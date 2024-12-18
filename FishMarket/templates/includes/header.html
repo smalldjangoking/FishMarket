@@ -2,8 +2,9 @@
 
 <header>
     <nav class="">
-        <a class="" href="{% url 'mainapp:AllProducts' %}"><img class="header-logo" src="{% static 'img/logo-banner.png' %}"
-                                                       alt=""></a>
+        <a class="" href="{% url 'mainapp:AllProducts' %}">
+            <img class="header-logo" src="{% static 'img/logo-banner.png' %}" alt="Logo">
+        </a>
         <ul class="main-menu">
             {% include 'includes/main-menu-desktop.html' %}
             <li>
@@ -17,12 +18,12 @@
             </li>
             {% if user.is_anonymous %}
                 <li>
-                    <a href="{% url 'usersapp:login' %}"><img class='nav-img-button' src="{% static 'img/login.png' %}"
-                                                              alt=""></a>
+                    <a href="{% url 'users:login' %}"><img class='nav-img-button' src="{% static 'img/login.png' %}"
+                                                           alt=""></a>
                 </li>
             {% elif user.is_authenticated %}
                 <li class="user-profile">
-                    <a href="{% url 'usersapp:profile' %}">
+                    <a href="{% url 'users:profile' %}">
                         <img class='nav-img-button' src="{% static 'img/profile.png' %}" alt="Аккаунт">
                     </a>
                 </li>
@@ -37,10 +38,11 @@
                     <div class="up-menu">
                         <div class="profile">
                             {% if user.is_authenticated %}
-                                <a href="{% url 'usersapp:profile' %}"><img src="{% static 'img/profile.png' %}"
-                                                                            alt="Профиль"></a>
+                                <a href="{% url 'users:profile' %}"><img src="{% static 'img/profile.png' %}"
+                                                                         alt="Профиль"></a>
                             {% else %}
-                                <a href="{% url 'usersapp:login' %}"><img src="{% static 'img/login.png' %}" alt="Вход"></a>
+                                <a href="{% url 'users:login' %}"><img src="{% static 'img/login.png' %}"
+                                                                       alt="Вход"></a>
                             {% endif %}
                         </div>
                         <div class="close">

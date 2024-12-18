@@ -1,0 +1,36 @@
+{% load gram_or_kg %}
+{% load total_per_product %}
+
+<div class="checkout-product-top">
+    <div><p class="checkout-product-top-text">Замовлення: <span
+            class="checkout-product-top-length">{{ cart|length }} тов.</span></p></div>
+    <div><a class="checkout-product-change" href="{% url 'cart:cart-view' %}">Редагувати</a></div>
+</div>
+<div class="swiper-shown-products">
+    <!-- Slider main container -->
+    <div class="swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            {% for elem in cart %}
+                <div class="swiper-slide">
+                    <div class="product-card-checkout">
+                        <div>
+                            <img class="product-card-image" src="{{ elem.product.image_product.url }}" alt="">
+                        </div>
+                        <div class="product-card-checkout-text">
+                            <p>
+                                {{ elem.product.name }}
+                                {% weight_definition elem.product_weight %}
+                            </p>
+                            <p>кол: {{ elem.product_quantity }}</p>
+                            {% total_per_product elem.product_price elem.product_weight elem.product_quantity as total %}
+                            <p>{{ total|floatformat }} грн.</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-scrollbar"></div>
+    </div>
+</div>

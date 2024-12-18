@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block section %}
+    <p class="blue-bold-text">Оформлення замовлення</p>
+    <div class="checkout-register-ads">
+        <p>Зареєструйтесь, і після першого замовлення поля заповнюватимуться автоматично.</p>
+        <a class="btn" href="{% url 'users:login' %}">Авторизуватися</a>
+    </div>
+    <section class="checkout-section">
+
+
+        <div class="checkout-form">
+            123
+        </div>
+
+
+        <div class="checkout-product-shown">
+            {% include 'checkout/includes/right-container.html' %}
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{% static 'checkout/js/checkout.js' %}"></script>
+{% endblock %}

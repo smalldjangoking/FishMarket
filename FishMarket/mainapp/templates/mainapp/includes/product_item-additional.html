@@ -2,6 +2,9 @@
     tippy('[data-tippy-content]');
 
     const swiper2 = new Swiper('.swiper2', {
+        autoplay: {
+            delay: 5000,
+        },
         direction: 'horizontal',
         loop: true,
         pagination: {
@@ -17,6 +20,9 @@
 
     // Инициализация первого слайдера
     const swiper1 = new Swiper('.swiper1', {
+        autoplay: {
+            delay: 5000,
+        },
         direction: 'horizontal',
         loop: true, // Цикличный слайдер
         pagination: {
@@ -96,7 +102,9 @@
                 document.getElementById('bucket-change-quantity').innerText = response.qty;
             },
             error: function (error) {
-                console.log(error);
+                toastr.options.progressBar = true;
+                toastr.options.positionClass = 'toast-top-center';
+                toastr.error('Кількість товару не може бути меншою за 1', 'Помилка');
             }
         })
     });

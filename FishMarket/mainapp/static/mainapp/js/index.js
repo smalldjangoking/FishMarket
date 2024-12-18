@@ -1,4 +1,7 @@
 const swiper = new Swiper('.swiper', {
+    autoplay: {
+        delay: 2500,
+    },
     direction: 'horizontal',
     loop: true, // Цикличный слайдер
     pagination: {

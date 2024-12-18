@@ -15,12 +15,12 @@
                 <br>
                 <div class="login-box-menu">
                     <button class="submit-button" type="submit">Вхід</button>
-                    <a class="restore-password" href="{% url 'usersapp:password_reset' %}">Забули свій пароль?</a>
+                    <a class="restore-password" href="{% url 'users:password_reset' %}">Забули свій пароль?</a>
                 </div>
             </form>
         </div>
         <div class="open-door">
-            <img src="{% static 'usersapp/img/open-door1.png' %}" alt="log-in-separator">
+            <img src="{% static 'users/img/open-door1.png' %}" alt="log-in-separator">
         </div>
         <div class="information-box">
             <h3>Новий Користувач?</h3>
@@ -28,7 +28,7 @@
                 потрібно буде вводити повторно), переглядати стан замовлення, а також бачити історію попередніх
                 замовлень.
                 Ви також зможете накопичувати знижки та спеціальні пропозиції.</p>
-            <a href="{% url 'usersapp:signup' %}" class="submit-button">Реєстрація</a>
+            <a href="{% url 'users:signup' %}" class="submit-button">Реєстрація</a>
 
         </div>
     </div>

@@ -1,10 +1,8 @@
-from decimal import Decimal
-
-from django.shortcuts import render, get_object_or_404, redirect
-
+from django.shortcuts import render, get_object_or_404
 from cart.cart import Cart
 from mainapp.models import Product
 from django.http import JsonResponse
+from django.core import exceptions
 
 
 def cart_view(request):
@@ -16,6 +14,8 @@ def cart_add(request):
     if request.POST.get('action') == 'post':
         product_id = request.POST.get('product_id')
         quantity = request.POST.get('quantity')
+        if int(quantity) < 1:
+            return JsonResponse({'status': 'error', 'message': 'Кількість товару не може бути меншою за 1'}, status=400)
         weight = request.POST.get('weight')
 
         product = get_object_or_404(Product, id=product_id)

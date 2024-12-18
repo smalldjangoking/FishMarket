@@ -35,7 +35,7 @@ def request_tags(request):
     min_price = dict_.pop('min_price', [None])[0]
     max_price = dict_.pop('max_price', [None])[0]
     sort = dict_.pop('sort', [None])[0]
-    pagination = dict_.pop('page', None)
+    dict_.pop('page', None)
     if min_price and max_price:
         dict_changed['min_price'] = f'від {min_price} грн до {max_price} грн'
 
