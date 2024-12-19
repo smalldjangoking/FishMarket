@@ -43,8 +43,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_login = models.DateTimeField(null=True, blank=True, verbose_name='Останній вхід')
     date_joined = models.DateTimeField(auto_now_add=True, verbose_name='Дата реєстрації')
     is_email_confirmed = models.BooleanField(default=False, verbose_name='Підтверджено електронну пошту')
-    phone_number = models.CharField(validators=[MinLengthValidator(8)], max_length=18, null=True, blank=True, verbose_name='Номер телефону')
-
+    phone_number = models.CharField(validators=[MinLengthValidator(8)], max_length=18, null=True, blank=True,
+                                    verbose_name='Номер телефону')
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
@@ -58,3 +58,24 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'Користувач'
         verbose_name_plural = 'Користувачі'
+
+
+class NovaAddresses(models.Model):
+    class DeliveryOptions(models.TextChoices):
+        courier = "1", "Кур'єр"
+        nova_branch = "2", "Поштове відділення"
+        parcel_box = "3", "Поштомат"
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    delivery_choice = models.CharField(max_length=1, choices=DeliveryOptions.choices, blank=False, null=False)
+    city = models.CharField(null=True, blank=True, max_length=15)
+    street = models.CharField(null=True, blank=True, max_length=25)
+    apartment = models.CharField(null=True, blank=True, max_length=5)
+    house = models.CharField(null=True, blank=True, max_length=5)
+    nova_branch = models.CharField(null=True, blank=True, max_length=65)
+    parcel_box = models.CharField(null=True, blank=True, max_length=65)
+
+class GuestShopper(models.Model):
+    name = models.CharField(max_length=15)
+    last_name = models.CharField(max_length=15)
+    phone_number = models.CharField(validators=[MinLengthValidator(8)], max_length=18, null=False, blank=False)

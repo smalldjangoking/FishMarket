@@ -41,6 +41,13 @@
                             {% csrf_token %}
                             {% for field in form %}
                                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {% if field.errors %}
+                                <ul class="error-list">
+                                    {% for error in field.errors %}
+                                        <li class="error-item">{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
                                 {{ field }}
                             {% endfor %}
 

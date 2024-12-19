@@ -5,6 +5,8 @@
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+    <link rel="stylesheet" href="{% static 'users/css/form-control.css' %}">
+    <script src="https://unpkg.com/imask"></script>
 {% endblock %}
 
 {% block section %}
@@ -16,8 +18,50 @@
     <section class="checkout-section">
 
 
-        <div class="checkout-form">
-            123
+        <div class="checkout-container">
+            <div class="checkout-form">
+                <p class="blue-bold-md">Контактні дані</p>
+                <form class="checkout-form-input" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {% for field in user_form %}
+                            <div>
+                                <label for="{{ field.id_for_label }}">{{ field.label }}<span class="important-red">*</span></label>
+                                {% if field.errors %}
+                                    <ul class="error-list">
+                                        {% for error in field.errors %}
+                                            <li class="error-item">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+
+            <div class="checkout-form">
+                <p class="blue-bold-md">Доставка</p>
+                <form class="checkout-form-input" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {% for field in user_form %}
+                            <div>
+                                <label for="{{ field.id_for_label }}">{{ field.label }}<span class="important-red">*</span></label>
+                                {% if field.errors %}
+                                    <ul class="error-list">
+                                        {% for error in field.errors %}
+                                            <li class="error-item">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
         </div>
 
 
