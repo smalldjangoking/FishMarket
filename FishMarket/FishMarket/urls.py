@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('mainapp.urls', namespace='mainapp')),
     path('cart/', include('cart.urls', namespace='cart')),
     path('checkout/', include('checkout.urls', namespace='checkout')),
+    path('api/novapost', include('novapost.urls', namespace='api')),
 ]
 
 if settings.DEBUG:
