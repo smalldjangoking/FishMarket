@@ -1,10 +1,15 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from .models import User, NovaAddresses
 
-from .models import User
+
+class ProductWeightInline(admin.StackedInline):
+    model = NovaAddresses
+    extra = 1
 
 
 class UserAdmin(BaseUserAdmin):
+    inlines = (ProductWeightInline,)
     fieldsets = (
         (None, {'fields': ('email', 'password', 'name', 'last_login')}),
         ('Permissions', {'fields': (

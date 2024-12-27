@@ -3,7 +3,7 @@ const swiper = new Swiper('.swiper', {
         delay: 2500,
     },
     direction: 'horizontal',
-    loop: true, // Цикличный слайдер
+    loop: true,
     pagination: {
         el: '.swiper-pagination',
         clickable: true,

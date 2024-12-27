@@ -62,18 +62,21 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class NovaAddresses(models.Model):
     class DeliveryOptions(models.TextChoices):
-        courier = "1", "Кур'єр"
-        nova_branch = "2", "Поштове відділення"
-        parcel_box = "3", "Поштомат"
+        nova_branch = "1", "Відділення"
+        parcel_box = "2", "Поштомат"
+        courier = "3", "Кур'єр"
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True, related_name='nova_addresses')
     delivery_choice = models.CharField(max_length=1, choices=DeliveryOptions.choices, blank=False, null=False)
-    city = models.CharField(null=True, blank=True, max_length=15)
+    city = models.CharField(null=False, blank=False, max_length=15)
     street = models.CharField(null=True, blank=True, max_length=25)
     apartment = models.CharField(null=True, blank=True, max_length=5)
     house = models.CharField(null=True, blank=True, max_length=5)
-    nova_branch = models.CharField(null=True, blank=True, max_length=65)
-    parcel_box = models.CharField(null=True, blank=True, max_length=65)
+    nova_branch_ref = models.CharField(null=True, blank=True, max_length=255, verbose_name='Отделение ID')
+    nova_parcel_ref = models.CharField(null=True, blank=True, max_length=255, verbose_name='Почтомат ID')
+    nova_branch_address = models.CharField(null=True, blank=True, max_length=255, verbose_name='Адрес отделения')
+    parcel_box_address = models.CharField(null=True, blank=True, max_length=255, verbose_name='Адрес почтомата')
+
 
 class GuestShopper(models.Model):
     name = models.CharField(max_length=15)
