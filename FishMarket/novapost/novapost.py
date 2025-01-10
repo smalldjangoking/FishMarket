@@ -10,7 +10,7 @@ api_url = "https://api.novaposhta.ua/v2.0/json/"
 
 
 def save_cities_to_db():
-    """Saves all cities (2 fields: name, ref_to_warehouses) to the database."""
+    """Saves all cities (3 fields: city_name, city_state, ref_to_warehouses) to the database."""
     params = {
         "apiKey": f"{NOVA_API}",
         "modelName": "Address",
@@ -37,16 +37,20 @@ def save_cities_to_db():
             if cities:
                 city_objects = [
                     Cities(
-                        city_name=city_data['Description'] + f" ({city_data['AreaDescription']} обл.)"
-                        if '(' not in city_data['Description']
-                        else city_data['Description'],
+                        city_name_ua=city_data['Description'].split('(')[0].lower() if '(' in city_data[
+                            'Description'] else
+                        city_data['Description'].lower(),
+                        city_name_ru=city_data['DescriptionRu'].split('(')[0].lower() if '(' in city_data[
+                            'DescriptionRu'] else
+                        city_data['DescriptionRu'].lower(),
+                        city_state=f"{city_data['SettlementTypeDescription']}, {city_data['Description'].split('(')[1]}"
+                        if '(' in city_data['Description']
+                        else f"{city_data['SettlementTypeDescription']}, {city_data['AreaDescription']} обл.",
                         ref_to_warehouses=city_data['Ref']
                     )
                     for city_data in cities
                 ]
                 Cities.objects.bulk_create(city_objects)
-
-
 
 
 def save_warehouses_to_db():
@@ -79,14 +83,13 @@ def save_warehouses_to_db():
                 warehouse_objects = [
                     Warehouses(
                         city=Cities.objects.get(ref_to_warehouses=warehouse['CityRef']),
-                        address=(
-                            f"Від. №{warehouse['Number']} - {warehouse['ShortAddress']}"
-                            if warehouse['TypeOfWarehouse'] != 'f9316480-5f2d-425d-bc2c-ac7cd29decf0'
-                            else f"Поштомат №{warehouse['Number']} - {warehouse['ShortAddress']}"
-                        ),
-                        typeofwarehouse=(1 if warehouse['TypeOfWarehouse'] != 'f9316480-5f2d-425d-bc2c-ac7cd29decf0' else 2)
+                        number=warehouse['Number'],
+                        address_ua=warehouse['ShortAddress'],
+                        address_ru=warehouse['ShortAddressRu'],
+                        typeofwarehouse=(
+                            2 if warehouse['TypeOfWarehouse'] == 'f9316480-5f2d-425d-bc2c-ac7cd29decf0' else 1)
                     )
-                for warehouse in warehouses
+                    for warehouse in warehouses
                 ]
 
                 Warehouses.objects.bulk_create(warehouse_objects)

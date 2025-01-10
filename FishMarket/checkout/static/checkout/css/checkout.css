@@ -135,10 +135,22 @@
     margin-top: 25px;
 }
 
-.swiper {
+.swiper0 {
     display: block;
     height: 200px;
+}
 
+.swiper1 {
+    height: 500px !important;
+    width: 100%;
+}
+
+.swiper1 .swiper-wrapper .swiper-slide {
+    height: auto !important;
+}
+
+.HiddenRef {
+    display: none;
 }
 
 .swiper-scrollbar {
@@ -203,7 +215,7 @@
 }
 
 .novaposhta-container {
-    display: none;
+    display: flex;
     position: fixed;
     width: 100%;
     height: 100%;
@@ -218,7 +230,8 @@
 .novaposhta-window {
     display: flex;
     flex-direction: column;
-    height: 600px;
+    max-height: 670px;
+    height: 100%;
     max-width: 1200px;
     width: 100%;
 }
@@ -238,10 +251,8 @@
 .novaposhta-window-content {
     background: #ffffff;
     margin-top: 30px;
-    display: flex;
     height: 500px;
     width: 100%;
-
 }
 
 .window-button-close {
@@ -251,26 +262,69 @@
     cursor: pointer;
 }
 
-.novaposhta-input-city {
+.hidden-field {
+    display: none !important;
+}
+
+.novaposhta-input {
     display: flex;
     width: 100%;
     height: 55px;
     border: 2px solid #cbd5e1;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 
-.novaposhta-input-city img {
+.novaposhta-output-city {
+    display: flex;
+    margin-top: 10px;
     height: 100%;
 }
 
-.novaposhta-input-city input {
+.option-item {
+    display: flex;
+    width: 100%;
+    height: 89px;
+    align-items: center;
+    border-bottom: 1px solid #cccccc;
+    cursor: pointer;
+}
+
+.option-item:hover {
+    transition: all 0.2s ease-in-out;
+    background-color: #cccccc;
+}
+
+.option-info-text {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-info-text .option-text-title {
+    color: black;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.option-info-text .option-text-address {
+    color: grey;
+    font-size: 0.8rem;
+}
+
+.novaposhta-input img {
+    height: 100%;
+}
+
+.novaposhta-input input {
     width: 100%;
     border: none;
     background: none;
     font-size: 1.2rem;
 }
 
-.novaposhta-input-city input:focus {
+.novaposhta-input input:focus {
   outline: none; /* Убирает рамку */
   box-shadow: none; /* Убирает тень */
 }

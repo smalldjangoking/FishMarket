@@ -19,7 +19,7 @@ def checkout(request):
         form = CheckoutUserForm()
 
     context = {
-        'user_form': form,
+        'form': form,
     }
 
     return render(request, 'checkout/checkout.html', context=context)

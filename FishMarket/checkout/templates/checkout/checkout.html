@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head %}
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
     <link rel="stylesheet" href="{% static 'users/css/form-control.css' %}">
     <script src="https://unpkg.com/imask"></script>
@@ -12,10 +10,10 @@
 {% block section %}
     <p class="blue-bold-text">Оформлення замовлення</p>
     {% if not user.is_authenticated %}
-    <div class="checkout-register-ads">
-        <p>Зареєструйтесь, і після першого замовлення поля заповнюватимуться автоматично.</p>
-        <a class="btn" href="{% url 'users:login' %}">Авторизуватися</a>
-    </div>
+        <div class="checkout-register-ads">
+            <p>Зареєструйтесь, і після першого замовлення поля заповнюватимуться автоматично.</p>
+            <a class="btn" href="{% url 'users:login' %}">Авторизуватися</a>
+        </div>
     {% endif %}
     <section class="checkout-section">
         <div class="checkout-container">
@@ -27,40 +25,40 @@
                     </div>
                     <div class="form-group">
                         <div class>
-                            <label for="{{ user_form.name.id_for_label }}">{{ user_form.name.label }}<span
+                            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}<span
                                     class="important-red">*</span></label>
-                            {% if user_form.name.errors %}
+                            {% if form.name.errors %}
                                 <ul class="error-list">
-                                    {% for error in user_form.name.errors %}
+                                    {% for error in form.name.errors %}
                                         <li class="error-item">{{ error }}</li>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
-                            {{ user_form.name }}
+                            {{ form.name }}
                         </div>
                         <div>
-                            <label for="{{ user_form.last_name.id_for_label }}">{{ user_form.last_name.label }}<span
+                            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}<span
                                     class="important-red">*</span></label>
-                            {% if user_form.last_name.errors %}
+                            {% if form.last_name.errors %}
                                 <ul class="error-list">
-                                    {% for error in user_form.last_name.errors %}
+                                    {% for error in form.last_name.errors %}
                                         <li class="error-item">{{ error }}</li>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
-                            {{ user_form.last_name }}
+                            {{ form.last_name }}
                         </div>
                         <div>
-                            <label for="{{ user_form.phone.id_for_label }}">{{ user_form.phone.label }}<span
+                            <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}<span
                                     class="important-red">*</span></label>
-                            {% if user_form.phone.errors %}
+                            {% if form.phone.errors %}
                                 <ul class="error-list">
-                                    {% for error in user_form.phone.errors %}
+                                    {% for error in form.phone.errors %}
                                         <li class="error-item">{{ error }}</li>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
-                            {{ user_form.phone }}
+                            {{ form.phone }}
                         </div>
                     </div>
                 </div>
@@ -71,7 +69,7 @@
                         <p class="blue-bold-md">Доставка</p>
                     </div>
                     <div class="form-group delivery-choice-group">
-                        {{ user_form.type_of_delivery }}
+                        {{ form.type_of_delivery }}
                         {% if user.is_authenticated %}
                             {% if user.nova_addresses.exists %}
                                 <div class="white-container user-delivery-container">
@@ -88,7 +86,8 @@
                                 </div>
                             {% endif %}
                         {% endif %}
-                        <button onclick="document.getElementsByClassName('novaposhta-container')[0].style.display='flex';" type="button" id="novaposhta-button"
+                        <button onclick="document.getElementsByClassName('novaposhta-container')[0].style.display='flex';"
+                                type="button" id="novaposhta-button"
                                 class="white-container user-delivery-container blured-div">
                             <img class="history-addresses" src="{% static 'checkout/img/nova_poshta_icon.webp' %}"
                                  alt="">
@@ -129,12 +128,75 @@
                     </button>
                 </div>
                 <div class="novaposhta-window-content">
-                    <div class="novaposhta-input-city">
+                    <div class="novaposhta-input">
                         <img src="{% static 'checkout/img/search_cbd5e1.png' %}" alt="">
                         <input type="search" id="site-search" placeholder="Введіть місто або населений пункт"/>
                     </div>
+                    <div class="novaposhta-input hidden-field">
+                        <img src="{% static 'checkout/img/search_cbd5e1.png' %}" alt="">
+                        <input type="search" id="warehouse-search" placeholder="Введіть номер відділення або адресу"/>
+                    </div>
+                    {{ form.city_ref_hidden }}
                     <div class="novaposhta-output-city">
-                        
+                        <div class="swiper swiper1">
+                            <div class="swiper-wrapper swiper-items">
+                                <div class="swiper-slide">
+                                    <div class="option-item">
+                                        <div class="option-info-text">
+                                            <p class="option-text-title">Харків</p>
+                                            <p class="option-text-address">(місто, Харківська обл.)</p>
+                                            <p class="HiddenRef">db5c88e0-391c-11dd-90d9-001a92567626</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="option-item">
+                                        <div class="option-info-text">
+                                            <p class="option-text-title">Київ</p>
+                                            <p class="option-text-address">(місто, Київська обл.)</p>
+                                            <p class="HiddenRef">8d5a980d-391c-11dd-90d9-001a92567626</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="option-item">
+                                        <div class="option-info-text">
+                                            <p class="option-text-title">Дніпро</p>
+                                            <p class="option-text-address">(місто, Дніпропетровська обл.)</p>
+                                            <p class="HiddenRef">db5c88f0-391c-11dd-90d9-001a92567626</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="option-item">
+                                        <div class="option-info-text">
+                                            <p class="option-text-title">Одеса</p>
+                                            <p class="option-text-address">(місто, Одеська обл.)</p>
+                                            <p class="HiddenRef">db5c88d0-391c-11dd-90d9-001a92567626</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="option-item">
+                                        <div class="option-info-text">
+                                            <p class="option-text-title">Львів</p>
+                                            <p class="option-text-address">(місто, Львівська обл.)</p>
+                                            <p class="HiddenRef">db5c88f5-391c-11dd-90d9-001a92567626</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="option-item">
+                                        <div class="option-info-text">
+                                            <p class="option-text-title">Рівне</p>
+                                            <p class="option-text-address">(місто, Рівненська обл.)</p>
+                                            <p class="HiddenRef">db5c896a-391c-11dd-90d9-001a92567626</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-scrollbar"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -143,5 +205,10 @@
     </section>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const novapost_city = "{% url 'novapost:get_city' %}";
+        const novapost_warehouses = "{% url 'novapost:get_warehouses' %}"
+        const csrf = "{{ csrf_token }}"
+    </script>
     <script src="{% static 'checkout/js/checkout.js' %}"></script>
 {% endblock %}

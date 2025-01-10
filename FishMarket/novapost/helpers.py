@@ -3,7 +3,7 @@ import requests
 import logging
 
 
-def response_request(api_url, params, retries=5):
+def response_request(api_url, params, retries=20):
     try:
         response = requests.post(api_url, json=params)
         response.raise_for_status()
@@ -17,12 +17,16 @@ def response_request(api_url, params, retries=5):
 
         elif not response_data.get('success'):
             logging.error(f'Ошибка запроса! Попыток Осталось:{retries}', response_data)
+            print('Ожидаем 120 секунд...')
+            time.sleep(120)
             if retries > 0:
                 return response_request(api_url, params, retries - 1)
 
     except requests.exceptions.Timeout:
         if retries > 0:
             logging.warning(f'Пробуем повторить запрос! Попыток осталось: {retries}')
+            print('Ожидаем 120 секунд...')
+            time.sleep(120)
             return response_request(api_url, params, retries - 1)
         else:
             logging.error('Тайм-Аут! Повторы для запроса исчерпаны')
