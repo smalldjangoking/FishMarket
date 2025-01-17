@@ -19,6 +19,8 @@ class CheckoutUserForm(forms.Form):
         attrs={'class': 'form-control', 'id': 'phonenumber', 'placeholder': "+38(000)-000-00-00"}))
     type_of_delivery = forms.ChoiceField(widget=forms.RadioSelect(attrs={'class': 'radio-input', 'id': 'typeOfDelivery'}), choices=CHOICES)
     city_ref_hidden = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'cityRefHidden'}))
+    warehouse_id_hidden = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'warehouseRefHidden'}))
+    courier = forms.CharField(required=False ,widget=forms.HiddenInput(attrs={'id': 'curierHidden'}))
 
 
 

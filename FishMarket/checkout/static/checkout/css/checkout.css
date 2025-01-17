@@ -140,12 +140,12 @@
     height: 200px;
 }
 
-.swiper1 {
+.swiper2 {
     height: 500px !important;
     width: 100%;
 }
 
-.swiper1 .swiper-wrapper .swiper-slide {
+.swiper2 .swiper-wrapper .swiper-slide {
     height: auto !important;
 }
 
@@ -215,7 +215,7 @@
 }
 
 .novaposhta-container {
-    display: flex;
+    display: none;
     position: fixed;
     width: 100%;
     height: 100%;
@@ -266,6 +266,33 @@
     display: none !important;
 }
 
+.novaposhtaFormCourier {
+    display: flex;
+    flex-direction: column;
+}
+
+.novaposhtaFormCourier label {
+    color: grey;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.btn {
+    font-size: 20px;
+    height: 50px !important;
+}
+
+.novaposhtaFormCourier input {
+    width: 100%;
+    background: none;
+    font-size: 1.2rem;
+    border: 2px solid #cbd5e1;
+    border-radius: 10px;
+    height: 55px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
 .novaposhta-input {
     display: flex;
     width: 100%;
@@ -293,6 +320,15 @@
 .option-item:hover {
     transition: all 0.2s ease-in-out;
     background-color: #cccccc;
+}
+
+.no-found-div {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.no-found-text {
+    font-size: 25px;
 }
 
 .option-info-text {
@@ -325,6 +361,6 @@
 }
 
 .novaposhta-input input:focus {
-  outline: none; /* Убирает рамку */
-  box-shadow: none; /* Убирает тень */
+    outline: none; /* Убирает рамку */
+    box-shadow: none; /* Убирает тень */
 }

@@ -6,7 +6,6 @@ from novapost.models import Warehouses, Cities
 def get_city(request):
     if request.method == 'POST':
         city_name = request.POST.get('city', None)
-        print(city_name)
 
         if not city_name:
             return JsonResponse({'success': False})
@@ -17,8 +16,8 @@ def get_city(request):
 
         if city_objects.exists():
             return JsonResponse({'success': True, 'data_array': list(city_objects)})
-
-        return JsonResponse({'success': False})
+        else:
+            return JsonResponse({'success': False})
 
 
 def get_warehouses(request):
@@ -26,28 +25,35 @@ def get_warehouses(request):
         city_id = request.POST.get('city_ref', None)
         type_of_ware = request.POST.get('typeofware', None)
         search_ware = request.POST.get('search_ware', None)
+
         if not search_ware:
             warehouses = Warehouses.objects.filter(city_id__exact=city_id,
                                                    typeofwarehouse__exact=type_of_ware).order_by('number')[
-                         :15].values('address_ua', 'number')
+                         :15].values('address_ua', 'number', 'id')
             if warehouses.exists():
                 return JsonResponse({'success': True, 'data_array': list(warehouses)})
             else:
                 return JsonResponse({'success': False})
         else:
             if search_ware.isnumeric():
-                warehouses = Warehouses.objects.filter(number__exact=search_ware).values('address_ua', 'number')
+                warehouses = Warehouses.objects.filter(
+                    Q(city_id__exact=city_id) &
+                    Q(typeofwarehouse__exact=type_of_ware) &
+                    Q(number__exact=search_ware)
+                ).values('address_ua', 'number', 'id')
+
                 if warehouses.exists():
                     return JsonResponse({'success': True, 'data_array': list(warehouses)})
                 else:
                     return JsonResponse({'success': False})
             else:
                 warehouses = Warehouses.objects.filter(
-                    Q(city_id__exact=city_id) & Q(typeofwarehouse__exact=type_of_ware) &
-                    Q(address_ru__icontains=search_ware.lower()) | Q(address_ua__icontains=search_ware.lower())
-                ).order_by('number').values('address_ua', 'number')
-
+                    Q(city_id__exact=city_id) &
+                    Q(typeofwarehouse__exact=type_of_ware) &
+                    (Q(address_ru__icontains=search_ware.lower()) | Q(address_ua__icontains=search_ware.lower()))
+                ).order_by('number').values('address_ua', 'number', 'id')
                 if warehouses.exists():
+                    print(len(list(warehouses)))
                     return JsonResponse({'success': True, 'data_array': list(warehouses)})
                 else:
                     return JsonResponse({'success': False})

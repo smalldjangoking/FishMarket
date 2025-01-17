@@ -86,19 +86,16 @@
                                 </div>
                             {% endif %}
                         {% endif %}
-                        <button onclick="document.getElementsByClassName('novaposhta-container')[0].style.display='flex';"
+                        <button disabled
+                                onclick="document.getElementsByClassName('novaposhta-container')[0].style.display='flex';"
                                 type="button" id="novaposhta-button"
                                 class="white-container user-delivery-container blured-div">
                             <img class="history-addresses" src="{% static 'checkout/img/nova_poshta_icon.webp' %}"
                                  alt="">
                             <p class="text-grey">Вибрати спосіб доставки</p>
+                            <div class="button-img-container">
 
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M5.49399 1.44891L10.0835 5.68541L10.1057 5.70593C10.4185 5.99458 10.6869 6.24237 10.8896 6.4638C11.1026 6.69642 11.293 6.95179 11.4023 7.27063C11.5643 7.74341 11.5643 8.25668 11.4023 8.72946C11.293 9.0483 11.1026 9.30367 10.8896 9.53629C10.6869 9.75771 10.4184 10.0055 10.1057 10.2942L10.0835 10.3147L5.49398 14.5511L4.47657 13.4489L9.06607 9.21246C9.40722 8.89756 9.62836 8.69258 9.78328 8.52338C9.93272 8.36015 9.96962 8.28306 9.98329 8.24318C10.0373 8.08559 10.0373 7.9145 9.98329 7.7569C9.96963 7.71702 9.93272 7.63993 9.78328 7.4767C9.62837 7.3075 9.40722 7.10252 9.06608 6.78761L4.47656 2.55112L5.49399 1.44891Z"
-                                      fill="#475569"></path>
-                            </svg>
+                            </div>
                         </button>
                     </div>
                 </div>
@@ -128,72 +125,31 @@
                     </button>
                 </div>
                 <div class="novaposhta-window-content">
-                    <div class="novaposhta-input">
-                        <img src="{% static 'checkout/img/search_cbd5e1.png' %}" alt="">
-                        <input type="search" id="site-search" placeholder="Введіть місто або населений пункт"/>
+                    <div id="novaposhta-input-courier" class="novaposhtaFormCourier hidden-field">
+                        <label for="courier-field-city">Місто <span class="important-red">*</span></label>
+                        <input type="search" id="courier-field-city" placeholder="Введіть місто"/>
+                        <label for="courier-field-street">Вулиця <span class="important-red">*</span></label>
+                        <input type="search" id="courier-field-street" placeholder="Введіть вулицю"/>
+                        <label for="courier-field-house">Будинок <span class="important-red">*</span></label>
+                        <input type="search" id="courier-field-house" placeholder="Введіть номер будинку"/>
+                        <label for="courier-field-appartment">Квартира</label>
+                        <input type="search" id="courier-field-appartment" placeholder="Введіть квартиру"/>
+                        <button class="btn">Підтвердити</button>
                     </div>
-                    <div class="novaposhta-input hidden-field">
+                    <div id="CitySearth-ware" class="novaposhta-input">
+                        <img src="{% static 'checkout/img/search_cbd5e1.png' %}" alt="">
+                        <input type="search" id="city-search" placeholder="Введіть місто або населений пункт"/>
+                    </div>
+                    <div id="warehouse-searchID" class="novaposhta-input hidden-field">
                         <img src="{% static 'checkout/img/search_cbd5e1.png' %}" alt="">
                         <input type="search" id="warehouse-search" placeholder="Введіть номер відділення або адресу"/>
                     </div>
                     {{ form.city_ref_hidden }}
+                    {{ form.warehouse_id_hidden }}
+                    {{ form.courier }}
                     <div class="novaposhta-output-city">
-                        <div class="swiper swiper1">
+                        <div class="swiper swiper2">
                             <div class="swiper-wrapper swiper-items">
-                                <div class="swiper-slide">
-                                    <div class="option-item">
-                                        <div class="option-info-text">
-                                            <p class="option-text-title">Харків</p>
-                                            <p class="option-text-address">(місто, Харківська обл.)</p>
-                                            <p class="HiddenRef">db5c88e0-391c-11dd-90d9-001a92567626</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="option-item">
-                                        <div class="option-info-text">
-                                            <p class="option-text-title">Київ</p>
-                                            <p class="option-text-address">(місто, Київська обл.)</p>
-                                            <p class="HiddenRef">8d5a980d-391c-11dd-90d9-001a92567626</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="option-item">
-                                        <div class="option-info-text">
-                                            <p class="option-text-title">Дніпро</p>
-                                            <p class="option-text-address">(місто, Дніпропетровська обл.)</p>
-                                            <p class="HiddenRef">db5c88f0-391c-11dd-90d9-001a92567626</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="option-item">
-                                        <div class="option-info-text">
-                                            <p class="option-text-title">Одеса</p>
-                                            <p class="option-text-address">(місто, Одеська обл.)</p>
-                                            <p class="HiddenRef">db5c88d0-391c-11dd-90d9-001a92567626</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="option-item">
-                                        <div class="option-info-text">
-                                            <p class="option-text-title">Львів</p>
-                                            <p class="option-text-address">(місто, Львівська обл.)</p>
-                                            <p class="HiddenRef">db5c88f5-391c-11dd-90d9-001a92567626</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="option-item">
-                                        <div class="option-info-text">
-                                            <p class="option-text-title">Рівне</p>
-                                            <p class="option-text-address">(місто, Рівненська обл.)</p>
-                                            <p class="HiddenRef">db5c896a-391c-11dd-90d9-001a92567626</p>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="swiper-scrollbar"></div>
                         </div>

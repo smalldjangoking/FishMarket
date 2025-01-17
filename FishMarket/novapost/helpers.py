@@ -2,6 +2,8 @@ import time
 import requests
 import logging
 
+from novapost.models import Warehouses, Cities
+
 
 def response_request(api_url, params, retries=20):
     try:
@@ -45,7 +47,6 @@ def response_request(api_url, params, retries=20):
         logging.error(f"Ошибка запроса: Тип ошибки: {error_type} {e}")
 
 
-
 def request_data_size(api_url, params):
     response = requests.post(api_url, json=params)
     response.raise_for_status()
@@ -56,3 +57,14 @@ def request_data_size(api_url, params):
     else:
         logging.error('Ошибка получения размера json data', response_data)
         raise ValueError('Ошибка request_data_size(), получен некорректный ответ')
+
+
+def warehouse_object(warehouse):
+    w = Warehouses(
+            city=Cities.objects.get(ref_to_warehouses=warehouse["CityRef"]),
+            number=warehouse["Number"],
+            address_ua=warehouse["ShortAddress"].lower(),
+            address_ru=warehouse["ShortAddressRu"].lower(),
+            typeofwarehouse=2 if warehouse["TypeOfWarehouse"] == "f9316480-5f2d-425d-bc2c-ac7cd29decf0" else 1
+        )
+    return w
