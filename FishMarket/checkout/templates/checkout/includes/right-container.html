@@ -1,36 +1,63 @@
 {% load gram_or_kg %}
 {% load total_per_product %}
+{% load discount %}
 
-<div class="checkout-product-top">
-    <div><p class="blue-bold-md">Замовлення: <span
-            class="checkout-product-top-length">{{ cart|length }} тов.</span></p></div>
-    <div><a class="checkout-product-change" href="{% url 'cart:cart-view' %}">Редагувати</a></div>
-</div>
-<div class="swiper-shown-products">
-    <!-- Slider main container -->
-    <div class="swiper swiper0">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-            <!-- Slides -->
-            {% for elem in cart %}
-                <div class="swiper-slide">
-                    <div class="product-card-checkout">
-                        <div>
-                            <img class="product-card-image" src="{{ elem.product.image_product.url }}" alt="">
-                        </div>
-                        <div class="product-card-checkout-text">
-                            <p>
-                                {{ elem.product.name }}
-                                {% weight_definition elem.product_weight %}
-                            </p>
-                            <p>кол: {{ elem.product_quantity }}</p>
-                            {% total_per_product elem.product_price elem.product_weight elem.product_quantity as total %}
-                            <p>{{ total|floatformat }} грн.</p>
+<div class="white-container">
+    <div class="checkout-product-top">
+        <div><p class="blue-bold-md">Замовлення: <span
+                class="checkout-product-top-length">{{ cart|length }} тов.</span></p></div>
+        <div><a class="checkout-product-change" href="{% url 'cart:cart-view' %}">Редагувати</a></div>
+    </div>
+    <div class="swiper-shown-products">
+        <div class="swiper swiper0">
+            <div class="swiper-wrapper">
+                {% for elem in cart %}
+                    <div class="swiper-slide">
+                        <div class="product-card-checkout">
+                            <div>
+                                <img class="product-card-image" src="{{ elem.product.image_product.url }}" alt="">
+                            </div>
+                            <div class="product-card-checkout-text">
+                                <p>
+                                    {{ elem.product.name }}
+                                    {% weight_definition elem.product_weight %}
+                                </p>
+                                <p>кол: {{ elem.product_quantity }}</p>
+                                {% total_per_product elem.product_price elem.product_weight elem.product_quantity as total %}
+                                <p>{{ total|floatformat }} грн.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="swiper-scrollbar"></div>
         </div>
-        <div class="swiper-scrollbar"></div>
+    </div>
+    <div class="checkout-form order-summery">
+        <div class="order-info">
+            <p>Вартість замовлення:</p>
+            <p>{{ cart.get_full_price|floatformat }}₴</p>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="order-info">
+                {% discount_amount cart.get_full_price user.discount as discount_amount %}
+                <p>Знижка:</p>
+                <p>{{ discount_amount }}₴</p>
+            </div>
+        {% endif %}
+        <div class="order-info">
+            <p>Доставка Нова Пошта:</p>
+            {% if cart.get_full_price > 3000 %}
+                <p style="color: green;">Безкоштовно</p>
+            {% else %}
+                <p style="color: grey;">від 60 ₴</p>
+            {% endif %}
+        </div>
+        <div class="order-info">
+            <p>До оплати без доставки:</p>
+            {% price_discounted cart.get_full_price user.discount as discounted %}
+            <p>{{ discounted }}₴</p>
+        </div>
+        <button class="btn">оформити замовлення</button>
     </div>
 </div>

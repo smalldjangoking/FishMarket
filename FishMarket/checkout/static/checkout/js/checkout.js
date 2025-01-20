@@ -99,6 +99,36 @@ function novaposhtaButtonChange(warehouse_ref_hidden, warehouseAddress) {
     }
 }
 
+function novaposhtaButtonChangeCourier(city, street, house, apartment) {
+    let buttonNovaPoshta = document.querySelector('#novaposhta-button');
+    let buttonNovaPoshtaText = buttonNovaPoshta.querySelector('p');
+    buttonNovaPoshtaText.innerText = `${capitalizeFirstLetter(city)}, ${street}, ${house}, ${apartment}`;
+
+    let checkmark = document.querySelector('.button-img-container');
+    checkmark.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\" width=\"24px\" fill=\"#28a745\"><path d=\"m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm34-102 102-44 104 44 56-96 110-26-10-112 74-84-74-86 10-112-110-24-58-96-102 44-104-44-56 96-110 24 10 112-74 86 74 84-10 114 110 24 58 96Zm102-318Zm-42 142 226-226-56-58-170 170-86-84-56 56 142 142Z\"/></svg>";
+    NovaposhtaContainer();
+}
+
+function courierButtonSubmit() {
+    const city = document.querySelector('#courier-field-city').value;
+    const street = document.querySelector('#courier-field-street').value;
+    const house = document.querySelector('#courier-field-house').value;
+    const apartment = document.querySelector('#courier-field-apartment').value;
+    let courierHidden = document.querySelector('#courierHidden');
+
+    if (city && street && house) {
+        const data = {
+            city: city,
+            street: street,
+            house: house,
+            apartment: apartment,
+        };
+
+        courierHidden.value = JSON.stringify(data);
+        novaposhtaButtonChangeCourier(city, street, house, apartment);
+    }
+}
+
 function activate_warehouse() {
     let novaware = document.querySelector('#warehouse-searchID');
     novaware.classList.remove('hidden-field');
@@ -107,7 +137,7 @@ function activate_warehouse() {
 
 function requestWarehouses(search_data) {
     let city_ref_input = document.querySelector('#cityRefHidden').value;
-    if (city_ref_input && !radioButtonChosen['number'] === '3') {
+    if (city_ref_input && !radioButtonChosen['number'] !== '3') {
         $.ajax({
             url: novapost_warehouses,
             method: 'post',
@@ -128,7 +158,7 @@ function requestWarehouses(search_data) {
                                 <div class="swiper-slide">
                                     <div class="option-item">
                                         <div class="option-info-text">
-                                            <p class="option-text-title">${radioButtonChosen['title']} -- №${item.number}</p>
+                                            <p class="option-text-title"><span class="option-text-title-span">${radioButtonChosen['title']}</span> №${item.number}</p>
                                             <p class="option-text-address">${item.address_ua}</p>
                                             <p class="option-id-warehouse HiddenRef">${item.id}</p>
                                         </div>
@@ -197,9 +227,9 @@ document.addEventListener('change', function (event) {
             } else if (event.target.value === '3') {
                 reload_variables()
                 novaposhtaWindowTitle.innerText = 'Кур\'єрська доставка'
+                novaposhtaButtonName.innerText = 'Кур\'єрська доставка'
                 search_city.classList.add('hidden-field');
                 courier_delivery.classList.remove('hidden-field');
-
             }
         }
         novaposhtaButton.classList.remove('blured-div')
@@ -248,7 +278,42 @@ document.addEventListener('DOMContentLoaded', function (event) {
         clearTimeout(time);
         time = setTimeout(requestWarehouses, 800, search_warehouse.value.trim())
     });
+
+    const courier_form = document.querySelector('#novaposhta-input-courier');
+    const inputs = courier_form.querySelectorAll('input');
+
+    courier_form.addEventListener('input', function () {
+        let allInputs = true
+
+        inputs.forEach(input => {
+            if (input.id === 'courier-field-apartment') {
+                return;
+            }
+
+            if (!input.value.trim()) {
+                allInputs = false;
+            }
+        });
+
+        if (allInputs) {
+            AwakeButtonCourier(true);
+        } else if (!allInputs) {
+            AwakeButtonCourier(false);
+        }
+    });
 })
+
+function AwakeButtonCourier(awake) {
+    let AwakeButtonCourier = document.querySelector('#AwakeButtonCourier');
+    if (awake) {
+        AwakeButtonCourier.classList.remove('blured-div');
+        AwakeButtonCourier.disabled = false;
+    } else if (!awake) {
+        AwakeButtonCourier.classList.add('blured-div');
+        AwakeButtonCourier.disabled = true;
+    }
+
+}
 
 // Делаем первую буквы заглавной
 function capitalizeFirstLetter(string) {
@@ -281,7 +346,7 @@ function no_found_div() {
 function request(search_data) {
     const warehouseInput = document.querySelector('#warehouse-searchID');
     if (!warehouseInput.classList.contains('hidden-field')) {
-        remove_warehouseSearch()
+        remove_warehouseSearch();
     }
 
     if (search_data) {
@@ -299,11 +364,9 @@ function request(search_data) {
                 let WareHouseIdForm = document.querySelector('#warehouseRefHidden');
                 city_ref_input.value = '';
                 WareHouseIdForm.value = '';
-                console.log(data)
-
 
                 if (swiperItems) {
-                    clear_swiper2()
+                    clear_swiper2();
                 }
 
                 if (data.success) {
@@ -324,7 +387,7 @@ function request(search_data) {
                         swiper2.update();
                     })
                 } else if (!data.success) {
-                    no_found_div()
+                    no_found_div();
                 }
             },
             error: function (error) {

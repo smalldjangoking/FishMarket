@@ -211,6 +211,33 @@
     -o-filter: blur(2px);
     -ms-filter: blur(2px);
     filter: blur(2px);
+}
+
+.hr-separator {
+    color: #0078d4;
+}
+
+.order-summery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.payment-radio {
+    display: flex;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.radio-input2 {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 15px;
 
 }
 
@@ -230,7 +257,7 @@
 .novaposhta-window {
     display: flex;
     flex-direction: column;
-    max-height: 670px;
+    max-height: 750px;
     height: 100%;
     max-width: 1200px;
     width: 100%;
@@ -342,6 +369,10 @@
     color: black;
     font-weight: bold;
     font-size: 1.2rem;
+}
+
+.option-text-title-span {
+    color: grey;
 }
 
 .option-info-text .option-text-address {

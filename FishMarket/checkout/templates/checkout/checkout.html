@@ -62,7 +62,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="checkout-form">
                     <div class="checkout-form-title">
                         <span class="check-form-title-number">2</span>
@@ -99,22 +98,21 @@
                         </button>
                     </div>
                 </div>
-
                 <div class="checkout-form">
                     <div class="checkout-form-title">
                         <span class="check-form-title-number">3</span>
                         <p class="blue-bold-md">Оплата</p>
+                    </div>
+
+                    <div class="payment-radio">
+                        {{ form.payment }}
                     </div>
                 </div>
             </form>
 
 
         </div>
-
-        <div class="white-container">
-            {% include 'checkout/includes/right-container.html' %}
-        </div>
-
+        {% include 'checkout/includes/right-container.html' %}
         <div class="novaposhta-container">
             <div class="novaposhta-window white-container">
                 <div class="novaposhta-window-title">
@@ -132,9 +130,11 @@
                         <input type="search" id="courier-field-street" placeholder="Введіть вулицю"/>
                         <label for="courier-field-house">Будинок <span class="important-red">*</span></label>
                         <input type="search" id="courier-field-house" placeholder="Введіть номер будинку"/>
-                        <label for="courier-field-appartment">Квартира</label>
-                        <input type="search" id="courier-field-appartment" placeholder="Введіть квартиру"/>
-                        <button class="btn">Підтвердити</button>
+                        <label for="courier-field-apartment">Квартира</label>
+                        <input type="search" id="courier-field-apartment" placeholder="Введіть квартиру"/>
+                        <button disabled id="AwakeButtonCourier" class="btn blured-div" onclick=courierButtonSubmit()>
+                            Підтвердити
+                        </button>
                     </div>
                     <div id="CitySearth-ware" class="novaposhta-input">
                         <img src="{% static 'checkout/img/search_cbd5e1.png' %}" alt="">
