@@ -82,3 +82,4 @@ class GuestShopper(models.Model):
     name = models.CharField(max_length=15)
     last_name = models.CharField(max_length=15)
     phone_number = models.CharField(validators=[MinLengthValidator(8)], max_length=18, null=False, blank=False)
+    delivery_address = models.CharField(null=True, blank=True, max_length=255)

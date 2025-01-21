@@ -1,6 +1,7 @@
 const slidesCount = document.querySelectorAll('.swiper0 .swiper-slide').length;
 const slidesPerViewValue = slidesCount >= 2 ? 2 : 1;
-let radioButtonChosen
+let WareHouseAddress;
+let radioButtonChosen;
 if (slidesPerViewValue >= 2) {
     document.querySelector('.swiper0').style.height = '435px';
 }
@@ -68,11 +69,11 @@ const swiper2 = new Swiper('.swiper2', {
 
                 if (city_ref_input.value && search_city.value) {
                     WareHouseIdForm.value = clickedSlide.querySelector('.option-id-warehouse').textContent;
-                    let WareHouseAddress = clickedSlide.querySelector('.option-text-address').textContent;
+                    WareHouseAddress = clickedSlide.querySelector('.option-text-address').textContent;
                     let novaware = document.querySelector('#warehouse-search');
                     novaware.value = clickedSlide.querySelector('.option-text-title').textContent;
 
-                    novaposhtaButtonChange(WareHouseIdForm.value, WareHouseAddress)
+                    novaposhtaButtonChange(WareHouseIdForm.value)
                     NovaposhtaContainer()
                 }
             }
@@ -87,13 +88,13 @@ function NovaposhtaContainer() {
 }
 
 
-function novaposhtaButtonChange(warehouse_ref_hidden, warehouseAddress) {
+function novaposhtaButtonChange(warehouse_ref_hidden) {
     let city_ref_input = document.querySelector('#cityRefHidden');
     let buttonNovaPoshta = document.querySelector('#novaposhta-button');
     let buttonNovaPoshtaText = buttonNovaPoshta.querySelector('p');
 
     if (city_ref_input.value && warehouse_ref_hidden) {
-        buttonNovaPoshtaText.innerText = capitalizeFirstLetter(warehouseAddress);
+        buttonNovaPoshtaText.innerText = capitalizeFirstLetter(WareHouseAddress);
         let checkmark = document.querySelector('.button-img-container');
         checkmark.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\" width=\"24px\" fill=\"#28a745\"><path d=\"m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm34-102 102-44 104 44 56-96 110-26-10-112 74-84-74-86 10-112-110-24-58-96-102 44-104-44-56 96-110 24 10 112-74 86 74 84-10 114 110 24 58 96Zm102-318Zm-42 142 226-226-56-58-170 170-86-84-56 56 142 142Z\"/></svg>";
     }
@@ -261,6 +262,11 @@ document.addEventListener('click', function (event) {
     if (background.contains(event.target) && !window.contains(event.target)) {
         background.style.display = 'none';
     }
+})
+
+document.querySelector('#SubmitForm').addEventListener('click', function (event) {
+    event.preventDefault()
+    document.querySelector('#FormCheckout').submit();
 })
 
 //Получаем от пользователя input, и отсылаем его в request() or requestWarehouses()

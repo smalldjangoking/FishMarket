@@ -17,47 +17,51 @@
     {% endif %}
     <section class="checkout-section">
         <div class="checkout-container">
-            <form class="form-checkout" method="POST">
+            <form id="FormCheckout" class="form-checkout" method="POST">
+                {% csrf_token %}
+                {{ form.city_ref_hidden }}
+                {{ form.warehouse_id_hidden }}
+                {{ form.courier }}
                 <div class="checkout-form">
                     <div class="checkout-form-title">
                         <span class="check-form-title-number">1</span>
                         <p class="blue-bold-md">Контактні дані</p>
                     </div>
                     <div class="form-group">
+                        {% if form.name.errors %}
+                            <ul class="error-list">
+                                {% for error in form.name.errors %}
+                                    <li class="error-item">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         <div class>
                             <label for="{{ form.name.id_for_label }}">{{ form.name.label }}<span
                                     class="important-red">*</span></label>
-                            {% if form.name.errors %}
-                                <ul class="error-list">
-                                    {% for error in form.name.errors %}
-                                        <li class="error-item">{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
                             {{ form.name }}
                         </div>
+                        {% if form.last_name.errors %}
+                            <ul class="error-list">
+                                {% for error in form.last_name.errors %}
+                                    <li class="error-item">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         <div>
                             <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}<span
                                     class="important-red">*</span></label>
-                            {% if form.last_name.errors %}
-                                <ul class="error-list">
-                                    {% for error in form.last_name.errors %}
-                                        <li class="error-item">{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
                             {{ form.last_name }}
                         </div>
+                        {% if form.phone.errors %}
+                            <ul class="error-list">
+                                {% for error in form.phone.errors %}
+                                    <li class="error-item">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         <div>
                             <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}<span
                                     class="important-red">*</span></label>
-                            {% if form.phone.errors %}
-                                <ul class="error-list">
-                                    {% for error in form.phone.errors %}
-                                        <li class="error-item">{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
                             {{ form.phone }}
                         </div>
                     </div>
@@ -67,6 +71,13 @@
                         <span class="check-form-title-number">2</span>
                         <p class="blue-bold-md">Доставка</p>
                     </div>
+                    {% if form.errors %}
+                        {% if form.non_field_errors %}
+                            <div class="error-list">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+                    {% endif %}
                     <div class="form-group delivery-choice-group">
                         {{ form.type_of_delivery }}
                         {% if user.is_authenticated %}
@@ -103,16 +114,24 @@
                         <span class="check-form-title-number">3</span>
                         <p class="blue-bold-md">Оплата</p>
                     </div>
-
+                    {% if form.payment.errors %}
+                        {% for error in  form.payment.errors %}
+                            <ul>
+                                <li class="error-list">
+                                    {{ error }}
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
                     <div class="payment-radio">
                         {{ form.payment }}
                     </div>
                 </div>
             </form>
-
-
         </div>
+
         {% include 'checkout/includes/right-container.html' %}
+
         <div class="novaposhta-container">
             <div class="novaposhta-window white-container">
                 <div class="novaposhta-window-title">
@@ -144,9 +163,6 @@
                         <img src="{% static 'checkout/img/search_cbd5e1.png' %}" alt="">
                         <input type="search" id="warehouse-search" placeholder="Введіть номер відділення або адресу"/>
                     </div>
-                    {{ form.city_ref_hidden }}
-                    {{ form.warehouse_id_hidden }}
-                    {{ form.courier }}
                     <div class="novaposhta-output-city">
                         <div class="swiper swiper2">
                             <div class="swiper-wrapper swiper-items">
