@@ -14,11 +14,19 @@ class Order(models.Model):
         completed = "3", "Завершено"
         cancelled = "4", "Скасовано"
 
+    PAYMENT_CHOICES = [
+        ('1', 'Готівка при отриманні'),
+        ('2', 'Оплата на картку')
+    ]
+
     user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None, null=True, blank=True)
     guest = models.ForeignKey(GuestShopper, on_delete=models.CASCADE, default=None, null=True, blank=True)
-    delivery_address = models.ForeignKey(NovaAddresses, on_delete=SET_DEFAULT, default=None, null=False, blank=False)
+    delivery_address = models.CharField(max_length=255, null=False, blank=False)
+    warehouse_number = models.CharField(max_length=255, null=True, blank=True)
+    type_of_warehouse = models.CharField(max_length=255, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, choices=DeliveryOptions.choices, default=DeliveryOptions.pending)
+    payment_method = models.CharField(max_length=255, choices=PAYMENT_CHOICES)
     is_paid = models.BooleanField(default=False)
 
     def clean(self):
@@ -38,15 +46,12 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_DEFAULT, default=None)
     quantity = models.IntegerField(null=True, blank=True)
     weight = models.DecimalField(max_digits=7, decimal_places=5, null=True, blank=True)
-    total_price = models.DecimalField(max_digits=7, decimal_places=5, null=False, blank=False)
+    total_price = models.DecimalField(max_digits=7, decimal_places=2, null=False, blank=False)
 
     def clean(self):
         """Customer should choose (buying by quantity that is set or by their chosen weight"""
         if not self.quantity and not self.weight:
             raise ValidationError('Необхідна кількість (quantity) або вага (weight)')
-
-        if self.quantity and self.weight:
-            raise ValidationError('Не можна заповнювати одночасно кількість (quantity) і вагу (weight)')
 
 
 class Payment(models.Model):

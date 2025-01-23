@@ -73,6 +73,7 @@ const swiper2 = new Swiper('.swiper2', {
                     let novaware = document.querySelector('#warehouse-search');
                     novaware.value = clickedSlide.querySelector('.option-text-title').textContent;
 
+                    SaveAddress()
                     novaposhtaButtonChange(WareHouseIdForm.value)
                     NovaposhtaContainer()
                 }
@@ -82,19 +83,25 @@ const swiper2 = new Swiper('.swiper2', {
     }
 });
 
+function SaveAddress() {
+    let full_address = document.querySelector('#full_address');
+    full_address.value = WareHouseAddress;
+}
+
 function NovaposhtaContainer() {
     let novaposhtaContainer = document.querySelector('.novaposhta-container');
     novaposhtaContainer.style.display = 'none';
 }
 
 
-function novaposhtaButtonChange(warehouse_ref_hidden) {
+function novaposhtaButtonChange(warehouse_id) {
     let city_ref_input = document.querySelector('#cityRefHidden');
     let buttonNovaPoshta = document.querySelector('#novaposhta-button');
     let buttonNovaPoshtaText = buttonNovaPoshta.querySelector('p');
 
-    if (city_ref_input.value && warehouse_ref_hidden) {
-        buttonNovaPoshtaText.innerText = capitalizeFirstLetter(WareHouseAddress);
+
+    if (city_ref_input.value && warehouse_id) {
+        buttonNovaPoshtaText.innerText = `${radioButtonChosen['title']}: №${warehouse_id} - ` + capitalizeFirstLetter(WareHouseAddress);
         let checkmark = document.querySelector('.button-img-container');
         checkmark.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\" width=\"24px\" fill=\"#28a745\"><path d=\"m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm34-102 102-44 104 44 56-96 110-26-10-112 74-84-74-86 10-112-110-24-58-96-102 44-104-44-56 96-110 24 10 112-74 86 74 84-10 114 110 24 58 96Zm102-318Zm-42 142 226-226-56-58-170 170-86-84-56 56 142 142Z\"/></svg>";
     }
@@ -161,7 +168,7 @@ function requestWarehouses(search_data) {
                                         <div class="option-info-text">
                                             <p class="option-text-title"><span class="option-text-title-span">${radioButtonChosen['title']}</span> №${item.number}</p>
                                             <p class="option-text-address">${item.address_ua}</p>
-                                            <p class="option-id-warehouse HiddenRef">${item.id}</p>
+                                            <p class="option-id-warehouse HiddenRef">${item.number}</p>
                                         </div>
                                     </div>
                                 </div>`;

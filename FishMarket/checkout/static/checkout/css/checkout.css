@@ -304,8 +304,13 @@
 }
 
 .btn {
+    display: flex;
     font-size: 20px;
     height: 50px !important;
+    width: 200px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .novaposhtaFormCourier input {
@@ -408,4 +413,35 @@
     display: flex;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: fit-content;
+}
+
+@media (max-width: 1450px) {
+    .checkout-section {
+        display: flex !important;
+        grid-template-columns: initial !important;
+        margin-top: 25px;
+        grid-gap: initial;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .radio-input {
+        gap: 25px;
+    }
+
+    .blue-bold-text {
+        text-align: center;
+    }
+
+    .checkout-register-ads {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        max-width: 100%;
+    }
+
+    .mobile-bucket-container {
+        display: none;
+    }
 }

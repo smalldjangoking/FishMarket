@@ -14,7 +14,6 @@ class Cart():
         self.cart = cart
 
 
-
     def __len__(self):
         total_quantity = sum(
             int(quantity)
@@ -87,4 +86,8 @@ class Cart():
         if not self.cart[product_id]['product_detail']:
             del self.cart[product_id]
 
+        self.session.modified = True
+
+    def cart_clear(self):
+        self.cart.clear()
         self.session.modified = True

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'checkout/css/successful.css' %}">
+{% endblock %}
+
+{% block section %}
+    <section class="successful-div">
+        <img src="{% static 'checkout/img/succesful.png' %}" alt="Дякуємо за ваше замовлення">
+        <h3>Дякуємо за ваше замовлення!</h3>
+        <p>Вашу заявку буде оброблено найближчим часом! Якщо у Вас залишилися запитання, напишіть нам із зазначенням
+            прізвища для швидшої обробки замовлення</p>
+    </section>
+    <h3 class="contact-container-title">Контакти</h3>
+    <section class="contact-container">
+
+        <ul class="contacts">
+            <li>
+                <img src="{% static 'checkout/img/mail.png' %}" alt="почта">
+                <a href="mailto:testtest@gmail.com?subject=Техническая%20поддержка">testtest@gmail.com</a>
+            </li>
+            <li>
+                <img src="{% static 'checkout/img/telegram.png' %}" alt="telegram">
+                <a href="https://t.me/test">Telegram</a>
+            </li>
+            <li>
+                <img src="{% static 'checkout/img/calls.png' %}" alt="call">
+                <a href="tel:+380988811617">+380988811617</a>
+            </li>
+        </ul>
+        <ul class="contacts-info">
+            <li>
+                <h4>Обробляємо замовлення:</h4>
+                <p>Понеділок - неділя з 11:00 до 22:00 (сім днів на тиждень)</p>
+            </li>
+        </ul>
+
+        <ul class="contacts-info">
+            <li>
+                <h4>Відправляємо товари з Харкова:</h4>
+                <p>Понеділок - Неділя Без вихідних</p>
+            </li>
+        </ul>
+    </section>
+{% endblock %}

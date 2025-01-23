@@ -20,8 +20,9 @@
             <form id="FormCheckout" class="form-checkout" method="POST">
                 {% csrf_token %}
                 {{ form.city_ref_hidden }}
-                {{ form.warehouse_id_hidden }}
+                {{ form.warehouse_number }}
                 {{ form.courier }}
+                {{ form.delivery_address }}
                 <div class="checkout-form">
                     <div class="checkout-form-title">
                         <span class="check-form-title-number">1</span>

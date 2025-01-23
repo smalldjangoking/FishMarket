@@ -68,18 +68,11 @@ class NovaAddresses(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True, related_name='nova_addresses')
     delivery_choice = models.CharField(max_length=1, choices=DeliveryOptions.choices, blank=False, null=False)
-    city = models.CharField(null=False, blank=False, max_length=15)
-    street = models.CharField(null=True, blank=True, max_length=25)
-    apartment = models.CharField(null=True, blank=True, max_length=5)
-    house = models.CharField(null=True, blank=True, max_length=5)
-    nova_branch_ref = models.CharField(null=True, blank=True, max_length=255, verbose_name='Отделение ID')
-    nova_parcel_ref = models.CharField(null=True, blank=True, max_length=255, verbose_name='Почтомат ID')
-    nova_branch_address = models.CharField(null=True, blank=True, max_length=255, verbose_name='Адрес отделения')
-    parcel_box_address = models.CharField(null=True, blank=True, max_length=255, verbose_name='Адрес почтомата')
+    warehouse_id = models.CharField(null=True, blank=True, max_length=255, verbose_name='Отделение ID')
+    warehouse_address = models.CharField(null=True, blank=True, max_length=255, verbose_name='Адрес отделения')
 
 
 class GuestShopper(models.Model):
     name = models.CharField(max_length=15)
     last_name = models.CharField(max_length=15)
-    phone_number = models.CharField(validators=[MinLengthValidator(8)], max_length=18, null=False, blank=False)
-    delivery_address = models.CharField(null=True, blank=True, max_length=255)
+    phone = models.CharField(validators=[MinLengthValidator(8)], max_length=18, null=False, blank=False)

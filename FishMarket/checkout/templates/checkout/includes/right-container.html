@@ -55,8 +55,12 @@
         </div>
         <div class="order-info">
             <p>До оплати без доставки:</p>
-            {% price_discounted cart.get_full_price user.discount as discounted %}
-            <p>{{ discounted }}₴</p>
+            {% if user.is_authenticated %}
+                {% price_discounted cart.get_full_price user.discount as discounted %}
+                <p>{{ discounted }}₴</p>
+            {% else %}
+                {{ cart.get_full_price }}
+            {% endif %}
         </div>
         <button id="SubmitForm" class="btn">оформити замовлення</button>
     </div>
