@@ -13,10 +13,4 @@ def discount_amount(total, user_discount):
 @register.simple_tag()
 def price_discounted(total, user_discount):
     total = Decimal(total)
-    print(total)
-    print(user_discount)
-
-
-    print(type(total))
-    print(type(user_discount))
     return (total * (1 - (user_discount / Decimal('100')))).quantize(Decimal('0.1'), rounding=ROUND_HALF_UP)

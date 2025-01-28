@@ -21,9 +21,10 @@ class Order(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None, null=True, blank=True)
     guest = models.ForeignKey(GuestShopper, on_delete=models.CASCADE, default=None, null=True, blank=True)
-    delivery_address = models.CharField(max_length=255, null=False, blank=False)
+    user_address_reference = models.OneToOneField(NovaAddresses, on_delete=models.SET_DEFAULT, default=None, null=True, blank=True)
+    delivery_address = models.CharField(max_length=255, null=True, blank=True)
     warehouse_number = models.CharField(max_length=255, null=True, blank=True)
-    type_of_warehouse = models.CharField(max_length=255, null=False, blank=False)
+    type_of_warehouse = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, choices=DeliveryOptions.choices, default=DeliveryOptions.pending)
     payment_method = models.CharField(max_length=255, choices=PAYMENT_CHOICES)
@@ -34,11 +35,16 @@ class Order(models.Model):
         if not self.user and not self.guest:
             raise ValidationError("У замовленні має бути або користувач, або гість.")
 
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+        ordering = ['-created_at']
+
     def __str__(self):
         if self.user:
-            return f"Order {self.id} by {self.user.email}"
+            return f"Заказ {self.id} Пользователь: {self.user.phone_number}"
         elif self.guest:
-            return f"Order {self.id} by guest {self.guest.phone_number}"
+            return f"Заказ {self.id} Гость: {self.guest.phone_number}"
 
 class OrderItem(models.Model):
     """Model of Order Items. There is full information about the order item"""

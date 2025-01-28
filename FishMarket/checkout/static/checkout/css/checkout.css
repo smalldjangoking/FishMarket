@@ -98,6 +98,7 @@
     padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: fit-content;
+    margin-top: 15px;
 }
 
 .checkout-product-top {
@@ -143,6 +144,15 @@
 .swiper2 {
     height: 500px !important;
     width: 100%;
+}
+
+.swiper3 {
+    height: 500px !important;
+    width: 100%;
+}
+
+.swiper3 .swiper-wrapper .swiper-slide {
+    height: auto !important;
 }
 
 .swiper2 .swiper-wrapper .swiper-slide {
@@ -234,13 +244,26 @@
     margin-top: 15px;
 }
 
-.radio-input2 {
+.radio-payment-choose {
     display: inline-flex;
     flex-direction: column;
     gap: 15px;
 }
 
 .novaposhta-container {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+}
+
+.novaposhta-users-addresses {
     display: none;
     position: fixed;
     width: 100%;
@@ -334,6 +357,12 @@
 }
 
 .novaposhta-output-city {
+    display: flex;
+    margin-top: 10px;
+    height: 100%;
+}
+
+.user-output-addresses {
     display: flex;
     margin-top: 10px;
     height: 100%;

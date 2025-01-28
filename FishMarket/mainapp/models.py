@@ -34,7 +34,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=100, unique=True, db_index=True, verbose_name='SLUG_URL')
     image_product = models.ImageField(upload_to='products', blank=False, null=False, verbose_name='Титульная картинка')
     description = models.TextField(verbose_name='Описание Продукта')
-    price = models.IntegerField(verbose_name='Цена за КГ')
+    price = models.IntegerField(verbose_name='Цена за КГ/ШТ')
     stock = models.IntegerField(null=True, blank=True, default=0, verbose_name='Наличие')
     time_create = models.DateTimeField(auto_now_add=True, db_index=True)
     meta = models.CharField(max_length=140, blank=True, default='')

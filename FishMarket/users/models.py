@@ -68,11 +68,11 @@ class NovaAddresses(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True, related_name='nova_addresses')
     delivery_choice = models.CharField(max_length=1, choices=DeliveryOptions.choices, blank=False, null=False)
-    warehouse_id = models.CharField(null=True, blank=True, max_length=255, verbose_name='Отделение ID')
-    warehouse_address = models.CharField(null=True, blank=True, max_length=255, verbose_name='Адрес отделения')
+    warehouse_id = models.CharField(null=True, blank=True, max_length=255, verbose_name='Номер отделения или почтомата')
+    delivery_address = models.CharField(null=True, blank=True, max_length=255, verbose_name='Адрес доставки')
 
 
 class GuestShopper(models.Model):
     name = models.CharField(max_length=15)
     last_name = models.CharField(max_length=15)
-    phone = models.CharField(validators=[MinLengthValidator(8)], max_length=18, null=False, blank=False)
+    phone_number = models.CharField(validators=[MinLengthValidator(8)], max_length=18, null=False, blank=False)

@@ -18,7 +18,7 @@ def checkout(request):
 
     if request.method == 'POST':
         form = CheckoutUserForm(request.POST)
-
+        print(request.POST)
 
         if form.is_valid():
             cleaned_data = form.cleaned_data
@@ -31,7 +31,8 @@ def checkout(request):
                 return redirect('checkout:checkout_success')
 
         else:
-            print(form.errors)
+            print('Форма не валидная')
+
 
     return render(request, 'checkout/checkout.html', context={'form': form})
 

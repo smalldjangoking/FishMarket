@@ -19,7 +19,6 @@
         <div class="checkout-container">
             <form id="FormCheckout" class="form-checkout" method="POST">
                 {% csrf_token %}
-                {{ form.city_ref_hidden }}
                 {{ form.warehouse_number }}
                 {{ form.courier }}
                 {{ form.delivery_address }}
@@ -80,21 +79,23 @@
                         {% endif %}
                     {% endif %}
                     <div class="form-group delivery-choice-group">
-                        {{ form.type_of_delivery }}
+                        {{ form.delivery_type }}
                         {% if user.is_authenticated %}
                             {% if user.nova_addresses.exists %}
-                                <div class="white-container user-delivery-container">
+                                {{ form.user_saved_address_id }}
+                                <button type="button"
+                                        onclick="document.getElementsByClassName('novaposhta-users-addresses')[0].style.display='flex';"
+                                        id="UsersAddressesButton"
+                                        class="white-container user-delivery-container">
                                     <img class="history-addresses"
                                          src="{% static 'checkout/img/history-addresses.png' %}"
                                          alt="Ваши сохраненные адреса картинка">
                                     <p class="text-grey">Вибрати зі збережених адрес</p>
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M5.49399 1.44891L10.0835 5.68541L10.1057 5.70593C10.4185 5.99458 10.6869 6.24237 10.8896 6.4638C11.1026 6.69642 11.293 6.95179 11.4023 7.27063C11.5643 7.74341 11.5643 8.25668 11.4023 8.72946C11.293 9.0483 11.1026 9.30367 10.8896 9.53629C10.6869 9.75771 10.4184 10.0055 10.1057 10.2942L10.0835 10.3147L5.49398 14.5511L4.47657 13.4489L9.06607 9.21246C9.40722 8.89756 9.62836 8.69258 9.78328 8.52338C9.93272 8.36015 9.96962 8.28306 9.98329 8.24318C10.0373 8.08559 10.0373 7.9145 9.98329 7.7569C9.96963 7.71702 9.93272 7.63993 9.78328 7.4767C9.62837 7.3075 9.40722 7.10252 9.06608 6.78761L4.47656 2.55112L5.49399 1.44891Z"
-                                              fill="#475569"></path>
-                                    </svg>
-                                </div>
+
+                                    <div class="button-img-container">
+
+                                    </div>
+                                </button>
                             {% endif %}
                         {% endif %}
                         <button disabled
@@ -115,7 +116,7 @@
                         <span class="check-form-title-number">3</span>
                         <p class="blue-bold-md">Оплата</p>
                     </div>
-                    {% if form.payment.errors %}
+                    {% if form.payment_type.errors %}
                         {% for error in  form.payment.errors %}
                             <ul>
                                 <li class="error-list">
@@ -125,7 +126,7 @@
                         {% endfor %}
                     {% endif %}
                     <div class="payment-radio">
-                        {{ form.payment }}
+                        {{ form.payment_type }}
                     </div>
                 </div>
             </form>
@@ -152,7 +153,12 @@
                         <input type="search" id="courier-field-house" placeholder="Введіть номер будинку"/>
                         <label for="courier-field-apartment">Квартира</label>
                         <input type="search" id="courier-field-apartment" placeholder="Введіть квартиру"/>
-                        <button disabled id="AwakeButtonCourier" class="btn blured-div" onclick=courierButtonSubmit()>
+                        <button
+                                disabled
+                                id="AwakeButtonCourier"
+                                class="btn blured-div"
+                                onclick="courierButtonSubmit()"
+                        >
                             Підтвердити
                         </button>
                     </div>
@@ -173,6 +179,42 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+        <div class="novaposhta-users-addresses">
+            <div class="novaposhta-window white-container">
+                <div class="novaposhta-window-title">
+                    <p class="blue-bold-text novaposhta-window-title-change">Збережені адреси</p>
+                    <button class="window-button-close"
+                            onclick="document.getElementsByClassName('novaposhta-users-addresses')[0].style.display='none';">
+                        <img class="close-window-title" src="{% static 'checkout/img/close_blue.png' %}" alt="">
+                    </button>
+                </div>
+                <div class="user-output-addresses">
+                    <div class="swiper swiper3">
+                        <div class="swiper-wrapper swiper-items">
+                            {% for address in user.nova_addresses.all %}
+                                <div class="swiper-slide">
+                                    <div class="option-item">
+                                        <div class="option-info-text">
+                                            <p class="option-text-title">
+                                                {{ address.get_delivery_choice_display }} -
+                                                {% if address.warehouse_id %}
+                                                    {{ address.warehouse_id }}
+                                                {% endif %}
+                                                <span class="option-text-title-span">{{ address.delivery_address|title }}</span>
+                                            </p>
+                                            <p class="address-id hidden-field">
+                                                {{ address.id }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-scrollbar"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

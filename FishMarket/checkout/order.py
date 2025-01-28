@@ -2,7 +2,7 @@ import logging
 from decimal import Decimal
 
 from django.db import transaction
-
+import json
 from cart.cart import Cart
 from cart.templatetags.total_per_product import total_per_product
 from checkout.models import Order, OrderItem
@@ -14,29 +14,34 @@ def create_order(cleaned_data):
     name = cleaned_data.get('name')
     last_name = cleaned_data.get('last_name')
     phone = cleaned_data.get('phone')
-    type_of_delivery = cleaned_data.get('type_of_delivery')
-    courier_delivery = cleaned_data.get('courier_delivery', None)
+    type_of_delivery = int(cleaned_data.get('type_of_delivery'))
+    courier_delivery = cleaned_data.get('courier', None)
     warehouse_delivery = cleaned_data.get('delivery_address', None)
     warehouse_number = cleaned_data.get('warehouse_number', None)
     payment_method = cleaned_data.get('payment', None)
     request = cleaned_data.get('request', None)
     cart = Cart(request)
 
-    if warehouse_delivery and warehouse_number:
+    if type_of_delivery == '1':
         delivery_address = warehouse_delivery
     else:
-        delivery_address = (f'м. {courier_delivery["city"]}, '
-                            f'вул. {courier_delivery["street"]}, '
-                            f'буд. {courier_delivery["house"]}'
-                            f'{", кв. " + courier_delivery["apartment"] if courier_delivery.get("apartment", None) is not None else ""}')
+        courier_delivery = json.loads(courier_delivery)
+        delivery_address = \
+            (f'м. {courier_delivery["city"]}, вул. {courier_delivery["street"]}, буд. {courier_delivery["house"]} '
+             f'{", кв. " + courier_delivery["apartment"] if courier_delivery["apartment"] else ""}')
 
     if user is None:
         guest = create_guest_shopper(name, last_name, phone)
+    else:
+        user = User.objects.get(id=int(user))
+        save_user_info(user, name, last_name, phone)
+        print('начинаем')
+        save_user_delivery(user, type_of_delivery, delivery_address, warehouse_number)
 
     try:
         with transaction.atomic():
             order = Order.objects.create(
-                user=User.objects.get(id=int(user)) if user is not None else None,
+                user=user if user is not None else None,
                 guest=guest if user is None else None,
                 delivery_address=delivery_address,
                 warehouse_number=warehouse_number,
@@ -67,17 +72,22 @@ def create_order(cleaned_data):
         return False
 
 
+def save_user_info(user, name, last_name, phone):
+    if not user.name:
+        user.name = name
+    if not user.last_name:
+        user.last_name = last_name
+    if not user.phone_number:
+        user.phone_number = phone
 
-def save_user_address(cleaned_data):
-    user = cleaned_data.get("user_id")
-    type_of_delivery = cleaned_data.get("type_of_delivery")
-    warehouse_number = cleaned_data.get("warehouse_number")
-    delivery_address = cleaned_data.get("delivery_address")
+    user.save()
+
+def save_user_delivery(user, type_of_delivery, delivery_address, warehouse_number):
     NovaAddresses.objects.create(
         user=user,
-        delivery_choice=type_of_delivery,
+        delivery_address=delivery_address,
         warehouse_id=warehouse_number,
-        warehouse_address=delivery_address
+        delivery_choice=type_of_delivery,
     )
 
 
@@ -85,7 +95,7 @@ def create_guest_shopper(name, last_name, phone):
     guest = GuestShopper.objects.create(
         name=name,
         last_name=last_name,
-        phone=phone
+        phone_number=phone
     )
 
     return guest
