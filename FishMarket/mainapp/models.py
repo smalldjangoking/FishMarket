@@ -37,7 +37,9 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Цена за КГ/ШТ')
     stock = models.IntegerField(null=True, blank=True, default=0, verbose_name='Наличие')
     time_create = models.DateTimeField(auto_now_add=True, db_index=True)
-    meta = models.CharField(max_length=140, blank=True, default='')
+    meta_description = models.TextField(
+        max_length=160, blank=False, null=False, verbose_name="Meta описание (Для поисковых систем. 160 символ. Уникальность!)")
+    meta_tags = models.TextField(blank=True, null=True, verbose_name='Meta Теги (Необязательно. Не больше 10 слов через запятую.)')
 
     class Meta:
         verbose_name = 'Продукт'

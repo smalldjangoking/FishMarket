@@ -18,20 +18,25 @@ def checkout(request):
 
     if request.method == 'POST':
         form = CheckoutUserForm(request.POST)
-        print(request.POST)
+
+        if request.user.is_authenticated:
+            user = request.user
+            if not all([user.name, user.last_name, user.phone_number]):
+                # Если хотя бы одно из полей отсутствует или пустое
+                user.name = request.POST.get('name')
+                user.last_name = request.POST.get('last_name')
+                user.phone_number = request.POST.get('phone')
+                user.save()
+
 
         if form.is_valid():
             cleaned_data = form.cleaned_data
-            cleaned_data['user_id'] = request.user.id if request.user.is_authenticated else None
             cleaned_data['request'] = request
-
             order_creating = create_order(cleaned_data)
 
             if order_creating:
                 return redirect('checkout:checkout_success')
 
-        else:
-            print('Форма не валидная')
 
 
     return render(request, 'checkout/checkout.html', context={'form': form})

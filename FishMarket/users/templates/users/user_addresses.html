@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'users/css/user-addresses.css' %}">
+{% endblock %}
+{% block robots_follow %}noindex, nofollow{% endblock %}
+
+{% block section %}
+    <section>
+        <ul class="profile-elems">
+            <li class="menu-elem">
+                <ul>
+                    <li>
+                        <img src="{% static 'users/img/settings-profile.png' %}" alt="profile icon">
+                        <a href="{% url 'users:profile' %}">Профіль</a>
+                    </li>
+                    <li>
+                        <img src="{% static 'img/history.png' %}" alt="profile icon">
+                        <a href="{% url 'users:user_history' %}">Історія замовлень</a>
+                    </li>
+                    <li class="active-link">
+                        <img src="{% static 'img/address.png' %}" alt="profile icon">
+                        <a href="{% url 'users:user_addresses' %}">Адреса доставки</a>
+                    </li>
+                    <li>
+                        <img src="{% static 'users/img/password.png' %}" alt="пароль">
+                        <a href="{% url 'users:password_change' %}">Змінити пароль</a>
+                    </li>
+                    <li class="exit-button">
+                        <img src="{% static 'users/img/exit.png' %}" alt="выхiд з аккаунту">
+                        <a class='a-exit' href="{% url 'users:logout' %}">Вийти з кабінету</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <ul class="user-address">
+                    {% for address in user_addresses %}
+                        <li class="user-address-item">
+                            <div class="user-address-item-inside">
+                                <div class="item-inside-address">
+                                    <img class="item-inside-img" src="{% static 'users/img/location.png' %}"
+                                         alt="your address icon">
+                                    <div>
+                                        <p class="item-inside-text">{{ address.delivery_address }}</p>
+                                    </div>
+                                </div>
+                                <form method="post" action="{% url "users:user_addresses" %}" class="delete-address-form">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="address_id" value="{{ address.id }}">
+                                    <button type="submit" class="delete-address-btn">
+                                        <img class="delete-address" src="{% static 'users/img/delete.png' %}" alt="Delete address">
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li>
+            </li>
+            <li>
+
+            </li>
+        </ul>
+    </section>
+
+    <script>
+        document.querySelectorAll('.delete-address-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                if (!confirm('Ви впевнені, що хочете видалити адресу?')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+{% endblock %}

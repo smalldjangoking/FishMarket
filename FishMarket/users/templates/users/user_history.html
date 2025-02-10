@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block robots_follow %}noindex, nofollow{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'users/css/user-history.css' %}">
+{% endblock %}
+
+{% block section %}
+    <section>
+        <ul class="profile-elems">
+            <li class="menu-elem">
+                <ul>
+                    <li>
+                        <img src="{% static 'users/img/settings-profile.png' %}" alt="profile icon">
+                        <a href="{% url 'users:profile' %}">Профіль</a>
+                    </li>
+                    <li class="active-link">
+                        <img src="{% static 'img/history.png' %}" alt="profile icon">
+                        <a href="{% url 'users:user_history' %}">Історія замовлень</a>
+                    </li>
+                    <li>
+                        <img src="{% static 'img/address.png' %}" alt="profile icon">
+                        <a href="{% url 'users:user_addresses' %}">Адреса доставки</a>
+                    </li>
+                    <li>
+                        <img src="{% static 'users/img/password.png' %}" alt="пароль">
+                        <a href="{% url 'users:password_change' %}">Змінити пароль</a>
+                    </li>
+                    <li class="exit-button">
+                        <img src="{% static 'users/img/exit.png' %}" alt="выхiд з аккаунту">
+                        <a class='a-exit' href="{% url 'users:logout' %}">Вийти з кабінету</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <ul class="history-container">
+                    {% for item in history %}
+                        <li class="history-item">
+                            <div class="item-left">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                     width="24px" fill="deepskyblue">
+                                    <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/>
+                                </svg>
+                                <p class="history-time">{{ item.created_at|date:"d.m.Y H:i" }}</p>
+                            </div>
+
+                            <div class="item-right">
+
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    </section>
+{% endblock %}

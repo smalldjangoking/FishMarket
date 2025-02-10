@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{% static 'users/css/form-control.css' %}">
     <script src="https://unpkg.com/imask"></script>
 {% endblock %}
+{% block robots_follow %}noindex, nofollow{% endblock %}
+
 {% block section %}
     <section>
         <ul class="profile-elems">
@@ -16,11 +18,11 @@
                     </li>
                     <li>
                         <img src="{% static 'img/history.png' %}" alt="profile icon">
-                        <a href="#">Історія замовлень</a>
+                        <a href="{% url 'users:user_history' %}">Історія замовлень</a>
                     </li>
                     <li>
                         <img src="{% static 'img/address.png' %}" alt="profile icon">
-                        <a href="#">Адреса доставки</a>
+                        <a href="{% url 'users:user_addresses' %}">Адреса доставки</a>
                     </li>
                     <li>
                         <img src="{% static 'users/img/password.png' %}" alt="пароль">

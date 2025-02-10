@@ -1,5 +1,6 @@
 import logging
 from decimal import Decimal
+from tkinter.ttk import tclobjs_to_py
 
 from django.db import transaction
 import json
@@ -10,66 +11,43 @@ from users.models import NovaAddresses, GuestShopper, User
 
 
 def create_order(cleaned_data):
-    user = cleaned_data.get('user_id', None)
     name = cleaned_data.get('name')
     last_name = cleaned_data.get('last_name')
     phone = cleaned_data.get('phone')
-    type_of_delivery = int(cleaned_data.get('type_of_delivery'))
-    courier_delivery = cleaned_data.get('courier', None)
-    warehouse_delivery = cleaned_data.get('delivery_address', None)
-    warehouse_number = cleaned_data.get('warehouse_number', None)
-    payment_method = cleaned_data.get('payment', None)
+    type_of_delivery = cleaned_data.get('delivery_type', None)
+    address = cleaned_data.get('user_address', None)
+    payment_method = cleaned_data.get('payment_type', None)
+    address_from_memory = cleaned_data.get('address_from_memory', None)
     request = cleaned_data.get('request', None)
     cart = Cart(request)
 
-    if type_of_delivery == '1':
-        delivery_address = warehouse_delivery
-    else:
-        courier_delivery = json.loads(courier_delivery)
-        delivery_address = \
-            (f'м. {courier_delivery["city"]}, вул. {courier_delivery["street"]}, буд. {courier_delivery["house"]} '
-             f'{", кв. " + courier_delivery["apartment"] if courier_delivery["apartment"] else ""}')
-
-    if user is None:
-        guest = create_guest_shopper(name, last_name, phone)
-    else:
-        user = User.objects.get(id=int(user))
-        save_user_info(user, name, last_name, phone)
-        print('начинаем')
-        save_user_delivery(user, type_of_delivery, delivery_address, warehouse_number)
-
-    try:
+    if address_from_memory:
         with transaction.atomic():
             order = Order.objects.create(
-                user=user if user is not None else None,
-                guest=guest if user is None else None,
-                delivery_address=delivery_address,
-                warehouse_number=warehouse_number,
-                type_of_warehouse=type_of_delivery,
-                payment_method=payment_method,
+                user=request.user,
+                delivery_address=address,
+                full_price=cart.get_full_price
             )
+            order_items_create(cart=cart, order=order)
 
-            for product in cart:
-                quantity = int(product.get('product_quantity'))
-                weight = float(product.get('product_weight')) if product.get('product_weight') not in [None,
-                                                                                                       ""] else None
-                price = float(product.get('product_price'))
+            return True
 
-                OrderItem.objects.create(
-                    order=order,
-                    product=product.get('product'),
-                    quantity=quantity,
-                    weight=weight,
-                    total_price=total_per_product(price, weight, quantity),
-                )
+    if not address_from_memory:
+        with transaction.atomic():
+            if request.user.is_authenticated:
+                order = Order.objects.create(user=request.user, full_price=cart.get_full_price, delivery_address=address, payment_method=payment_method)
+                order_items_create(cart=cart, order=order)
+                NovaAddresses.objects.create(user=request.user, delivery_choice=type_of_delivery, delivery_address=address)
+                return True
+            else:
+                guest = GuestShopper.objects.create(name=name, last_name=last_name, phone_number=phone)
+                order = Order.objects.create(guest=guest, full_price=cart.get_full_price, delivery_address=address, payment_method=payment_method)
+                order_items_create(cart=cart, order=order)
+                return True
 
-            cart.cart_clear()
+    return False
 
-        return True
 
-    except Exception as e:
-        logging.error(e)
-        return False
 
 
 def save_user_info(user, name, last_name, phone):
@@ -81,6 +59,7 @@ def save_user_info(user, name, last_name, phone):
         user.phone_number = phone
 
     user.save()
+
 
 def save_user_delivery(user, type_of_delivery, delivery_address, warehouse_number):
     NovaAddresses.objects.create(
@@ -99,3 +78,26 @@ def create_guest_shopper(name, last_name, phone):
     )
 
     return guest
+
+
+def order_items_create(cart, order):
+    for product in cart:
+        quantity = int(product.get('product_quantity'))
+        weight = float(product.get('product_weight')) if product.get('product_weight') not in [None,
+                                                                                               ""] else False
+        price = float(product.get('product_price'))
+
+        print(total_per_product(price_per_kg=price, weight_per_unit=weight, quantity=quantity))
+        print(type(total_per_product(price_per_kg=price, weight_per_unit=weight, quantity=quantity)))
+
+        OrderItem.objects.create(
+            order=order,
+            product=product.get('product'),
+            quantity=quantity,
+            weight=weight,
+            total_price=total_per_product(price_per_kg=price, weight_per_unit=weight, quantity=quantity),
+        )
+
+    else:
+        cart.cart_clear()
+

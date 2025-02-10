@@ -12,6 +12,7 @@
     <link rel="icon" href="{% static '/img/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/burgermenu.css' %}">
     {% block head %}{% endblock %}
+    <meta name="robots" content="{% block robots_follow %}index, follow{% endblock %}">
 </head>
 <body>
 {% include 'includes/header.html' %}

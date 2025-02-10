@@ -1,0 +1,53 @@
+.profile-elems {
+    grid-template-columns: 300px auto;
+}
+
+.user-address {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-address-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #F8FAFC;
+}
+
+.user-address-item-inside {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.item-inside-img {
+    width: 25px;
+    height: auto;
+}
+
+.item-inside-address {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.item-inside-text {
+    color: black;
+}
+
+.delete-address {
+    width: 25px;
+}
+
+.delete-address-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}

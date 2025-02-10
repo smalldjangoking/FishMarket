@@ -1,24 +1,19 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import Group
+
 from .models import User, NovaAddresses
 
 
-class ProductWeightInline(admin.StackedInline):
+class NovaAddressesInline(admin.StackedInline):
     model = NovaAddresses
-    extra = 1
+    extra = 0
 
 
 class UserAdmin(BaseUserAdmin):
-    inlines = (ProductWeightInline,)
+    inlines = (NovaAddressesInline,)
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'name', 'last_login')}),
-        ('Permissions', {'fields': (
-            'is_active',
-            'is_staff',
-            'is_superuser',
-            'groups',
-            'user_permissions',
-        )}),
+        (None, {'fields': ('email', 'password', 'name', 'last_name', 'phone_number', 'last_login')}),
     )
     add_fieldsets = (
         (
@@ -30,11 +25,14 @@ class UserAdmin(BaseUserAdmin):
         ),
     )
 
-    list_display = ('email', 'name', 'is_staff', 'last_login')
+    list_display = ('email', 'name', 'last_name', 'phone_number')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
-    search_fields = ('email',)
-    ordering = ('email',)
+    search_fields = ('email', 'phone_number', 'name', 'last_name')
+    ordering = ('last_login',)
     filter_horizontal = ('groups', 'user_permissions',)
 
 
+
+
 admin.site.register(User, UserAdmin)
+admin.site.unregister(Group)

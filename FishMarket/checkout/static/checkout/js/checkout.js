@@ -6,10 +6,9 @@ if (slidesPerViewValue >= 2) {
     document.querySelector('.swiper0').style.height = '435px';
 }
 let NovaPoshtaButton = document.querySelector('#novaposhta-button')
-let UserDeliveryAddress
-let UserSavedAddressId
 let UserAddressesContainer
 let UsersAddressesButton
+let formUserAddress = document.querySelector('#user_address')
 let CityChosen = false;
 let WarehouseChosen = false;
 const element = document.getElementById('phonenumber');
@@ -21,6 +20,15 @@ let search_city = document.querySelector('#city-search');
 let search_warehouse = document.querySelector('#warehouse-search');
 const courier_form = document.querySelector('#novaposhta-input-courier');
 let CourierHiddenFormField = document.querySelector('#courierHidden');
+let swiperItems = document.querySelector('.swiper-novaposhta-output');
+let warehouseSearch = document.querySelector('#warehouse-searchID');
+let cityRefHiddenField;
+let NovaposhtaContainer = document.querySelector('.novaposhta-container');
+let userAddressFromMemory = document.querySelector('#userAddressFromMemory');
+let typeOfDelivery = document.getElementById('typeOfDelivery');
+let novaposhtaFormCourier = document.querySelector('.novaposhtaFormCourier');
+let novaposhtaCityDiv = document.querySelector('#CitySearth-ware');
+let changeButtonIcon = NovaPoshtaButton.querySelector('.button-img-container');
 
 
 //Slider for View Cart
@@ -49,6 +57,26 @@ const swiper = new Swiper('.swiper0', {
     },
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    function restart_variables() {
+        if (formUserAddress) {
+            formUserAddress.value = ''
+        }
+
+        if (userAddressFromMemory.checked) {
+            userAddressFromMemory.checked = false
+        }
+
+        let radioButtons = document.querySelectorAll('input[name="delivery_type"]');
+
+        radioButtons.forEach(radio => {
+            radio.checked = false;
+        });
+    }
+
+    restart_variables()
+})
+
 //Slider for selection from User addresses
 const swiper3 = new Swiper('.swiper3', {
     // Optional parameters
@@ -62,14 +90,13 @@ const swiper3 = new Swiper('.swiper3', {
     },
 
     on: {
+        //При нажатии, сохраняем выбор пользователя
         click: function () {
             const clickedSlide = this.clickedSlide;
             if (clickedSlide) {
-                UserDeliveryAddress = clickedSlide.innerText;
-                UserSavedAddressId = clickedSlide.querySelector('.address-id').textContent.trim();
-
-                CloseUserSavedAddresses(UserDeliveryAddress)
-
+                formUserAddress.value = clickedSlide.innerText;
+                userAddressFromMemory.checked = true;
+                CloseUserSavedAddresses(clickedSlide.innerText)
             }
         }
     },
@@ -83,7 +110,6 @@ const swiper3 = new Swiper('.swiper3', {
 //Close Window's delivery option
 document.addEventListener('click', function (event) {
     UserAddressesContainer = document.querySelector('.novaposhta-users-addresses');
-    let NovaposhtaContainer = document.querySelector('.novaposhta-container');
     //Closing user's saved delivery list
     if (event.target.classList.contains('novaposhta-users-addresses') && !event.target.classList.contains('novaposhta-window')) {
         UserAddressesContainer.style.display = 'none';
@@ -107,6 +133,20 @@ const swiper2 = new Swiper('.swiper2', {
     on: {
         click: function () {
             const clickedSlide = this.clickedSlide;
+            if (!CityChosen) {
+                cityRefHiddenField = clickedSlide.querySelector('.city-ref').textContent;
+                CityChosen = true;
+
+                search_city.value = clickedSlide.querySelector('.option-item .option-info-text .option-text-title').textContent;
+                warehouseOpenOrClose(false);
+                return;
+            }
+
+            if (CityChosen && !WarehouseChosen) {
+                NovaContainerSave(clickedSlide.innerText);
+                formUserAddress.value = clickedSlide.querySelector('.option-item .option-info-text .full-info').textContent;
+                return;
+            }
 
         }
     },
@@ -117,22 +157,45 @@ const swiper2 = new Swiper('.swiper2', {
     },
 })
 
+function NovaContainerSave(address) {
+    NovaposhtaContainer.style.display = 'none';
+    changeButtonTitle = NovaPoshtaButton.querySelector('p');
+    changeButtonTitle.innerText = address;
+    changeButtonIcon.innerHTML = CheckMarkGreen;
+}
+
 //If typeOfDelivery is chosen, opens diffrent variations of search in novaposhta container
-document.getElementById('typeOfDelivery').addEventListener('change', function (event) {
+typeOfDelivery.addEventListener('change', function (event) {
     let title = document.querySelector('.novaposhta-window-title-change');
     let NovaPoshtaButtonTitle = NovaPoshtaButton.querySelector('.text-grey');
+
+    radioButtonChosen = {
+        'number': event.target.value,
+        'title': event.target.closest('label').textContent.trim()
+    };
+
+    changeButtonIcon.innerHTML = ArrowSvg;
 
     if (event.target.value === '1') {
         NovaPoshtaButtonTitle.innerText = 'Вибрати відділення';
         title.innerText = 'Вибрати відділення';
+        reload_variables()
         //novaposhtaInputWarehouse.placeholder = 'Введіть номер відділення або адресу';
     } else if (event.target.value === '2') {
         NovaPoshtaButtonTitle.innerText = 'Вибрати Поштомат';
         title.innerText = 'Вибрати Поштомат';
+        reload_variables()
         //novaposhtaInputWarehouse.placeholder = 'Введіть номер поштомату або адресу';
     } else if (event.target.value === '3') {
         title.innerText = 'Кур\'єрська доставка';
         NovaPoshtaButtonTitle.innerText = 'Кур\'єрська доставка';
+        novaposhtaFormCourier.classList.remove('hidden-field');
+        novaposhtaCityDiv.classList.add('hidden-field');
+        swiperItems.innerHTML = '';
+        swiper2.update();
+        if (!warehouseSearch.classList.contains('hidden-field')) {
+            warehouseSearch.classList.add('hidden-field');
+        }
     }
     //activator for button novaposhta
     NovaPoshtaButton.classList.remove('blured-div');
@@ -144,7 +207,22 @@ function CloseUserSavedAddresses(UserDeliveryAddress) {
     UsersAddressesButton = document.querySelector('#UsersAddressesButton');
     UsersAddressesButton.querySelector('p').innerText = UserDeliveryAddress
     UsersAddressesButton.querySelector('.button-img-container').innerHTML = CheckMarkGreen
+}
 
+//Открытие или закрытие поля ввода warehouse
+function warehouseOpenOrClose(close) {
+    if (!close) {
+        warehouseSearch.classList.remove('hidden-field');
+        swiperItems.innerHTML = '';
+        swiper2.update();
+    }
+
+    if (close) {
+        warehouseSearch.classList.add('hidden-field');
+        swiperItems.innerHTML = '';
+        warehouseSearch.querySelector('#warehouse-search').value = '';
+        swiper2.update();
+    }
 }
 
 //Listening Inputs for value (City,warehouse, parcel-terminal, courier fields check)
@@ -203,6 +281,7 @@ function courierButtonSubmit() {
     const street = document.querySelector('#courier-field-street').value;
     const house = document.querySelector('#courier-field-house').value;
     const apartment = document.querySelector('#courier-field-apartment').value;
+    let formating_address = `Кур'єр: м. ${city} вул. ${street} дом ${house}${apartment ? ` кв. ${apartment}` : ''}`;
 
     if (city && street && house) {
         const data = {
@@ -212,13 +291,16 @@ function courierButtonSubmit() {
             apartment: apartment,
         };
 
-        CourierHiddenFormField.value = JSON.stringify(data);
-        novaposhtaButtonChangeCourier(city, street, house, apartment);
+        formUserAddress.value = formating_address;
+        NovaContainerSave(formating_address);
     }
 }
 
 //Sending city input to backEnd.
 function city_request(search_data) {
+    warehouseOpenOrClose(true)
+    CityChosen = false;
+
     if (search_data) {
         $.ajax({
             url: novapost_city,
@@ -229,21 +311,7 @@ function city_request(search_data) {
             },
             success: function (data) {
                 if (data.success) {
-                    let htmlSwiperList = '';
-                    data.data_array.forEach(function (item) {
-                        htmlSwiperList += `
-                                <div class="swiper-slide">
-                                    <div class="option-item">
-                                        <div class="option-info-text">
-                                            <p class="option-text-title">${capitalizeFirstLetter(item.city_name_ua)}</p>
-                                            <p class="option-text-address">${item.city_state}</p>
-                                            <p class="HiddenRef">${item.ref_to_warehouses}</p>
-                                        </div>
-                                    </div>
-                                </div>`;
-                        swiperItems.innerHTML = htmlSwiperList;
-                        swiper2.update();
-                    })
+                    swiperDataUpdate(data.data_array)
                 } else if (!data.success) {
                     no_found_div();
                 }
@@ -255,7 +323,57 @@ function city_request(search_data) {
     }
 }
 
-function iterator_array(iterable) {
+//Получаем список отделений или почтоматов
+function requestWarehouses(search_data) {
+    if (CityChosen && radioButtonChosen['number']) {
+        $.ajax({
+            url: novapost_warehouses,
+            method: 'post',
+            data: {
+                'city_ref': cityRefHiddenField,
+                'csrfmiddlewaretoken': csrf,
+                'typeofware': radioButtonChosen['number'],
+                'search_ware': search_data,
+            },
+            success: function (data) {
+                if (data.success) {
+                    swiperDataUpdateWarehouses(data.data_array)
+
+                } else if (!data.success) {
+                    no_found_div()
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+}
+
+//Обновления Swiper для вывода отделений или почтоматов
+function swiperDataUpdateWarehouses(iterable) {
+    let htmlSwiperList = "";
+    iterable.forEach(function (item) {
+        htmlSwiperList += `
+                                <div class="swiper-slide">
+                                    <div class="option-item">
+                                        <div class="option-info-text">
+                                            <p class="option-text-title"><span class="option-text-title-span">${radioButtonChosen['title']}</span> №${item.number}</p>
+                                            <p class="option-text-address">${item.address_ua}</p>
+                                            <p class="option-id-warehouse HiddenRef">${item.number}</p>
+                                            <p class="full-info hidden-field">${radioButtonChosen['title']} ${item.number}: ${item.address_ua}</p>
+                                        </div>
+                                    </div>
+                                </div>`;
+    });
+
+    swiperItems.innerHTML = htmlSwiperList;
+    swiper2.update();
+}
+
+//Обновляем Swiper для вывода списка возможных вариантов
+function swiperDataUpdate(iterable) {
+    let htmlSwiperList = "";
     iterable.forEach(function (item) {
         htmlSwiperList += `
                                 <div class="swiper-slide">
@@ -263,11 +381,42 @@ function iterator_array(iterable) {
                                         <div class="option-info-text">
                                             <p class="option-text-title">${capitalizeFirstLetter(item.city_name_ua)}</p>
                                             <p class="option-text-address">${item.city_state}</p>
-                                            <p class="HiddenRef">${item.ref_to_warehouses}</p>
+                                            <p class="city-ref HiddenRef">${item.ref_to_warehouses}</p>
                                         </div>
                                     </div>
                                 </div>`;
-        swiperItems.innerHTML = htmlSwiperList;
-        swiper2.update();
+    });
+
+    swiperItems.innerHTML = htmlSwiperList;
+    swiper2.update();
+}
+
+function reload_variables() {
+    swiperItems.innerHTML = '';
+    search_warehouse.value = '';
+    warehouseSearch.classList.add('hidden-field');
+    search_city.value = '';
+    swiper2.update();
+
+    if (novaposhtaCityDiv.classList.contains("hidden-field")) {
+        novaposhtaFormCourier.classList.add('hidden-field');
+        novaposhtaCityDiv.classList.remove('hidden-field');
     }
 }
+
+//Текст в случае отсутствия данных в запросе
+function no_found_div() {
+    swiperItems.innerHTML = '<div class="no-found-div"><p class="no-found-text">Пошук не дав результатів &#129300;</p></div>'
+    swiper2.update();
+}
+
+//Делаем первую букву заглавной
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+//Отправляем форму
+document.querySelector('#SubmitForm').addEventListener('click', function (event) {
+    event.preventDefault()
+    document.querySelector('#FormCheckout').submit();
+})

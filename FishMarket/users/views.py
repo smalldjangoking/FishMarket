@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
+
+from checkout.models import Order
 from .forms import SignUpForm
-from .models import User
+from .models import User, NovaAddresses
 from .forms import UserChangeForm
 
 
@@ -31,3 +33,19 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'users/signup.html', {'form': form})
+
+def user_addresses(request):
+    user_addresses = NovaAddresses.objects.filter(user=request.user)
+
+    if request.method == 'POST':
+        address_id = request.POST.get('address_id')
+        if address_id:
+            NovaAddresses.objects.get(user=request.user, id=address_id).delete()
+
+    return render(request, 'users/user_addresses.html', context={'user_addresses': user_addresses})
+
+
+def user_order_history(request):
+    history = Order.objects.filter(user=request.user)
+
+    return render(request, 'users/user_history.html', context={'history': history})

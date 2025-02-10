@@ -3,6 +3,7 @@
 {% load total_per_product %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'cart/css/bucket_view.css' %}">{% endblock %}
+{% block robots_follow %}noindex, nofollow{% endblock %}
 {% block section %}
     <div class="cart-container">
         {% if cart.get_full_price %}

@@ -1,4 +1,3 @@
-from decimal import Decimal
 from django.conf import settings
 from mainapp.models import Product
 
@@ -36,7 +35,7 @@ class Cart():
                 if '.' not in key:
                     key = ''
                 else:
-                    key = Decimal(key)
+                    key = float(key)
 
                 yield {
                     'product_weight': key,

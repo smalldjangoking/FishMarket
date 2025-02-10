@@ -6,7 +6,28 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'mainapp/css/product_item.css' %}">
     <link rel="stylesheet" href="{% static 'mainapp/css/card.css' %}">
+    <meta name="description" content="{{ product.meta_description }}">
+    <meta name="keywords" content="{{ product.meta_tags }}">
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "Product",
+          "name": "{{ product.name }}",
+          "image": "https://ваш-сайт.com{{ product.image_product.url }}",
+          "description": "{{ product.meta_description }}",
+          "sku": "{{ product.slug }}",
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "UAH",
+            "price": "{{ product.price }}",
+            "availability": "https://schema.org/InStock"
+          }
+        }
+    </script>
 {% endblock %}
+{% block title %}Придбати {{ product.name }} - Інтернет-магазин{% endblock %}
+
 
 {% block section %}
     <div class="nav_product">

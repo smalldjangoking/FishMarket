@@ -66,10 +66,16 @@ class NovaAddresses(models.Model):
         parcel_box = "2", "Поштомат"
         courier = "3", "Кур'єр"
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True, related_name='nova_addresses')
-    delivery_choice = models.CharField(max_length=1, choices=DeliveryOptions.choices, blank=False, null=False)
-    warehouse_id = models.CharField(null=True, blank=True, max_length=255, verbose_name='Номер отделения или почтомата')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True ,related_name='nova_addresses')
+    delivery_choice = models.CharField(max_length=1, choices=DeliveryOptions.choices, blank=False, null=False, verbose_name='Тип доставки')
     delivery_address = models.CharField(null=True, blank=True, max_length=255, verbose_name='Адрес доставки')
+
+    class Meta:
+        verbose_name = 'Адрес Novaposhta'
+        verbose_name_plural = 'Адресы Novaposhta'
+
+    def __str__(self):
+        return self.delivery_address
 
 
 class GuestShopper(models.Model):

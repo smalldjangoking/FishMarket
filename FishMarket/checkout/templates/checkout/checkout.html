@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{% static 'users/css/form-control.css' %}">
     <script src="https://unpkg.com/imask"></script>
 {% endblock %}
+{% block robots_follow %}noindex, nofollow{% endblock %}
 
 {% block section %}
     <p class="blue-bold-text">Оформлення замовлення</p>
@@ -20,8 +21,6 @@
             <form id="FormCheckout" class="form-checkout" method="POST">
                 {% csrf_token %}
                 {{ form.warehouse_number }}
-                {{ form.courier }}
-                {{ form.delivery_address }}
                 <div class="checkout-form">
                     <div class="checkout-form-title">
                         <span class="check-form-title-number">1</span>
@@ -79,10 +78,9 @@
                         {% endif %}
                     {% endif %}
                     <div class="form-group delivery-choice-group">
-                        {{ form.delivery_type }}
                         {% if user.is_authenticated %}
                             {% if user.nova_addresses.exists %}
-                                {{ form.user_saved_address_id }}
+                                {{ form.address_from_memory }}
                                 <button type="button"
                                         onclick="document.getElementsByClassName('novaposhta-users-addresses')[0].style.display='flex';"
                                         id="UsersAddressesButton"
@@ -98,6 +96,7 @@
                                 </button>
                             {% endif %}
                         {% endif %}
+                    {{ form.delivery_type }}
                         <button disabled
                                 onclick="document.getElementsByClassName('novaposhta-container')[0].style.display='flex';"
                                 type="button" id="novaposhta-button"
@@ -129,6 +128,7 @@
                         {{ form.payment_type }}
                     </div>
                 </div>
+            {{ form.user_address }}
             </form>
         </div>
 
@@ -172,7 +172,8 @@
                     </div>
                     <div class="novaposhta-output-city">
                         <div class="swiper swiper2">
-                            <div class="swiper-wrapper swiper-items">
+                            <div class="swiper-wrapper swiper-items swiper-novaposhta-output">
+
                             </div>
                             <div class="swiper-scrollbar"></div>
                         </div>
@@ -198,14 +199,7 @@
                                     <div class="option-item">
                                         <div class="option-info-text">
                                             <p class="option-text-title">
-                                                {{ address.get_delivery_choice_display }} -
-                                                {% if address.warehouse_id %}
-                                                    {{ address.warehouse_id }}
-                                                {% endif %}
                                                 <span class="option-text-title-span">{{ address.delivery_address|title }}</span>
-                                            </p>
-                                            <p class="address-id hidden-field">
-                                                {{ address.id }}
                                             </p>
                                         </div>
                                     </div>
