@@ -1,9 +1,4 @@
-import logging
-from decimal import Decimal
-from tkinter.ttk import tclobjs_to_py
-
 from django.db import transaction
-import json
 from cart.cart import Cart
 from cart.templatetags.total_per_product import total_per_product
 from checkout.models import Order, OrderItem
@@ -26,7 +21,7 @@ def create_order(cleaned_data):
             order = Order.objects.create(
                 user=request.user,
                 delivery_address=address,
-                full_price=cart.get_full_price
+                cart_total=cart.get_full_price()
             )
             order_items_create(cart=cart, order=order)
 
@@ -35,13 +30,13 @@ def create_order(cleaned_data):
     if not address_from_memory:
         with transaction.atomic():
             if request.user.is_authenticated:
-                order = Order.objects.create(user=request.user, full_price=cart.get_full_price, delivery_address=address, payment_method=payment_method)
+                order = Order.objects.create(user=request.user, cart_total=cart.get_full_price(), delivery_address=address, payment_method=payment_method)
                 order_items_create(cart=cart, order=order)
                 NovaAddresses.objects.create(user=request.user, delivery_choice=type_of_delivery, delivery_address=address)
                 return True
             else:
                 guest = GuestShopper.objects.create(name=name, last_name=last_name, phone_number=phone)
-                order = Order.objects.create(guest=guest, full_price=cart.get_full_price, delivery_address=address, payment_method=payment_method)
+                order = Order.objects.create(guest=guest, cart_total=cart.get_full_price(), delivery_address=address, payment_method=payment_method)
                 order_items_create(cart=cart, order=order)
                 return True
 

@@ -1,9 +1,10 @@
+from django.db.models import Prefetch
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
-from checkout.models import Order
+from checkout.models import Order, OrderItem
 from .forms import SignUpForm
 from .models import User, NovaAddresses
 from .forms import UserChangeForm
@@ -46,6 +47,7 @@ def user_addresses(request):
 
 
 def user_order_history(request):
-    history = Order.objects.filter(user=request.user)
+    orders = Order.objects.filter(user=request.user).prefetch_related(
+    Prefetch('order_items', queryset=OrderItem.objects.select_related('product')))
 
-    return render(request, 'users/user_history.html', context={'history': history})
+    return render(request, 'users/user_history.html', context={'orders': orders})

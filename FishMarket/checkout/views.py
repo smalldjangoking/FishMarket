@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 
+from cart.cart import Cart
 from checkout.forms import CheckoutUserForm
 from checkout.order import create_order
 

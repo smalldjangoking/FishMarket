@@ -26,6 +26,8 @@ class Order(models.Model):
     status = models.CharField(max_length=1, choices=DeliveryOptions.choices, default=DeliveryOptions.pending, verbose_name='Статус Заказа')
     payment_method = models.CharField(max_length=255, choices=PAYMENT_CHOICES, verbose_name='Метод оплаты')
     is_paid = models.BooleanField(default=False, verbose_name='Оплачено')
+    cart_total = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True, verbose_name='Сумма за все товары')
+
 
     def clean(self):
         """Should be a user data for creating an order"""

@@ -27,7 +27,7 @@ def save_cities_to_db(one_city=False):
     else:
         total_number = request_data_size(api_url=api_url, params=params)
         print('Записей на добавление:', total_number)
-        print('Устанавливаем лимиты Загрузка перед началом скачивания 120 секунд...')
+        print('Ожидание 120 секунд.')
         time.sleep(120)
         limit = params['methodProperties']['Limit'] = 500
         iterations = math.ceil(total_number / limit)
@@ -56,7 +56,7 @@ def save_cities_to_db(one_city=False):
                 ]
                 Cities.objects.bulk_create(city_objects)
 
-                return True
+    return True
 
 
 def save_warehouses_to_db():
@@ -75,7 +75,7 @@ def save_warehouses_to_db():
     limit = params['methodProperties']['Limit'] = 500
     iterations = math.ceil(total_number / limit)
     print('Записей на добавление:', total_number)
-    print('Устанавливаем лимиты... Загрузка перед началом скачивания 120 секунд...')
+    print('ожидание 120 секунд')
     time.sleep(120)
 
     with transaction.atomic():

@@ -137,7 +137,7 @@ nav {
 
 .page-footer {
     display: flex;
-    margin-top: auto;
+    margin-top: 35px;
     flex-shrink: 0;
     margin-left: 10%;
     margin-right: 10%;
