@@ -55,22 +55,6 @@
     width: 100%;
 }
 
-.card-container .col fieldset .leg-new {
-    color: lime;
-    padding: 0.3rem;
-    background: rgba(128, 128, 128, 0.5);
-    border-radius: 10px;
-    font-size: 0.5rem;
-}
-
-.leg-new {
-    color: lime !important;
-    padding: 0.3rem;
-    background: rgba(128, 128, 128, 0.5);
-    border-radius: 10px;
-    font-size: 0.6rem;
-}
-
 .col-img {
     pointer-events: none;
     width: 140px !important;
@@ -100,9 +84,9 @@
 }
 
 .card-image-banner-new-product {
-    color: lime !important;
+    color: #18D03F;
     padding: 0.3rem;
-    background: rgba(211, 211, 211, 0.3);
+    background: #ccf5d5;
     border-radius: 10px;
     font-size: 0.8rem;
     font-weight: bold;
@@ -130,58 +114,6 @@
     transition: .2s ease;
     background-color: rgb(16, 232, 66);
     color: white;
-}
-
-.pagination {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: fit-content;
-    min-width: 150px;
-    margin-top: 35px;
-    color: grey;
-    padding: 15px 0;
-    border-radius: 10px;
-    gap: 1rem;
-}
-
-.paginator-container {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-}
-
-.page-list {
-    font-size: 0.9rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.step-links {
-    display: inline-flex;
-    gap: 1rem;
-}
-
-.btn-paginator {
-    display: flex;
-    justify-content: center; /* Центрирует по горизонтали */
-    align-items: center;    /* Центрирует по вертикали */
-    background: #1e90ff;
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    text-decoration: none; /* Убирает подчеркивание ссылки */
-}
-
-
-.btn-paginator-selected {
-    background: darkgrey;
-
 }
 
 .card-image-banner {

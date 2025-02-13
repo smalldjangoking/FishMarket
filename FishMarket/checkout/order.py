@@ -21,7 +21,8 @@ def create_order(cleaned_data):
             order = Order.objects.create(
                 user=request.user,
                 delivery_address=address,
-                cart_total=cart.get_full_price()
+                cart_total=cart.get_full_price(),
+                payment_method=payment_method,
             )
             order_items_create(cart=cart, order=order)
 

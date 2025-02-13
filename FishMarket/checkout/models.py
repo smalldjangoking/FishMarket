@@ -24,7 +24,7 @@ class Order(models.Model):
     delivery_address = models.CharField(max_length=255, null=True, blank=True, verbose_name='Адрес Доставки')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     status = models.CharField(max_length=1, choices=DeliveryOptions.choices, default=DeliveryOptions.pending, verbose_name='Статус Заказа')
-    payment_method = models.CharField(max_length=255, choices=PAYMENT_CHOICES, verbose_name='Метод оплаты')
+    payment_method = models.CharField(blank=False, null=False , max_length=1, choices=PAYMENT_CHOICES, verbose_name='Метод оплаты')
     is_paid = models.BooleanField(default=False, verbose_name='Оплачено')
     cart_total = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True, verbose_name='Сумма за все товары')
 

@@ -27,14 +27,6 @@
     border: none;
 }
 
-.leg-new {
-    color: lime !important;
-    padding: 0.3rem;
-    background-color: rgba(204, 245, 213, 0.5);
-    border-radius: 10px;
-    font-size: 0.6rem;
-}
-
 #add-to-cart-form {
     display: flex;
     flex-direction: column;
@@ -209,6 +201,9 @@
 }
 
 .cart-top p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 0.8rem;
     color: black;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);

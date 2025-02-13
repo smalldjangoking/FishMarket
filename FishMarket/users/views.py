@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Prefetch
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
@@ -19,6 +20,7 @@ class UserView(UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -35,6 +37,7 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'users/signup.html', {'form': form})
 
+
 def user_addresses(request):
     user_addresses = NovaAddresses.objects.filter(user=request.user)
 
@@ -48,6 +51,15 @@ def user_addresses(request):
 
 def user_order_history(request):
     orders = Order.objects.filter(user=request.user).prefetch_related(
-    Prefetch('order_items', queryset=OrderItem.objects.select_related('product')))
+        Prefetch('order_items', queryset=OrderItem.objects.select_related('product')))
 
-    return render(request, 'users/user_history.html', context={'orders': orders})
+    paginator = Paginator(orders, 3)
+    page = request.GET.get('page')
+
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    return render(request, 'users/user_history.html', context={'orders': page_obj, 'page_obj': page_obj})
