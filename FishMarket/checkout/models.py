@@ -10,7 +10,7 @@ class Order(models.Model):
     """Model of Order. Created order."""
     class DeliveryOptions(models.TextChoices):
         pending = "1", "Обробляється"
-        shipped = "2", "Товар відправлено"
+        shipped = "2", "Відправлено"
         completed = "3", "Завершено"
         cancelled = "4", "Скасовано"
 
