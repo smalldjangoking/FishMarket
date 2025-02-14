@@ -4,6 +4,8 @@
 {% block head %}
     <link rel="stylesheet" href="{% static 'cart/css/bucket_view.css' %}">{% endblock %}
 {% block robots_follow %}noindex, nofollow{% endblock %}
+{% block title %}Кошик замовлень{% endblock %}
+
 {% block section %}
     <div class="cart-container">
         {% if cart.get_full_price %}
