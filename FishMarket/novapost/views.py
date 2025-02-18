@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.http import JsonResponse
 from novapost.models import Warehouses, Cities
+from django.core.cache import cache
 
 
 def get_city(request):
@@ -10,11 +11,17 @@ def get_city(request):
         if not city_name:
             return JsonResponse({'success': False})
 
+        city_cache = cache.get(city_name)
+
+        if city_cache:
+            return JsonResponse({'success': True, 'data_array': city_cache})
+
         city_objects = Cities.objects.filter(Q(city_name_ua__icontains=city_name.lower()) |
                                              Q(city_name_ru__icontains=city_name.lower())).values(
             'city_name_ua', 'city_state', 'ref_to_warehouses').order_by('city_state')
 
         if city_objects.exists():
+            cache.set(city_name, list(city_objects), timeout=3600)
             return JsonResponse({'success': True, 'data_array': list(city_objects)})
         else:
             return JsonResponse({'success': False})
@@ -30,6 +37,8 @@ def get_warehouses(request):
             warehouses = Warehouses.objects.filter(city_id__exact=city_id,
                                                    typeofwarehouse__exact=type_of_ware).order_by('number')[
                          :15].values('address_ua', 'number', 'id')
+
+
             if warehouses.exists():
                 return JsonResponse({'success': True, 'data_array': list(warehouses)})
             else:

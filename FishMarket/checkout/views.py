@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect
 
+from FishMarket.helpers import check_user_cart
 from cart.cart import Cart
 from checkout.forms import CheckoutUserForm
 from checkout.order import create_order
 
-
+@check_user_cart
 def checkout(request):
+    """
+    View for creating an order to db
+    Also, update user information while creating an order.
+    """
+
     if request.method == 'GET':
         if request.user.is_authenticated:
             data = {
@@ -23,7 +29,6 @@ def checkout(request):
         if request.user.is_authenticated:
             user = request.user
             if not all([user.name, user.last_name, user.phone_number]):
-                # Если хотя бы одно из полей отсутствует или пустое
                 user.name = request.POST.get('name')
                 user.last_name = request.POST.get('last_name')
                 user.phone_number = request.POST.get('phone')
@@ -43,4 +48,5 @@ def checkout(request):
     return render(request, 'checkout/checkout.html', context={'form': form})
 
 def checkout_success(request):
+    """Success page for checkout"""
     return render(request, 'checkout/successful.html')

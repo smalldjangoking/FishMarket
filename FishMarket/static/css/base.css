@@ -17,7 +17,6 @@
 body {
     background: linear-gradient(180deg, #f0f8ff, #ffffff);
     min-height: 100vh;
-    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -136,20 +135,20 @@ nav {
 }
 
 .page-footer {
-    display: flex;
-    margin-top: 35px;
-    flex-shrink: 0;
+    margin-top: auto;
     margin-left: 10%;
     margin-right: 10%;
     background: linear-gradient(#3b82f6, #1e3a8a);
     border-radius: 10px 10px 0 0;
-    padding: 2% 2% 2% 2%;
+    padding: 2%;
+    position: relative;
+    display: flex;
 }
 
 .btn-paginator {
     display: flex;
     justify-content: center; /* Центрирует по горизонтали */
-    align-items: center;    /* Центрирует по вертикали */
+    align-items: center; /* Центрирует по вертикали */
     background: #1e90ff;
     color: white;
     width: 30px;

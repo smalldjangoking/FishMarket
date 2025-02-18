@@ -1,5 +1,6 @@
 from django.conf import settings
 from mainapp.models import Product
+from decimal import Decimal
 
 
 class Cart():
@@ -35,7 +36,7 @@ class Cart():
                 if '.' not in key:
                     key = ''
                 else:
-                    key = float(key)
+                    key = Decimal(key).normalize()
 
                 yield {
                     'product_weight': key,
@@ -79,11 +80,12 @@ class Cart():
 
 
     def delete_product(self, product_id, product_weight):
-        if self.cart[product_id]['product_detail'][product_weight]:
-            del self.cart[product_id]['product_detail'][product_weight]
+        if product_weight:
+            if self.cart[product_id]['product_detail'][product_weight]:
+                del self.cart[product_id]['product_detail'][product_weight]
+            if not self.cart[product_id]['product_detail']:
+                del self.cart[product_id]
 
-        if not self.cart[product_id]['product_detail']:
-            del self.cart[product_id]
 
         self.session.modified = True
 

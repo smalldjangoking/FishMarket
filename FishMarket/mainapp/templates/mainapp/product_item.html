@@ -86,9 +86,16 @@
                             {% for product_weight in product_weights %}
                                 <input type="radio" id="weight{{ forloop.counter }}" name="weight"
                                        value="{{ product_weight.weight }}" {% if forloop.first %}checked{% endif %}>
-                                <label for="weight{{ forloop.counter }}">
-                                    {{ product_weight.weight }}{{ product_weight.weight_calculus }}
-                                </label>
+                                {% if product_weight.weight_calculus == 'гр' %}
+                                    <label for="weight{{ forloop.counter }}">
+                                        {{ product_weight.weight|floatformat:3 }} {{ product_weight.weight_calculus }}
+                                    </label>
+                                {% else %}
+                                    <label for="weight{{ forloop.counter }}">
+                                        {{ product_weight.weight }} {{ product_weight.weight_calculus }}
+                                    </label>
+                                {% endif %}
+
                             {% endfor %}
                         </div>
                     {% else %}

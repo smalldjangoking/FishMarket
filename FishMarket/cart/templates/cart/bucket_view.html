@@ -36,13 +36,14 @@
                                 </legend>
                                 <div>
                                     {% if item.product_weight %}
-                                        {% if item.product_weight >= 1.000 %}
+                                        {% if item.product_weight >= 0.999 %}
                                             <p>Кілограм вибрано: <span class="chosen-bold">
-                                            {{ item.product_weight|floatformat:1 }}кг.</span>
+                                            {{ item.product_weight }} кг.</span>
                                             </p>
                                         {% else %}
                                             <p>Грам вибрано: <span
-                                                    class="chosen-bold">{{ item.product_weight }}гр.</span>
+                                                    class="chosen-bold">
+                                                {{ item.product_weight|floatformat:3 }} гр.</span>
                                             </p>
                                         {% endif %}
 
@@ -62,7 +63,7 @@
                                                value="{{ item.product.id }}">
                                         {% if item.product_weight %}
                                             <input id="delete-weight" type="hidden" name="product_weight"
-                                                   value="{{ item.product_weight }}">
+                                                   value="{{ item.product_weight|floatformat:3 }}">
                                         {% else %}
                                             <input id="delete-weight" type="hidden" name="product_weight"
                                                    value="{{ item.product.slug }}">
@@ -120,11 +121,9 @@
                     action: 'POST'
                 },
                 success: function (response) {
-                    console.log(response);
-                    const cartView = document.querySelector('#full-cart-view' + productId);
-                    if (cartView) {
-                        cartView.style.display = 'none';
-                    }
+                    $(`#full-cart-view${productId}`).fadeOut(300, function() {
+                        $(this).remove();
+                    });
                     document.getElementsByClassName('full_price_cart')[0].firstChild.nodeValue = response.total_price;
                     document.getElementById('bucket-change-quantity').innerText = response.qty;
                 },

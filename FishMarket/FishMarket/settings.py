@@ -39,15 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #apps
+    # apps
     'mainapp.apps.MainappConfig',
     'users.apps.usersConfig',
     'cart.apps.CartConfig',
     'checkout.apps.CheckoutConfig',
     'novapost.apps.NovapostConfig',
 
-    #extensions
+    # extensions
     'django_extensions',
+    'debug_toolbar',
 
 ]
 
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'FishMarket.urls'
@@ -135,7 +137,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_URL = 'users/login'
+LOGIN_URL = '/accounts/login'
 AUTH_USER_MODEL = 'users.User'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -151,7 +153,10 @@ EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
-
 USE_L10N = False
-
 NOVAPOST_API = API
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+

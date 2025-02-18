@@ -8,6 +8,8 @@ django = "*"
 pillow = "*"
 requests = "*"
 celery = "*"
+django-extensions = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 

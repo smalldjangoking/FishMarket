@@ -34,7 +34,7 @@ class AllProductsOrSpecificView(ListView):
     model = Product
     template_name = 'mainapp/AllProductsOrSearch.html'
     context_object_name = 'products'
-    paginate_by = 4
+    paginate_by = 5
 
     def get_queryset(self):
         """
@@ -102,11 +102,3 @@ class AllProductsOrSpecificView(ListView):
         context = super().get_context_data(**kwargs)
         context['form'] = self.form or None
         return context
-
-
-def delivery(request):
-    return render(request, 'mainapp/delivery.html')
-
-
-def about(request):
-    return render(request, 'mainapp/about.html')

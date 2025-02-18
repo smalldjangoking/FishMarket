@@ -11,7 +11,6 @@ class SeaCategory(models.Model):
     """Model of Categories (Камбала, Вугор, Філе)"""
     name = models.CharField(max_length=30, blank=False, null=False, unique=True, verbose_name='Название Категории')
     slug = models.SlugField(max_length=100, unique=True, db_index=True, verbose_name='SLUG_URL')
-    description = models.CharField(max_length=255, blank=True, null=True, verbose_name='Описание Категории')
     image_category = models.ImageField(upload_to='sea_categories', blank=True, null=True, verbose_name='Титульная картинка')
 
     def __str__(self):

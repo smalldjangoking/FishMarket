@@ -6,6 +6,8 @@ from django.core import exceptions
 
 
 def cart_view(request):
+    cart = Cart(request)
+
     return render(request, 'cart/bucket_view.html')
 
 def cart_add(request):
@@ -14,9 +16,12 @@ def cart_add(request):
     if request.POST.get('action') == 'post':
         product_id = request.POST.get('product_id')
         quantity = request.POST.get('quantity')
+        weight = request.POST.get('weight')
+
+
+
         if int(quantity) < 1:
             return JsonResponse({'status': 'error', 'message': 'Кількість товару не може бути меншою за 1'}, status=400)
-        weight = request.POST.get('weight')
 
         product = get_object_or_404(Product, id=product_id)
         cart.add(product=product, price=product.price, quantity=quantity, weight=weight)
@@ -25,16 +30,19 @@ def cart_add(request):
         return response
 
 
-
 def cart_del(request):
-    cart = Cart(request)
-
     if request.POST.get('action') == 'POST':
+        cart = Cart(request)
+        print(cart.__dict__)
+
+
         product_id = request.POST.get('product_id')
-        product_weight = request.POST.get('product_weight')
+        product_weight = request.POST.get('product_weight').replace(',', '.')
 
-
+        print(product_id)
+        print(product_weight)
         cart.delete_product(product_id=product_id, product_weight=product_weight)
+        print(cart.__dict__)
         response = JsonResponse({'qty': str(cart.__len__()), 'total_price': cart.get_full_price()})
         return response
 
