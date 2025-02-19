@@ -28,6 +28,22 @@ class Order(models.Model):
     is_paid = models.BooleanField(default=False, verbose_name='Оплачено')
     cart_total = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True, verbose_name='Сумма за все товары')
 
+    def save(self, *args, **kwargs):
+        if self.status == '3' and self.user:
+            if self.user.discount < 15:
+                discount_amount = (self.cart_total * 0.05) / 100
+                user_discount = self.user.discount + discount_amount
+
+                if user_discount > 15:
+                    self.user.discount = 15
+                else:
+                    self.user.discount += discount_amount
+
+                self.user.save()
+
+
+
+
 
     def clean(self):
         """Should be a user data for creating an order"""

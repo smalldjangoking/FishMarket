@@ -9,7 +9,7 @@
 
     <h4 class="card-name-title">{{ product.name }}</h4>
     <p class="col-grams">1 кг</p>
-    <p class="col-descr">{{ product.description|truncatechars:255 }}</p>
+    <p class="col-descr">{{ product.description|truncatechars:155 }}</p>
     <div class="col-price-btn">
             <p>{{ product.price }} грн</p>
             <a class='btn' href="{{ product.get_absolute_url }}">Детальніше</a>
