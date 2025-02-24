@@ -2,7 +2,7 @@ from django.db import transaction
 from cart.cart import Cart
 from cart.templatetags.total_per_product import total_per_product
 from checkout.models import Order, OrderItem
-from users.models import NovaAddresses, GuestShopper, User
+from users.models import NovaAddresses, GuestShopper
 
 
 def create_order(cleaned_data):
@@ -79,12 +79,9 @@ def create_guest_shopper(name, last_name, phone):
 def order_items_create(cart, order):
     for product in cart:
         quantity = int(product.get('product_quantity'))
-        weight = float(product.get('product_weight')) if product.get('product_weight') not in [None,
+        weight = product.get('product_weight') if product.get('product_weight') not in [None,
                                                                                                ""] else False
         price = float(product.get('product_price'))
-
-        print(total_per_product(price_per_kg=price, weight_per_unit=weight, quantity=quantity))
-        print(type(total_per_product(price_per_kg=price, weight_per_unit=weight, quantity=quantity)))
 
         OrderItem.objects.create(
             order=order,

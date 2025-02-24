@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 from django.conf.global_settings import LOGIN_URL, AUTH_USER_MODEL
 
-from FishMarket.temp import API
+from FishMarket.temp import API, T_API
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'checkout.apps.CheckoutConfig',
     'novapost.apps.NovapostConfig',
+    'telegram.apps.TelegramConfig',
 
     # extensions
     'django_extensions',
@@ -155,6 +156,7 @@ SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 USE_L10N = False
 NOVAPOST_API = API
+TELEGRAM_API = T_API
 
 INTERNAL_IPS = [
     '127.0.0.1',

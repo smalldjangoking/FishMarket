@@ -3,3 +3,5 @@
 */migrations/
 /users/migrations/
 /cart/migrations/
+/FishMarket/temp.py
+

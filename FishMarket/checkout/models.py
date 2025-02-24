@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import SET_DEFAULT
@@ -31,7 +33,7 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         if self.status == '3' and self.user:
             if self.user.discount < 15:
-                discount_amount = (self.cart_total * 0.05) / 100
+                discount_amount = (self.cart_total * Decimal(0.05)) / 100
                 user_discount = self.user.discount + discount_amount
 
                 if user_discount > 15:
@@ -40,9 +42,7 @@ class Order(models.Model):
                     self.user.discount += discount_amount
 
                 self.user.save()
-
-
-
+        return super().save(*args, **kwargs)
 
 
     def clean(self):

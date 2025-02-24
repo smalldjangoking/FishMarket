@@ -4,12 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
 pillow = "*"
 requests = "*"
 celery = "*"
 django-extensions = "*"
 django-debug-toolbar = "*"
+aiogram = "*"
+django = "==4.2.17"
 
 [dev-packages]
 
