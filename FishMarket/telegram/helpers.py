@@ -132,3 +132,13 @@ def get_order_by_id(order_id):
     ).first()
 
     return order
+
+@sync_to_async
+def get_orders_queryset_all(status_id):
+    """Получает список заказов всех что в обработке или отправленные с птимизированными запросами."""
+
+    orders = Order.objects.filter(status=status_id
+                                  ).select_related("user", 'guest').prefetch_related(
+        Prefetch('order_items', queryset=OrderItem.objects.select_related('product')))
+
+    return [order for order in orders]

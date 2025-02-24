@@ -6,13 +6,13 @@ from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, Callback
 from aiogram import F
 from checkout.models import Order
 from telegram.helpers import get_full_name, get_phone_number, is_paid, id_search, phone_rebuilder, \
-    get_orders_queryset, prepare_order_message_and_keyboard, get_order_by_id, get_kb_from_order
+    get_orders_queryset, prepare_order_message_and_keyboard, get_order_by_id, get_kb_from_order, get_orders_queryset_all
 
 router = Router()
 
 main = ReplyKeyboardMarkup(keyboard=[
-    [KeyboardButton(text='Обработка 📝'), KeyboardButton(text='Отправленные 📦'), KeyboardButton(text='Поиск Заказа 🔍')],
-    [KeyboardButton(text='Все заказы 📂')],
+    [KeyboardButton(text='Обработка 📝'), KeyboardButton(text='Отправленные 📦')],
+    [KeyboardButton(text='Поиск Заказа 🔍')],
 ], resize_keyboard=True, input_field_placeholder='Воспользуйтесь меню')
 
 cancel_kb = ReplyKeyboardMarkup(
@@ -39,6 +39,7 @@ async def search_order(message: Message, state: FSMContext):
     await state.set_state(OrderSearch.waiting_for_order_input)
 
 
+
 @router.message(OrderSearch.waiting_for_order_input, F.text == "Завершить ⬅️")
 async def cancel_search(message: Message, state: FSMContext):
     await message.answer("Поиск завершен.", reply_markup=main)
@@ -62,6 +63,24 @@ async def process_order_search(message: Message, state: FSMContext):
 
     await state.set_state(OrderSearch.waiting_for_order_input)
     await message.answer(f'Продолжим поиск? 🕵️‍♂️ или нажмите кнопку "Завершить ⬅️"', reply_markup=cancel_kb)
+
+
+@router.message((F.text == "Обработка 📝") | (F.text == "Отправленные 📦"))
+async def all_orders(message: Message):
+    status_map = {
+        "Обработка 📝": 1,
+        "Отправленные 📦": 2
+    }
+
+    status_id = status_map.get(message.text)
+    orders = await get_orders_queryset_all(status_id)
+
+    if orders:
+        for order in orders:
+            text, kb = prepare_order_message_and_keyboard(order)
+            await message.answer(text, reply_markup=kb.as_markup(), parse_mode="HTML")
+    else:
+        await message.answer(f"Заказы со статусом '{message.text}' не найдены.")
 
 
 @router.callback_query(F.data.startswith('order_') & F.data.endswith('is_paid'))
