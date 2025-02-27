@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 from django.conf.global_settings import LOGIN_URL, AUTH_USER_MODEL
 
-from FishMarket.temp import API, T_API
+from FishMarket.temp import API, T_API, T_ID
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -120,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'uk'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
@@ -155,8 +155,19 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 USE_L10N = False
+
+
 NOVAPOST_API = API
 TELEGRAM_API = T_API
+TELEGRAM_ID = T_ID
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Kyiv'
 
 INTERNAL_IPS = [
     '127.0.0.1',

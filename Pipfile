@@ -11,6 +11,8 @@ django-extensions = "*"
 django-debug-toolbar = "*"
 aiogram = "*"
 django = "==4.2.17"
+redis = "*"
+eventlet = "*"
 
 [dev-packages]
 

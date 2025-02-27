@@ -1,8 +1,12 @@
+from decimal import Decimal
+
 from django.db import transaction
 from cart.cart import Cart
 from cart.templatetags.total_per_product import total_per_product
 from checkout.models import Order, OrderItem
+from checkout.templatetags.discount import price_discounted
 from users.models import NovaAddresses, GuestShopper
+
 
 
 def create_order(cleaned_data):
@@ -15,13 +19,14 @@ def create_order(cleaned_data):
     address_from_memory = cleaned_data.get('address_from_memory', None)
     request = cleaned_data.get('request', None)
     cart = Cart(request)
+    user_discount = request.user.discount
 
     if address_from_memory:
         with transaction.atomic():
             order = Order.objects.create(
                 user=request.user,
                 delivery_address=address,
-                cart_total=cart.get_full_price(),
+                cart_total=price_discounted(cart.get_full_price(), Decimal(user_discount)) if user_discount else cart.get_full_price(),
                 payment_method=payment_method,
             )
             order_items_create(cart=cart, order=order)

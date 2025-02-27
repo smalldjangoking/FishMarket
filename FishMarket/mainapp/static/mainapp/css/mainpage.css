@@ -7,7 +7,6 @@ nav {
     font-size: 25px !important;
 }
 
-
 .main--section {
     margin-top: initial;
     margin-left: initial;
@@ -38,8 +37,12 @@ nav {
     z-index: 2;
     color: #E0F7FA;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.btn-category {
+    font-size: 25px;
 }
 
 #video-product-button {
@@ -49,6 +52,7 @@ nav {
     transform: translate(-50%, -50%);
     z-index: 9;
     text-align: center;
+    width: 100%;
 }
 
 .content-section {

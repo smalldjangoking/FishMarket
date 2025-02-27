@@ -3,6 +3,8 @@ import os
 import sys
 import threading
 import logging
+
+from celery.platforms import signals
 from django.apps import AppConfig
 
 
@@ -12,6 +14,8 @@ class TelegramConfig(AppConfig):
     bot_started = False
 
     def ready(self):
+        import telegram.signals
+
         if 'runserver' not in sys.argv:
             return
 

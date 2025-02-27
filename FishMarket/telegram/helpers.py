@@ -142,3 +142,16 @@ def get_orders_queryset_all(status_id):
         Prefetch('order_items', queryset=OrderItem.objects.select_related('product')))
 
     return [order for order in orders]
+
+
+def test(order_id):
+    """Получает один заказ по ID с оптимизированными запросами."""
+
+    order = Order.objects.filter(id=order_id, status__in=[1, 2]) \
+        .select_related("user", "guest") \
+        .prefetch_related(
+        Prefetch('order_items',
+                 queryset=OrderItem.objects.select_related('product'))
+    ).first()
+
+    return order
