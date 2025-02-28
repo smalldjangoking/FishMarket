@@ -90,8 +90,8 @@ This project is powered by the following technologies:
 * [![CSS3][CSS3]][CSS3-url]
 * [![jQuery][jQuery]][jQuery-url]
 * [![JavaScript][JavaScript]][JavaScript-url]
-* [![Aiogram][Aiogram]][Aiogram-url] *(Optional: Used for Telegram bot integration)*
-* [![Celery][Celery]][Celery-url] *(Optional: Used for task scheduling)*
+* [![Aiogram][Aiogram]][Aiogram-url]
+* [![Celery][Celery]][Celery-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
