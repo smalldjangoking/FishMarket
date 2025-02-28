@@ -59,6 +59,8 @@ class CustomAuthenticationForm(AuthenticationForm):
             raise ValidationError('Потрібно вказати повну поштову адресу ___@__.__')
         elif '.' not in username:
             raise ValidationError('Потрібно вказати повну поштову адресу ___@__.__')
+
+        username = username.lower()
         return username
 
 
