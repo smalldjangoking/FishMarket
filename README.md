@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="[https://github.com/othneildrew/Best-README-Template](https://github.com/smalldjangoking/FishMarket)">
-    <img src="[images/logo.png](https://raw.githubusercontent.com/smalldjangoking/FishMarket/refs/heads/main/FishMarket/static/img/logo-banner.png)" alt="Logo" width="80" height="80">
+    <img src="https://raw.githubusercontent.com/smalldjangoking/FishMarket/refs/heads/main/FishMarket/static/img/logo-banner.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Best-README-Template</h3>
