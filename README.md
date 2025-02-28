@@ -39,16 +39,33 @@
 ## About The Project
 ![Product Page](https://i.imgur.com/9ZvY87j.png)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+The website features a simple yet elegant design. It is optimized for both mobile phones and desktop devices. Easy to manage and user-friendly.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+### Key Features of Functionality
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+- **Authentication System via Email**  
+  - No personal data required—just email verification to get started.  
+  - After placing the first order, user details are securely saved in a personal account for faster future orders.  
+  - Additional benefits include:  
+    - **Discount Accumulation**: Earn rewards with every purchase.  
+    - **Order History**: Easily track past orders (Check status of all orders).  
+    - **Delivery Address History**: Save addresses for convenience (with an option to delete if needed).
 
-Use the `BLANK_README.md` to get started.
+- **Product Viewing Page**  
+  - Browse products effortlessly with:  
+    - **Sort by Price**: Find items within your budget.  
+    - **Search by Product Name**: Quickly locate what you need.  
+    - **Sort by Category**: Filter products by type for a tailored experience.
+
+- **Shopping Cart**  
+  - Review and modify your list of selected products before checkout with full control over your order.
+
+- **Checkout Process**  
+  - Flexible delivery options via **Nova Poshta**, including:  
+    - **To Warehouse**: Pick up at a nearby location.  
+    - **To Parcel Locker**: Convenient self-service pickup.  
+    - **Courier Delivery**: Straight to your door.  
+  - Delivery data is sourced from the **Nova Poshta API**, ensuring up-to-date information with daily automatic updates.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
