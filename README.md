@@ -43,6 +43,9 @@ The website features a simple yet elegant design. It is optimized for both mobil
 
 ### Key Features of Functionality
 
+- **Buy Products Without Registration**  
+  - Shop effortlessly without the need to create an account—perfect for quick and hassle-free purchases.
+
 - **Authentication System via Email**  
   - No personal data required—just email verification to get started.  
   - After placing the first order, user details are securely saved in a personal account for faster future orders.  
@@ -51,11 +54,17 @@ The website features a simple yet elegant design. It is optimized for both mobil
     - **Order History**: Easily track past orders (Check status of all orders).  
     - **Delivery Address History**: Save addresses for convenience (with an option to delete if needed).
 
-- **Product Viewing Page**  
+- **Product's Viewing Page**  
   - Browse products effortlessly with:  
     - **Sort by Price**: Find items within your budget.  
     - **Search by Product Name**: Quickly locate what you need.  
     - **Sort by Category**: Filter products by type for a tailored experience.
+
+- **Product Detail**  
+  - Customize your purchase with:  
+    - **Choose by Weight and Quantity**: Select products based on specific weight and amount.  
+    - **Choose by Quantity Only**: Available for pre-set items.  
+    - **Additional Features**: View multiple product images and detailed descriptions.
 
 - **Shopping Cart**  
   - Review and modify your list of selected products before checkout with full control over your order.
