@@ -29,7 +29,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Screenshots</a></li>
+    <li><a href="#Screenshots">Screenshots</a></li>
   </ol>
 </details>
 
@@ -138,7 +138,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 
 
-<!-- USAGE EXAMPLES -->
+<!-- Screenshots EXAMPLES -->
 ## Screenshots
 Telegram
 ![Telegram][https://i.imgur.com/WM8S49b.png]
