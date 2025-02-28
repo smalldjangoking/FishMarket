@@ -140,16 +140,16 @@ _Below is an example of how you can instruct your audience on installing and set
 
 <!-- Screenshots EXAMPLES -->
 ## Screenshots
-Telegram
-![Telegram][https://i.imgur.com/WM8S49b.png]
-Landing Page
-![MainPage][https://i.imgur.com/kPhxyLM.png]
-Profile
-![Profile][https://i.imgur.com/J6Qqrgk.png]
-User Order History
-![history][[https://i.imgur.com/1NNYZwr.png]
-Product Page
-![Product_detail][https://i.imgur.com/mjj1IbZ.png]
+
+Below are some highlights of the FishMarket online store interface and functionality:
+
+| **Feature**          | **Screenshot**                                                                 |
+|----------------------|--------------------------------------------------------------------------------|
+| **Telegram Bot**     | ![Telegram Bot](https://i.imgur.com/WM8S49b.png)                              |
+| **Landing Page**     | ![Landing Page](https://i.imgur.com/kPhxyLM.png)                              |
+| **User Profile**     | ![User Profile](https://i.imgur.com/J6Qqrgk.png)                              |
+| **Order History**    | ![Order History](https://i.imgur.com/1NNYZwr.png)                             |
+| **Product Page**     | ![Product Page](https://i.imgur.com/mjj1IbZ.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
