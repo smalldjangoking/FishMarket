@@ -8,7 +8,7 @@
   <h3 align="center">FishMarket - Online Store</h3>
 
   <p align="center">
-    An awesome online store for buying fresh fish and seafood
+    An awesome online store for buying seafood
   </p>
 </div>
 
