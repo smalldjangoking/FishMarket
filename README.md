@@ -29,7 +29,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#usage">Screenshots</a></li>
   </ol>
 </details>
 
@@ -139,11 +139,17 @@ _Below is an example of how you can instruct your audience on installing and set
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+## Screenshots
+Telegram
+![Telegram][https://i.imgur.com/WM8S49b.png]
+Landing Page
+![MainPage][https://i.imgur.com/kPhxyLM.png]
+Profile
+![Profile][https://i.imgur.com/J6Qqrgk.png]
+User Order History
+![history][[https://i.imgur.com/1NNYZwr.png]
+Product Page
+![Product_detail][https://i.imgur.com/mjj1IbZ.png]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
