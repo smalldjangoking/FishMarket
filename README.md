@@ -67,6 +67,15 @@ The website features a simple yet elegant design. It is optimized for both mobil
     - **Courier Delivery**: Straight to your door.  
   - Delivery data is sourced from the **Nova Poshta API**, ensuring up-to-date information with daily automatic updates.
 
+- **Admin Panel & Telegram Bot for Managers**  
+  - Manage orders efficiently with two powerful tools:  
+    - **Django Admin Panel**: A fully functional interface for processing and tracking orders.  
+    - **Telegram Bot**: A companion tool designed for managers, offering:  
+      - **Control Status of Order**: Mark orders as "Paid" and update statuses via a menu with various options.
+      - **Track Delivered Orders**: Check all orders with status in ['progress', 'Order Sent']
+      - **Search Orders**: Find specific orders by ID or customer email.  
+      - **Real-Time Notifications**: Receive instant updates in Telegram whenever a new order is placed, including key order details.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
