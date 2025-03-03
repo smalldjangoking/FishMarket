@@ -4,6 +4,7 @@ from cart.cart import Cart
 
 
 def check_user_cart(view_func):
+    """Makes a return to allproducts if the Cart is empty"""
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
         cart = Cart(request)

@@ -1,3 +1,4 @@
+import logging
 import time
 from django.db import transaction
 import math
@@ -20,6 +21,7 @@ def save_cities_to_db(one_city=False):
             "Page": 1
         }
     }
+
     if one_city:
         params['methodProperties'] = {"Ref": f"{one_city}"}
         iterations = 1
@@ -32,13 +34,12 @@ def save_cities_to_db(one_city=False):
         limit = params['methodProperties']['Limit'] = 500
         iterations = math.ceil(total_number / limit)
 
-    with transaction.atomic():
-        for page in range(1, iterations + 1):
-            params["methodProperties"]["Page"] = page
-            print('Обработка страницы', page)
-            cities = response_request(api_url=api_url, params=params)
-
-            if cities:
+    for page in range(1, iterations + 1):
+        params["methodProperties"]["Page"] = page
+        print('Обработка страницы', page)
+        cities = response_request(api_url=api_url, params=params)
+        if cities:
+            try:
                 city_objects = [
                     Cities(
                         city_name_ua=city_data['Description'].split('(')[0].lower() if '(' in city_data[
@@ -55,6 +56,9 @@ def save_cities_to_db(one_city=False):
                     for city_data in cities
                 ]
                 Cities.objects.bulk_create(city_objects)
+
+            except Exception as e:
+                logging.error(f'Ошибка при обработке городов в базу. save_cities_to_db()', e)
 
     return True
 
@@ -78,29 +82,29 @@ def save_warehouses_to_db():
     print('ожидание 120 секунд')
     time.sleep(120)
 
-    with transaction.atomic():
-        for page in range(1, iterations + 1):
-            print('Обработка страницы', page)
-            params["methodProperties"]["Page"] = page
+    for page in range(1, iterations + 1):
+        print('Обработка страницы', page)
+        params["methodProperties"]["Page"] = page
 
-            warehouses = response_request(api_url=api_url, params=params)
+        warehouses = response_request(api_url=api_url, params=params)
 
-            if warehouses:
-                warehouse_objects = []
-                for warehouse in warehouses:
-                    try:
+        if warehouses:
+            warehouse_objects = []
+            for warehouse in warehouses:
+                try:
+                    warehouse_objects.append(warehouse_object(warehouse))
+                except Cities.DoesNotExist:
+                    print(f"Город с ref_to_warehouses={warehouse} не найден в таблице Cities.")
+                    print('____________________________________________________________')
+                    one_city = save_cities_to_db(warehouse['CityRef'])
+
+                    if one_city:
+                        print('Город успешно добавлен!')
                         warehouse_objects.append(warehouse_object(warehouse))
-                    except Cities.DoesNotExist:
-                        print(f"Город с ref_to_warehouses={warehouse} не найден в таблице Cities.")
-                        print('____________________________________________________________')
-                        one_city = save_cities_to_db(warehouse['CityRef'])
+                        print('В базу добавлен warehouse после создания города.')
 
-                        if one_city:
-                            print('Город успешно добавлен!')
-                            warehouse_objects.append(warehouse_object(warehouse))
-                            print('В базу добавлен warehouse после создания города.')
+                except Exception as e:
+                    logging.error(f'Ошибка при обработке почтовых отделений в базу. save_warehouses_to_db()', e)
 
-                    except Exception as e:
-                        print(f"Ошибка при создании Warehouse: {e}")
 
-                Warehouses.objects.bulk_create(warehouse_objects)
+            Warehouses.objects.bulk_create(warehouse_objects)

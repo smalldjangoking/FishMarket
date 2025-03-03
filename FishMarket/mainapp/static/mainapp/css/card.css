@@ -63,6 +63,7 @@
 
 .card-name-title {
     margin-top: 0.5rem;
+    color: slategray;
 }
 
 .col-grams {
@@ -78,6 +79,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: auto;
+    color: deepskyblue;
 }
 
 .card-container .col .col-price-btn h5 {

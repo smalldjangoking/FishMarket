@@ -4,15 +4,17 @@
     box-sizing: border-box;
     list-style: none;
     text-decoration: none;
-    font-family: 'Comfortaa', sans-serif;
+    font-family: "Segoe UI";
 }
 
+/*
 @font-face {
     font-family: 'Comfortaa';
     src: url('/static/fonts/Comfortaa-VariableFont_wght.ttf') format('truetype');
     font-weight: 300 700;
     font-style: normal;
 }
+*/
 
 body {
     background: linear-gradient(180deg, #f0f8ff, #ffffff);

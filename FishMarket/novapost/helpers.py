@@ -68,3 +68,12 @@ def warehouse_object(warehouse):
             typeofwarehouse=2 if warehouse["TypeOfWarehouse"] == "f9316480-5f2d-425d-bc2c-ac7cd29decf0" else 1
         )
     return w
+
+
+def delete_cities_and_warehouses():
+    try:
+        Cities.objects.all().delete()
+        Warehouses.objects.all().delete()
+    except Exception as e:
+        logging.error(f'Ошибка при delete_cities_and_warehouses', e)
+

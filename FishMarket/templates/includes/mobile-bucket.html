@@ -5,7 +5,6 @@
 <div class="mobile-bucket-container HideOnDesktop">
     <div class="mobile-bucket-text-image"><a href="{% url 'cart:cart-view' %}">{{ cart|length }}
         тов. {{ cart.get_full_price|floatformat }} грн</a></div>
-    <div>|</div>
     <div class="mobile-bucket-text-image"><a href="{% url 'cart:cart-view' %}">Оформити <img
             src="{% static 'img/shopping_basket.png' %}" alt=""></a></div>
 </div>

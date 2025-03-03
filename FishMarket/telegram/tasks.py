@@ -1,10 +1,7 @@
-import asyncio
-
 from asgiref.sync import async_to_sync
 from celery import shared_task
 from django.conf import settings
 import logging
-
 from telegram import telegram
 from telegram.helpers import get_order_by_id, prepare_order_message_and_keyboard
 

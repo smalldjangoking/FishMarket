@@ -12,6 +12,10 @@
     z-index: -1;
 }
 
+.main--section {
+    margin-bottom: 25px;
+}
+
 .burger-filter {
     display: flex;
     background: linear-gradient(135deg, #B721FF, #21D4FD);

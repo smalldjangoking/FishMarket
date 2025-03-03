@@ -19,7 +19,7 @@ def create_order(cleaned_data):
     address_from_memory = cleaned_data.get('address_from_memory', None)
     request = cleaned_data.get('request', None)
     cart = Cart(request)
-    user_discount = request.user.discount
+    user_discount = request.user.discount if request.user.is_authenticated else None
 
     if address_from_memory:
         with transaction.atomic():
@@ -36,7 +36,12 @@ def create_order(cleaned_data):
     if not address_from_memory:
         with transaction.atomic():
             if request.user.is_authenticated:
-                order = Order.objects.create(user=request.user, cart_total=cart.get_full_price(), delivery_address=address, payment_method=payment_method)
+                order = Order.objects.create(
+                    user=request.user,
+                    cart_total=price_discounted(cart.get_full_price(), Decimal(user_discount)) if user_discount else cart.get_full_price(),
+                    delivery_address=address,
+                    payment_method=payment_method
+                )
                 order_items_create(cart=cart, order=order)
                 NovaAddresses.objects.create(user=request.user, delivery_choice=type_of_delivery, delivery_address=address)
                 return True

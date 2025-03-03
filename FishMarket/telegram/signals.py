@@ -10,4 +10,3 @@ def notify_new_order(sender, instance, created, **kwargs):
     """Перехватываем сохранение в базу, для оповещения бота в телеграм. Next CeleryWorker"""
     if created:
         send_telegram_notification.delay(instance.id)
-        logging.info(f"Telegram notification task queued for order {instance.id}")

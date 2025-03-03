@@ -34,7 +34,7 @@ class AllProductsOrSpecificView(ListView):
     model = Product
     template_name = 'mainapp/AllProductsOrSearch.html'
     context_object_name = 'products'
-    paginate_by = 5
+    paginate_by = 8
 
     def get_queryset(self):
         """
