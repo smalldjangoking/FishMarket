@@ -220,7 +220,7 @@
         const csrf = "{{ csrf_token }}"
     </script>
     <script src="{% static 'checkout/js/checkout.js' %}"></script>
-
+    {% if not user.is_email_confirmed %}
     <div class="email-verify-warning">
         <div class="email-div white-container">
             <p class="blue-bold-md">Для створення замовлення пошта має бути підтверджена</p>
@@ -228,4 +228,5 @@
             <a class="btn btn-grey" href="{% url 'cart:cart-view' %}">Назад</a>
         </div>
     </div>
+    {% endif %}
 {% endblock %}
