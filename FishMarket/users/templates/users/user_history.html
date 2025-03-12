@@ -63,12 +63,8 @@
                                 </div>
 
                                 <div class="middle-item">
-                                    <!-- Slider main container -->
                                     <div class="swiper swiper{{ order.id }}">
-                                        <!-- Additional required wrapper -->
                                         <div class="swiper-wrapper">
-                                            <!-- Slides -->
-
                                             {% for item in order.order_items.all %}
                                                 <div class="swiper-slide">
                                                     <img class="img-swiper" src="{{ item.product.image_product.url }}"

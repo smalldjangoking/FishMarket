@@ -6,11 +6,12 @@ from django.core import exceptions
 
 
 def cart_view(request):
+    """all cart view"""
     cart = Cart(request)
-
     return render(request, 'cart/bucket_view.html')
 
 def cart_add(request):
+    """adds items to the cart"""
     cart = Cart(request)
 
     if request.POST.get('action') == 'post':
@@ -31,21 +32,11 @@ def cart_add(request):
 
 
 def cart_del(request):
+    """delete the item from the cart"""
     if request.POST.get('action') == 'POST':
         cart = Cart(request)
-        print(cart.__dict__)
-
-
         product_id = request.POST.get('product_id')
         product_weight = request.POST.get('product_weight').replace(',', '.')
-
-        print(product_id)
-        print(product_weight)
         cart.delete_product(product_id=product_id, product_weight=product_weight)
-        print(cart.__dict__)
         response = JsonResponse({'qty': str(cart.__len__()), 'total_price': cart.get_full_price()})
         return response
-
-
-def cart_update(request):
-    ...
