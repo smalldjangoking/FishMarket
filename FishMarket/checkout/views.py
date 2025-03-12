@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 
 from FishMarket.helpers import check_user_cart
-from cart.cart import Cart
 from checkout.forms import CheckoutUserForm
 from checkout.order import create_order
 

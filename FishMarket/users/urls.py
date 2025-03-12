@@ -2,8 +2,11 @@ from django.contrib.auth.views import PasswordChangeView
 from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
+
+from FishMarket.helpers import user_not_authenticated
 from .forms import CustomAuthenticationForm, UserPasswordChangeForm, CustomPasswordResetForm, CustomSetPasswordForm
-from .views import UserView, signup, user_addresses, user_order_history
+from .views import UserView, signup, user_addresses, user_order_history, email_confirmed, \
+    email_confirmation
 
 app_name = 'users'
 
@@ -24,12 +27,12 @@ urlpatterns = [
     path('password-change/done/',
          auth_views.PasswordChangeDoneView.as_view(template_name='users/password_change_done.html'),
          name='password_change_done'),
-    path('password-reset/', auth_views.PasswordResetView.as_view(template_name='users/password_reset_form.html',
+    path('password-reset/', user_not_authenticated(auth_views.PasswordResetView.as_view(template_name='users/password_reset_form.html',
                                                                  email_template_name='users/password_reset_email.html',
                                                                  form_class=CustomPasswordResetForm,
                                                                  success_url=reverse_lazy(
                                                                      "users:password_reset_done"),
-                                                                 ),
+                                                                 )),
          name='password_reset'),
     path('password-reset/done/',
          auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'),
@@ -41,5 +44,7 @@ urlpatterns = [
          name='password_reset_confirm'),
     path('password-reset/complete/',
          auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
-         name='password_reset_complete')
+         name='password_reset_complete'),
+    path('email-comfirm/', email_confirmation, name='email_confirm'),
+    path('email-confirmed/<token>/', email_confirmed, name='email-confirmed'),
 ]

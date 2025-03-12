@@ -173,3 +173,12 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://localhost:6379',
+    }
+}
+
+REDIS_USER_CONFIRMATION_KEY = 'user_confirmation_{token}'
+REDIS_USER_CONFIRMATION_TIMEOUT = 100

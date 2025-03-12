@@ -1,9 +1,8 @@
 from django.db.models import Max, Min
-from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 
 from mainapp.forms import PriceFilterForm
-from mainapp.models import Product, SeaCategory, ProductImage, ProductWeight, MoreInformation
+from mainapp.models import Product, ProductImage, ProductWeight, MoreInformation
 
 
 class MainPageView(ListView):

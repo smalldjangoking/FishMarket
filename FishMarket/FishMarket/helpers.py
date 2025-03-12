@@ -13,3 +13,14 @@ def check_user_cart(view_func):
         else:
             return view_func(request, *args, **kwargs)
     return wrapper
+
+
+def user_not_authenticated(function):
+    """decorator to check if user is not logged in"""
+    @wraps(function)
+    def wrapper(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('users:profile')
+        else:
+            return function(request, *args, **kwargs)
+    return wrapper

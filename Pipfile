@@ -13,6 +13,7 @@ aiogram = "*"
 django = "==4.2.17"
 redis = "*"
 eventlet = "*"
+django-redis = "*"
 
 [dev-packages]
 

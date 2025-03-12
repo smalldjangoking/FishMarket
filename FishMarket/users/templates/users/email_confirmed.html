@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Вашу пошту підтверджено{% endblock %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'checkout/css/successful.css' %}">
+{% endblock %}
+
+{% block section %}
+    <section class="successful-div">
+        <img src="{% static 'checkout/img/succesful.png' %}" alt="Адреса підтверджена">
+        <h3>Адреса підтверджена!</h3>
+    </section>
+{% endblock %}

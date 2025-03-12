@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Лист надіслано!{% endblock %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'checkout/css/successful.css' %}">
+{% endblock %}
+
+{% block section %}
+    <section class="successful-div">
+        <img src="{% static 'users/img/mark_email_unread.png' %}" alt="Лист надіслано">
+        <h3>Підтвердження поштової адреси</h3>
+        <p>Лист надіслано, підтвердьте ваш email (не забудьте перевірити папку зі спамом, якщо листа немає)</p>
+    </section>
+{% endblock %}

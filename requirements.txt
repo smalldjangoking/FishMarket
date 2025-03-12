@@ -3,3 +3,4 @@ requests~=2.32.3
 aiogram~=3.18.0
 celery~=5.4.0
 asgiref~=3.8.1
+django-redis~=5.4.0
