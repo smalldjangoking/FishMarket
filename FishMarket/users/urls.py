@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from FishMarket.helpers import user_not_authenticated
 from .forms import CustomAuthenticationForm, UserPasswordChangeForm, CustomPasswordResetForm, CustomSetPasswordForm
 from .views import UserView, signup, user_addresses, user_order_history, email_confirmed, \
-    email_confirmation
+    email_confirmation, user_profile_email_confirm, email_send_repeat
 
 app_name = 'users'
 
@@ -18,6 +18,7 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('profile/addresses/', user_addresses, name='user_addresses'),
     path('profile/history/', user_order_history, name='user_history'),
+    path('profile/confirm-email/', user_profile_email_confirm, name='user_create_confirm'),
     path('password-change/', login_required(PasswordChangeView.as_view(form_class=UserPasswordChangeForm,
                                                                        success_url=reverse_lazy(
                                                                            "users:password_change_done"),
@@ -47,4 +48,6 @@ urlpatterns = [
          name='password_reset_complete'),
     path('email-comfirm/', email_confirmation, name='email_confirm'),
     path('email-confirmed/<token>/', email_confirmed, name='email-confirmed'),
+    path('profile-confirm-email/', email_send_repeat, name='send-user-confirm-again'),
+
 ]

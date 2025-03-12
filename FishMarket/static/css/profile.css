@@ -119,6 +119,14 @@
     color: #0078d4;
 }
 
+.email-confirm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (max-width: 1099px) {
     .profile-elems {
         display: flex;

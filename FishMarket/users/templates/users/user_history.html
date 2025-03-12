@@ -13,239 +13,245 @@
 {% block title %}Історія замовлень{% endblock %}
 
 {% block section %}
-<section>
-    <ul class="profile-elems">
-        <li class="menu-elem">
-            <ul>
-                <li>
-                    <img src="{% static 'users/img/settings-profile.png' %}" alt="profile icon">
-                    <a href="{% url 'users:profile' %}">Профіль</a>
-                </li>
-                <li class="active-link">
-                    <img src="{% static 'img/history.png' %}" alt="profile icon">
-                    <a href="{% url 'users:user_history' %}">Історія замовлень</a>
-                </li>
-                <li>
-                    <img src="{% static 'img/address.png' %}" alt="profile icon">
-                    <a href="{% url 'users:user_addresses' %}">Адреса доставки</a>
-                </li>
-                <li>
-                    <img src="{% static 'users/img/password.png' %}" alt="пароль">
-                    <a href="{% url 'users:password_change' %}">Змінити пароль</a>
-                </li>
-                <li class="exit-button">
-                    <img src="{% static 'users/img/exit.png' %}" alt="выхiд з аккаунту">
-                    <a class='a-exit' href="{% url 'users:logout' %}">Вийти з кабінету</a>
-                </li>
-            </ul>
-        </li>
-        <li class="user-history-container">
-            <ul class="history-container">
-                {% for order in orders %}
-                    <li class="history-item">
-                        <button class="order-toggle" onclick="Open_Close_Detail(event, {{ order.id }})">
-                            <div class="item-left">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
-                                     width="24px" fill="deepskyblue">
-                                    <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/>
-                                </svg>
-                                <fieldset class="fieldset-bar">
-                                    <legend>Дата створення</legend>
-                                    <p class="history-time">{{ order.created_at|date:"d.m.Y H:i" }}</p>
-                                </fieldset>
+    <section>
+        <ul class="profile-elems">
+            <li class="menu-elem">
+                <ul>
+                    <li>
+                        <img src="{% static 'users/img/settings-profile.png' %}" alt="profile icon">
+                        <a href="{% url 'users:profile' %}">Профіль</a>
+                    </li>
+                    <li class="active-link">
+                        <img src="{% static 'img/history.png' %}" alt="profile icon">
+                        <a href="{% url 'users:user_history' %}">Історія замовлень</a>
+                    </li>
+                    <li>
+                        <img src="{% static 'img/address.png' %}" alt="profile icon">
+                        <a href="{% url 'users:user_addresses' %}">Адреса доставки</a>
+                    </li>
+                    <li>
+                        <img src="{% static 'users/img/password.png' %}" alt="пароль">
+                        <a href="{% url 'users:password_change' %}">Змінити пароль</a>
+                    </li>
+                    {% if not user.is_email_confirmed %}
+                        <li>
+                            <img src="{% static 'users/img/mail_red.png' %}" alt="подтвердить пошту">
+                            <a href="{% url 'users:user_create_confirm' %}">Підтвердити пошту</a>
+                        </li>
+                    {% endif %}
+                    <li class="exit-button">
+                        <img src="{% static 'users/img/exit.png' %}" alt="выхiд з аккаунту">
+                        <a class='a-exit' href="{% url 'users:logout' %}">Вийти з кабінету</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="user-history-container">
+                <ul class="history-container">
+                    {% for order in orders %}
+                        <li class="history-item">
+                            <button class="order-toggle" onclick="Open_Close_Detail(event, {{ order.id }})">
+                                <div class="item-left">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                         width="24px" fill="deepskyblue">
+                                        <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/>
+                                    </svg>
+                                    <fieldset class="fieldset-bar">
+                                        <legend>Дата створення</legend>
+                                        <p class="history-time">{{ order.created_at|date:"d.m.Y H:i" }}</p>
+                                    </fieldset>
 
-                            </div>
-
-                            <div class="middle-item">
-                                <!-- Slider main container -->
-                                <div class="swiper swiper{{ order.id }}">
-                                    <!-- Additional required wrapper -->
-                                    <div class="swiper-wrapper">
-                                        <!-- Slides -->
-
-                                        {% for item in order.order_items.all %}
-                                            <div class="swiper-slide">
-                                                <img class="img-swiper" src="{{ item.product.image_product.url }}"
-                                                     alt="">
-                                            </div>
-                                        {% endfor %}
-                                    </div>
                                 </div>
 
-                            </div>
+                                <div class="middle-item">
+                                    <!-- Slider main container -->
+                                    <div class="swiper swiper{{ order.id }}">
+                                        <!-- Additional required wrapper -->
+                                        <div class="swiper-wrapper">
+                                            <!-- Slides -->
 
-                            <div class="item-right">
-                                <fieldset class="fieldset-bar">
-                                    <legend>Загальна сума</legend>
-                                    <p class="price-total">{{ order.cart_total }} <span
-                                            class="price-total-span">грн</span></p>
-                                </fieldset>
-                                <fieldset class="fieldset-bar">
-                                    <legend>Статус</legend>
-                                    <p class="statusColor"
-                                       id="status-color{{ order.id }}">{{ order.get_status_display }}</p>
-                                </fieldset>
-                            </div>
-                        </button>
-                        <div class="order-details" id="order-details-{{ order.id }}">
-                            <ul>
-                                <li class="info-order-method">
-                                    <h5>Адреса доставки</h5>
-                                    <p>{{ order.delivery_address }}</p>
-                                </li>
-                                <li class="info-order-method">
-                                    <h5>Спосіб оплати</h5>
-                                    <p>{{ order.get_payment_method_display }}</p>
-                                </li>
-                                {% for item in order.order_items.all %}
-                                    <li class="order-items-details-item">
-                                        <div class="order-item-detail-left">
-                                            <div class="order-item-img-container">
-                                                <img class="order-img" src="{{ item.product.image_product.url }}"
-                                                     alt="{{ item.product.name }}">
-                                            </div>
+                                            {% for item in order.order_items.all %}
+                                                <div class="swiper-slide">
+                                                    <img class="img-swiper" src="{{ item.product.image_product.url }}"
+                                                         alt="">
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
 
-                                            <div class="order-item-information">
-                                                <h4>{{ item.product.name|title }}</h4>
-                                                <p class="price-for-product">Ціна за кг: {{ item.product.price }}
-                                                    грн</p>
-                                                <div class="order-item-info-mobile HideOnDesktop">
-                                                    <fieldset class="">
-                                                        <legend>
+                                </div>
+
+                                <div class="item-right">
+                                    <fieldset class="fieldset-bar">
+                                        <legend>Загальна сума</legend>
+                                        <p class="price-total">{{ order.cart_total }} <span
+                                                class="price-total-span">грн</span></p>
+                                    </fieldset>
+                                    <fieldset class="fieldset-bar">
+                                        <legend>Статус</legend>
+                                        <p class="statusColor"
+                                           id="status-color{{ order.id }}">{{ order.get_status_display }}</p>
+                                    </fieldset>
+                                </div>
+                            </button>
+                            <div class="order-details" id="order-details-{{ order.id }}">
+                                <ul>
+                                    <li class="info-order-method">
+                                        <h5>Адреса доставки</h5>
+                                        <p>{{ order.delivery_address }}</p>
+                                    </li>
+                                    <li class="info-order-method">
+                                        <h5>Спосіб оплати</h5>
+                                        <p>{{ order.get_payment_method_display }}</p>
+                                    </li>
+                                    {% for item in order.order_items.all %}
+                                        <li class="order-items-details-item">
+                                            <div class="order-item-detail-left">
+                                                <div class="order-item-img-container">
+                                                    <img class="order-img" src="{{ item.product.image_product.url }}"
+                                                         alt="{{ item.product.name }}">
+                                                </div>
+
+                                                <div class="order-item-information">
+                                                    <h4>{{ item.product.name|title }}</h4>
+                                                    <p class="price-for-product">Ціна за кг: {{ item.product.price }}
+                                                        грн</p>
+                                                    <div class="order-item-info-mobile HideOnDesktop">
+                                                        <fieldset class="">
+                                                            <legend>
+                                                                {% if item.weight %}
+                                                                    вага
+                                                                {% endif %}
+                                                            </legend>
                                                             {% if item.weight %}
-                                                                вага
+                                                                <p>{% weight_definition item.weight %}</p>
                                                             {% endif %}
-                                                        </legend>
-                                                        {% if item.weight %}
-                                                            <p>{% weight_definition item.weight %}</p>
-                                                        {% endif %}
-                                                    </fieldset>
-                                                    <fieldset class="">
-                                                        <legend>
-                                                            кіл.
-                                                        </legend>
-                                                        <p>{{ item.quantity }}</p>
-                                                    </fieldset>
-                                                    <fieldset class="">
-                                                        <legend>
-                                                            разом
-                                                        </legend>
-                                                        <p>{{ item.total_price }} <span
-                                                                class="price-total-span">грн</span>
-                                                        </p>
-                                                    </fieldset>
+                                                        </fieldset>
+                                                        <fieldset class="">
+                                                            <legend>
+                                                                кіл.
+                                                            </legend>
+                                                            <p>{{ item.quantity }}</p>
+                                                        </fieldset>
+                                                        <fieldset class="">
+                                                            <legend>
+                                                                разом
+                                                            </legend>
+                                                            <p>{{ item.total_price }} <span
+                                                                    class="price-total-span">грн</span>
+                                                            </p>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="order-item-detail-right HideOnMobile">
-                                            <fieldset class="fieldset-bar">
-                                                <legend>
+                                            <div class="order-item-detail-right HideOnMobile">
+                                                <fieldset class="fieldset-bar">
+                                                    <legend>
+                                                        {% if item.weight %}
+                                                            вага
+                                                        {% endif %}
+                                                    </legend>
                                                     {% if item.weight %}
-                                                        вага
+                                                        <p>{% weight_definition item.weight %}</p>
                                                     {% endif %}
-                                                </legend>
-                                                {% if item.weight %}
-                                                    <p>{% weight_definition item.weight %}</p>
-                                                {% endif %}
-                                            </fieldset>
-                                            <fieldset class="fieldset-bar">
-                                                <legend>
-                                                    кіл.
-                                                </legend>
-                                                <p>{{ item.quantity }}</p>
-                                            </fieldset>
-                                            <fieldset class="fieldset-bar">
-                                                <legend>
-                                                    разом
-                                                </legend>
-                                                <p>{{ item.total_price }} <span class="price-total-span">грн</span>
-                                                </p>
-                                            </fieldset>
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                                                </fieldset>
+                                                <fieldset class="fieldset-bar">
+                                                    <legend>
+                                                        кіл.
+                                                    </legend>
+                                                    <p>{{ item.quantity }}</p>
+                                                </fieldset>
+                                                <fieldset class="fieldset-bar">
+                                                    <legend>
+                                                        разом
+                                                    </legend>
+                                                    <p>{{ item.total_price }} <span class="price-total-span">грн</span>
+                                                    </p>
+                                                </fieldset>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                    {% endfor %}
+                    {% if page_obj.paginator.num_pages > 1 %}
+                        <div class="paginator-container">
+                            <div class="pagination">
+                                <div class="step-links">
+                                    {% if page_obj.has_previous %}
+                                        <a class="btn-paginator"
+                                           href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                                    {% endif %}
+                                    <p class="btn-paginator btn-paginator-selected" href="#">{{ page_obj.number }}</p>
+                                    {% if page_obj.has_next %}
+                                        <a class="btn-paginator"
+                                           href="?page={{ page_obj.next_page_number }}">
+                                            {{ page_obj.next_page_number }}</a>
+                                    {% endif %}
+                                </div>
+                                <div class="page-list">
+                                    сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                {% endfor %}
-            {% if page_obj.paginator.num_pages > 1 %}
-        <div class="paginator-container">
-            <div class="pagination">
-                <div class="step-links">
-                    {% if page_obj.has_previous %}
-                        <a class="btn-paginator"
-                           href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
                     {% endif %}
-                    <p class="btn-paginator btn-paginator-selected" href="#">{{ page_obj.number }}</p>
-                    {% if page_obj.has_next %}
-                        <a class="btn-paginator"
-                           href="?page={{ page_obj.next_page_number }}">
-                            {{ page_obj.next_page_number }}</a>
-                    {% endif %}
-                </div>
-                <div class="page-list">
-                    сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
-                </div>
-            </div>
-        </div>
-    {% endif %}
-            </ul>
-        </li>
-    </ul>
-</section>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        {% for order in orders %}
-            new Swiper('.swiper{{ order.id }}', {
-                direction: 'horizontal',
-                loop: false,
-                slidesPerView: 2.5,
-                spaceBetween: 15,
-                pagination: {
-                    el: '.pagination{{ order.id }}',
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: '.next{{ order.id }}',
-                    prevEl: '.prev{{ order.id }}',
-                },
-            });
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% for order in orders %}
+                new Swiper('.swiper{{ order.id }}', {
+                    direction: 'horizontal',
+                    loop: false,
+                    slidesPerView: 2.5,
+                    spaceBetween: 15,
+                    pagination: {
+                        el: '.pagination{{ order.id }}',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.next{{ order.id }}',
+                        prevEl: '.prev{{ order.id }}',
+                    },
+                });
 
-            let statusElement{{ order.id }} = document.getElementById('status-color{{ order.id }}');
-            let statusText{{ order.id }} = statusElement{{ order.id }}.textContent.trim();
+                let statusElement{{ order.id }} = document.getElementById('status-color{{ order.id }}');
+                let statusText{{ order.id }} = statusElement{{ order.id }}.textContent.trim();
 
-            // Удалите console.log с оскорбительным содержанием
-            switch (statusText{{ order.id }}) {
-                case 'Обробляється':
-                    statusElement{{ order.id }}.style.color = '#FFA500'; // оранжевый
-                    break;
-                case 'Відправлено':
-                    statusElement{{ order.id }}.style.color = '#0000FF'; // синий
-                    break;
-                case 'Завершено':
-                    statusElement{{ order.id }}.style.color = '#008000'; // зеленый
-                    break;
-                case 'Скасовано':
-                    statusElement{{ order.id }}.style.color = '#FF0000'; // красный
-                    break;
-                default:
-                    statusElement{{ order.id }}.style.color = '#666'; // серый по умолчанию
-            }
+                // Удалите console.log с оскорбительным содержанием
+                switch (statusText{{ order.id }}) {
+                    case 'Обробляється':
+                        statusElement{{ order.id }}.style.color = '#FFA500'; // оранжевый
+                        break;
+                    case 'Відправлено':
+                        statusElement{{ order.id }}.style.color = '#0000FF'; // синий
+                        break;
+                    case 'Завершено':
+                        statusElement{{ order.id }}.style.color = '#008000'; // зеленый
+                        break;
+                    case 'Скасовано':
+                        statusElement{{ order.id }}.style.color = '#FF0000'; // красный
+                        break;
+                    default:
+                        statusElement{{ order.id }}.style.color = '#666'; // серый по умолчанию
+                }
 
-        {% endfor %}
-    });
+            {% endfor %}
+        });
 
-    function Open_Close_Detail(event, id) {
-        const swiperContainer = event.target.closest('.swiper');
-        const middleItem = event.target.closest('.middle-item');
+        function Open_Close_Detail(event, id) {
+            const swiperContainer = event.target.closest('.swiper');
+            const middleItem = event.target.closest('.middle-item');
 
-        if (swiperContainer || middleItem) return;
+            if (swiperContainer || middleItem) return;
 
-        let detail = document.querySelector('#order-details-' + id);
+            let detail = document.querySelector('#order-details-' + id);
 
-        detail.classList.toggle('active');
-    }
-</script>
+            detail.classList.toggle('active');
+        }
+    </script>
 {% endblock %}

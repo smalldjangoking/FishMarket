@@ -29,6 +29,12 @@
                         <img src="{% static 'users/img/password.png' %}" alt="пароль">
                         <a href="{% url 'users:password_change' %}">Змінити пароль</a>
                     </li>
+                    {% if not user.is_email_confirmed %}
+                        <li>
+                            <img src="{% static 'users/img/mail_red.png' %}" alt="подтвердить пошту">
+                            <a href="{% url 'users:user_create_confirm' %}">Підтвердити пошту</a>
+                        </li>
+                    {% endif %}
                     <li class="exit-button">
                         <img src="{% static 'users/img/exit.png' %}" alt="выхiд з аккаунту">
                         <a class='a-exit' href="{% url 'users:logout' %}">Вийти з кабінету</a>
@@ -45,11 +51,11 @@
                             {% for field in form %}
                                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                                 {% if field.errors %}
-                                <ul class="error-list">
-                                    {% for error in field.errors %}
-                                        <li class="error-item">{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
+                                    <ul class="error-list">
+                                        {% for error in field.errors %}
+                                            <li class="error-item">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
                                 {% endif %}
                                 {{ field }}
                             {% endfor %}

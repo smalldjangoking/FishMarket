@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+{% block robots_follow %}noindex, nofollow{% endblock %}
+{% block title %}Надіслати листа підтвердження{% endblock %}
+
+{% block section %}
+    <section>
+        <ul class="profile-elems">
+            <li class="menu-elem">
+                <ul>
+                    <li>
+                        <img src="{% static 'users/img/settings-profile.png' %}" alt="profile icon">
+                        <a href="{% url 'users:profile' %}">Профіль</a>
+                    </li>
+                    <li>
+                        <img src="{% static 'img/history.png' %}" alt="profile icon">
+                        <a href="{% url 'users:user_history' %}">Історія замовлень</a>
+                    </li>
+                    <li>
+                        <img src="{% static 'img/address.png' %}" alt="profile icon">
+                        <a href="{% url 'users:user_addresses' %}">Адреса доставки</a>
+                    </li>
+                    <li>
+                        <img src="{% static 'users/img/password.png' %}" alt="пароль">
+                        <a href="{% url 'users:password_change' %}">Змінити пароль</a>
+                    </li>
+                    <li class="active-link">
+                        <img src="{% static 'users/img/mail_red.png' %}" alt="подтвердить пошту">
+                        <a href="{% url 'users:user_create_confirm' %}">Підтвердити пошту</a>
+                    </li>
+                    <li class="exit-button">
+                        <img src="{% static 'users/img/exit.png' %}" alt="выхiд з аккаунту">
+                        <a class='a-exit' href="{% url 'users:logout' %}">Вийти з кабінету</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="email-confirm">
+                <p class="blue-bold-text">Надіслати email для підтвердження</p>
+                <a class="btn" href="{% url 'users:send-user-confirm-again' %}">Надіслати</a>
+            </li>
+        </ul>
+{% endblock %}

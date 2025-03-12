@@ -28,6 +28,12 @@
                         <img src="{% static 'users/img/password.png' %}" alt="пароль">
                         <a href="{% url 'users:password_change' %}">Змінити пароль</a>
                     </li>
+                    {% if not user.is_email_confirmed %}
+                        <li>
+                            <img src="{% static 'users/img/mail_red.png' %}" alt="подтвердить пошту">
+                            <a href="{% url 'users:user_create_confirm' %}">Підтвердити пошту</a>
+                        </li>
+                    {% endif %}
                     <li class="exit-button">
                         <img src="{% static 'users/img/exit.png' %}" alt="выхiд з аккаунту">
                         <a class='a-exit' href="{% url 'users:logout' %}">Вийти з кабінету</a>
@@ -46,11 +52,13 @@
                                         <p class="item-inside-text">{{ address.delivery_address }}</p>
                                     </div>
                                 </div>
-                                <form method="post" action="{% url "users:user_addresses" %}" class="delete-address-form">
+                                <form method="post" action="{% url "users:user_addresses" %}"
+                                      class="delete-address-form">
                                     {% csrf_token %}
                                     <input type="hidden" name="address_id" value="{{ address.id }}">
                                     <button type="submit" class="delete-address-btn">
-                                        <img class="delete-address" src="{% static 'users/img/delete.png' %}" alt="Delete address">
+                                        <img class="delete-address" src="{% static 'users/img/delete.png' %}"
+                                             alt="Delete address">
                                     </button>
                                 </form>
                             </div>

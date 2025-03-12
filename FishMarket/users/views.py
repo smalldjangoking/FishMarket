@@ -44,6 +44,10 @@ def signup(request):
     return render(request, 'users/signup.html', {'form': form})
 
 
+def email_send_repeat(request):
+    email_sender(request, request.user)
+    return redirect('users:email_confirm')
+
 def email_confirmation(request):
     return render(request, 'users/email_sent.html')
 
@@ -54,7 +58,10 @@ def email_confirmed(request, token):
     if tk_confirm:
         return render(request, 'users/email_confirmed.html')
     else:
-        return redirect('mainapp:main')
+        return redirect('users:user_create_confirm')
+
+def user_profile_email_confirm(request):
+    return render(request, 'users/user_confirm_email.html')
 
 def user_addresses(request):
     user_addresses = NovaAddresses.objects.filter(user=request.user)
