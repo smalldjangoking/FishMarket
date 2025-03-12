@@ -96,7 +96,7 @@
                                 </button>
                             {% endif %}
                         {% endif %}
-                    {{ form.delivery_type }}
+                        {{ form.delivery_type }}
                         <button disabled
                                 onclick="document.getElementsByClassName('novaposhta-container')[0].style.display='flex';"
                                 type="button" id="novaposhta-button"
@@ -128,7 +128,7 @@
                         {{ form.payment_type }}
                     </div>
                 </div>
-            {{ form.user_address }}
+                {{ form.user_address }}
             </form>
         </div>
 
@@ -220,4 +220,12 @@
         const csrf = "{{ csrf_token }}"
     </script>
     <script src="{% static 'checkout/js/checkout.js' %}"></script>
+
+    <div class="email-verify-warning">
+        <div class="email-div white-container">
+            <p class="blue-bold-md">Для створення замовлення пошта має бути підтверджена</p>
+            <a class="btn" href="{% url 'users:send-user-confirm-again' %}">Підтвердити</a>
+            <a class="btn btn-grey" href="{% url 'cart:cart-view' %}">Назад</a>
+        </div>
+    </div>
 {% endblock %}

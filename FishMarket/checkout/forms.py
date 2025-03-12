@@ -33,7 +33,6 @@ class CheckoutUserForm(forms.Form):
 
         user_address = cleaned_data.get('user_address')
         delivery_type = cleaned_data.get('delivery_type')
-        warehouse_number = cleaned_data.get('warehouse_number')
         address_from_memory = cleaned_data.get('address_from_memory')
 
         if address_from_memory and delivery_type:
@@ -41,5 +40,6 @@ class CheckoutUserForm(forms.Form):
 
         if not user_address:
             raise ValidationError('Виберіть тип доставки')
+
 
         return cleaned_data

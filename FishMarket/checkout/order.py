@@ -19,7 +19,11 @@ def create_order(cleaned_data):
     address_from_memory = cleaned_data.get('address_from_memory', None)
     request = cleaned_data.get('request', None)
     cart = Cart(request)
+    user = request.user or False
     user_discount = request.user.discount if request.user.is_authenticated else None
+
+    if user and not user.is_email_confirmed:
+        return False
 
     if address_from_memory:
         with transaction.atomic():

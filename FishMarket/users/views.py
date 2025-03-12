@@ -5,7 +5,7 @@ from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
-from FishMarket.helpers import user_not_authenticated
+from FishMarket.helpers import user_not_authenticated, user_email_confirmed
 from checkout.models import Order, OrderItem
 from .forms import SignUpForm
 from .helpers import email_sender, user_email_activator
@@ -43,11 +43,12 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'users/signup.html', {'form': form})
 
-
+@user_email_confirmed
 def email_send_repeat(request):
     email_sender(request, request.user)
     return redirect('users:email_confirm')
 
+@user_email_confirmed
 def email_confirmation(request):
     return render(request, 'users/email_sent.html')
 
@@ -60,6 +61,7 @@ def email_confirmed(request, token):
     else:
         return redirect('users:user_create_confirm')
 
+@user_email_confirmed
 def user_profile_email_confirm(request):
     return render(request, 'users/user_confirm_email.html')
 

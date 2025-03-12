@@ -226,6 +226,8 @@
 
 .hr-separator {
     color: #0078d4;
+    display: flex;
+    width: 100%;
 }
 
 .order-summery {
@@ -337,6 +339,11 @@
     justify-content: center;
 }
 
+.btn-grey {
+    background: grey !important;
+
+}
+
 .novaposhtaFormCourier input {
     width: 100%;
     background: none;
@@ -445,6 +452,34 @@
     width: fit-content;
 }
 
+.email-verify-warning {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+}
+
+.email-div {
+    background: #fff;
+    display: flex;
+    width: 100%;
+    max-width: 550px;
+    height: 100%;
+    max-height: 350px;
+    align-items: center;
+    gap: 50px;
+    justify-content: center;
+    transition: all 1s;
+    border: none;
+    flex-direction: column;
+}
+
 @media (max-width: 1450px) {
     .checkout-section {
         display: flex !important;
@@ -473,5 +508,11 @@
 
     .mobile-bucket-container {
         display: none;
+    }
+}
+
+@media (max-width: 550px) {
+    .email-div {
+        max-width: 350px !important;
     }
 }
