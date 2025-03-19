@@ -1,7 +1,2 @@
 ../.idea
-.gitignore
-*/migrations/
-/users/migrations/
-/cart/migrations/
-/FishMarket/temp.py
 

@@ -1,0 +1,51 @@
+services:
+  app:
+    build: .
+    image: fishmarket-app
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - fishmarket-network
+  db:
+    image: postgres:latest
+    env_file:
+      - .env
+    ports:
+      - "5436:5432"
+    networks:
+      - fishmarket-network
+  redis:
+    image: redis:8.0-M03-alpine3.21
+    ports:
+      - "6379:6379"
+    networks:
+      - fishmarket-network
+  celery:
+    build: .
+    image: fishmarket-app
+    env_file:
+      - .env
+    command: ["celery", "-A", "FishMarket", "worker", "--loglevel=info", "--concurrency=1"]
+    depends_on:
+      - db
+      - redis
+    networks:
+      - fishmarket-network
+  celery-beat:
+    build: .
+    image: fishmarket-app
+    env_file:
+      - .env
+    command: ["celery", "-A", "FishMarket", "beat", "--loglevel=info"]
+    depends_on:
+      - db
+      - redis
+    networks:
+      - fishmarket-network
+networks:
+  fishmarket-network:

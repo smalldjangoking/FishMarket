@@ -11,8 +11,9 @@ app.autodiscover_tasks()
 
 
 app.conf.beat_schedule = {
-    'run-my-function-every-day-at-2am': {
+    'run-my-function-every-day': {
         'task': 'novapost.tasks.novaposhta_api_initialization',
-        'schedule': crontab(hour='4', minute='0')
+        'schedule': crontab(hour='22', minute='55'),
     },
 }
+

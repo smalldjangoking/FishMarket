@@ -18,7 +18,7 @@ def response_request(api_url, params, retries=20):
             return {}
 
         elif not response_data.get('success'):
-            logging.error(f'Ошибка запроса! Попыток Осталось:{retries}', response_data)
+            logging.warning(f'Api статус not success Попыток Осталось:{retries}')
             print('Ожидаем 120 секунд...')
             time.sleep(120)
             if retries > 0:
@@ -34,17 +34,21 @@ def response_request(api_url, params, retries=20):
             logging.error('Тайм-Аут! Повторы для запроса исчерпаны')
 
     except requests.exceptions.ConnectionError as e:
-        logging.error(f"Ошибка соединения: {e}")
-        print('Ожидаем 120 секунд и повторим запрос')
+        logging.warning(f"Ошибка соединения! Ожидаем 120 секунд и повторим запрос")
         time.sleep(120)
         if retries > 0:
             return response_request(api_url, params, retries - 1)
         else:
-            logging.error('Ошибка Соединения! Повторы для запроса исчерпаны')
+            logging.warning('Ошибка Соединения! Повторы для запроса исчерпаны')
 
     except requests.exceptions.RequestException as e:
         error_type = type(e).__name__
         logging.error(f"Ошибка запроса: Тип ошибки: {error_type} {e}")
+        raise e
+
+    except Exception as e:
+        logging.error('Неизвестная ошибка', exc_info=e)
+        raise e
 
 
 def request_data_size(api_url, params):

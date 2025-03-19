@@ -1,6 +1,5 @@
 import logging
 import time
-from django.db import transaction
 import math
 from novapost.models import Cities, Warehouses
 from django.conf import settings
@@ -55,10 +54,10 @@ def save_cities_to_db(one_city=False):
                     )
                     for city_data in cities
                 ]
-                Cities.objects.bulk_create(city_objects)
+                Cities.objects.bulk_create(city_objects, ignore_conflicts=True)
 
             except Exception as e:
-                logging.error(f'Ошибка при обработке городов в базу. save_cities_to_db()', e)
+                logging.error('Ошибка при обработке городов в базу. save_cities_to_db()', exc_info=e)
 
     return True
 
@@ -93,7 +92,7 @@ def save_warehouses_to_db():
             for warehouse in warehouses:
                 try:
                     warehouse_objects.append(warehouse_object(warehouse))
-                except Cities.DoesNotExist:
+                except Cities.DoesNotExist as e:
                     print(f"Город с ref_to_warehouses={warehouse} не найден в таблице Cities.")
                     print('____________________________________________________________')
                     one_city = save_cities_to_db(warehouse['CityRef'])
@@ -102,9 +101,11 @@ def save_warehouses_to_db():
                         print('Город успешно добавлен!')
                         warehouse_objects.append(warehouse_object(warehouse))
                         print('В базу добавлен warehouse после создания города.')
+                    else:
+                        logging.error('После неудачной попытки не удалось добавить город', exc_info=e)
 
                 except Exception as e:
-                    logging.error(f'Ошибка при обработке почтовых отделений в базу. save_warehouses_to_db()', e)
+                    logging.error(f'Ошибка при обработке почтовых отделений в базу. save_warehouses_to_db()', exc_info=e)
 
 
             Warehouses.objects.bulk_create(warehouse_objects)

@@ -1,10 +1,9 @@
 import asyncio
 import os
 import sys
-import threading
+import multiprocessing
 import logging
 
-from celery.platforms import signals
 from django.apps import AppConfig
 
 
@@ -27,18 +26,18 @@ class TelegramConfig(AppConfig):
 
         from . import telegram
 
-        async def start_bot():
-            print('Starting bot...')
-            await telegram.dp.start_polling(telegram.bot)
-
         def run_bot():
             logging.basicConfig(level=logging.INFO)
             try:
                 asyncio.run(start_bot())
             except KeyboardInterrupt:
-                print('Stopping bot...')
+                logging.info('Stopping bot...')
 
+        async def start_bot():
+            logging.info('Starting bot...')
+            await telegram.dp.start_polling(telegram.bot)
 
-        bot_thread = threading.Thread(target=run_bot, daemon=True)
-        bot_thread.start()
+        # Запускаем бота в отдельном процессе
+        bot_process = multiprocessing.Process(target=run_bot, daemon=True)
+        bot_process.start()
         self.bot_started = True

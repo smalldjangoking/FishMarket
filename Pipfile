@@ -8,12 +8,13 @@ pillow = "*"
 requests = "*"
 celery = "*"
 django-extensions = "*"
-django-debug-toolbar = "*"
 aiogram = "*"
 django = "==4.2.17"
 redis = "*"
 eventlet = "*"
 django-redis = "*"
+psycopg2-binary = "*"
+celery-redbeat = "*"
 
 [dev-packages]
 

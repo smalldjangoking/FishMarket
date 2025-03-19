@@ -4,3 +4,6 @@ aiogram~=3.18.0
 celery~=5.4.0
 asgiref~=3.8.1
 django-redis~=5.4.0
+pillow~=11.1.0
+eventlet~=0.39.0
+django-extensions~=3.2.3
