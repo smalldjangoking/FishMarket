@@ -10,4 +10,4 @@ COPY Pipfile Pipfile.lock /app/
 RUN pip install --no-cache-dir pipenv && pipenv install --deploy --system
 EXPOSE 8000
 
-CMD ["sh", "-c", "python manage.py migrate && python manage.py createsuperuser --noinput --email $DJANGO_SUPERUSER_EMAIL || true && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py createsuperuser --noinput --email $DJANGO_SUPERUSER_EMAIL || true && python manage.py runserver 0.0.0.0:8000"]
