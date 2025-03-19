@@ -112,8 +112,6 @@ This project is powered by the following technologies:
 Follow the instructions for a quick and easy project setup.
 
 ### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
 * git
 * docker/docker-compose
 
