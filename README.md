@@ -119,10 +119,10 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-_For quick deployment, the site is launched using Docker and by adding API keys to start the site_
+_To quickly deploy the project, you’ll launch it using Docker after setting up the required API keys and configuration file._
 
 1. Get a Novaposhta API Key at [https://api-portal.novapost.com](https://api-portal.novapost.com/uk/api-nova-post/start/api-keys/)
-2. Create your own bot in telegram [BotFather](@BotFather) and get the API token
+2. Create your own bot in telegram [BotFather](https://t.me/BotFather) and get the API token
 3. Clone the repo
    ```sh
    git clone https://github.com/smalldjangoking/FishMarket.git
