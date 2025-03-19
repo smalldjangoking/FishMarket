@@ -132,7 +132,7 @@ _To quickly deploy the project, you’ll launch it using Docker after setting up
     T_ID = #Telegram ID
    ```
 5. Update the `.env` file with your database login/password and admin panel credentials
-6. Run the application `cd FishMarket'
+6. Run the application `cd FishMarket`
    ```sh
    docker-compose up --build
    ```
