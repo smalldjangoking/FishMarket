@@ -5,27 +5,30 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, CallbackQuery
 from aiogram import F
 from checkout.models import Order
-from telegram.helpers import get_full_name, get_phone_number, is_paid, id_search, phone_rebuilder, \
-    get_orders_queryset, prepare_order_message_and_keyboard, get_order_by_id, get_kb_from_order, get_orders_queryset_all
+from telegram.helpers import get_orders_queryset, prepare_order_message_and_keyboard, get_order_by_id, \
+    get_kb_from_order, get_orders_queryset_all
 
 router = Router()
 
+#main keyboard
 main = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text='Обработка 📝'), KeyboardButton(text='Отправленные 📦')],
     [KeyboardButton(text='Поиск Заказа 🔍')],
 ], resize_keyboard=True, input_field_placeholder='Воспользуйтесь меню')
 
+#cancel button
 cancel_kb = ReplyKeyboardMarkup(
     keyboard=[[KeyboardButton(text="Завершить ⬅️")]],
     resize_keyboard=True,
     input_field_placeholder="Введите номер заказа или нажмите Завершить"
 )
 
-
+#state for searching item
 class OrderSearch(StatesGroup):
     waiting_for_order_input = State()
 
 
+#/start
 @router.message(CommandStart())
 async def cmd_start(message: Message):
     await message.answer('🚀 Добро пожаловать в быстрый обработчик заказов! \n\n\n'
@@ -34,6 +37,7 @@ async def cmd_start(message: Message):
                          '❗️ Заказы, которые отмечены как "Завершены" или "Отменены", не будут отображаться в боте.', reply_markup=main)
 
 
+#handler for search 🔍
 @router.message(lambda message: message.text == "Поиск Заказа 🔍")
 async def search_order(message: Message, state: FSMContext):
     await message.answer("Введите номер заказа или телефон получателя ✍️", reply_markup=cancel_kb)

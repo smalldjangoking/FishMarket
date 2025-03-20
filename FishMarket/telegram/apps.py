@@ -8,6 +8,7 @@ from django.apps import AppConfig
 
 
 class TelegramConfig(AppConfig):
+    """Starts telegram bot with django server"""
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'telegram'
     bot_started = False
