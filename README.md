@@ -132,9 +132,10 @@ _To quickly deploy the project, you’ll launch it using Docker after setting up
    ...
    NOVAPOSHTA_API=YOUR_NOVAPOSHTA_API
    TELEGRAM_API=YOUR_TELEGRAM_BOT_API_TOKEN
-   TELEGRAM_BOT_ID=YOUR_BOT_TELEGRAM_ID
+   TELEGRAM_BOT_ID=BOT_TELEGRAM_ID
+   ALLOWED_TELEGRAM_USERS=SET_YOUR_PERSONAL_ID_HERE_TO_GET_ACCESS_FOR_TELEGRAM_BOT
    ```
-5. Update the `settings.py` file with the SMTP configuration for the email client
+5. Update the `settings.py` _line 146_ SMTP configuration for the email client
 6. Run the application `cd FishMarket`
    ```sh
    docker-compose up --build
