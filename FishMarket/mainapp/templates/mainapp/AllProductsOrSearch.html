@@ -14,74 +14,71 @@
 
 {% block section %}
     <div class="container">
-        {% if products %}
-            <div class="top-menu-filter">
-                <div class="up-menu HideOnDesktop">
-                    <div class="close">
-                        <button class="burger"
-                                onclick="document.querySelector('.top-menu-filter').classList.remove('active');">
-                            <img src="{% static 'img/close.png' %}" alt="Закрыть">
-                        </button>
-                    </div>
+        <div class="top-menu-filter">
+            <div class="up-menu HideOnDesktop">
+                <div class="close">
+                    <button class="burger"
+                            onclick="document.querySelector('.top-menu-filter').classList.remove('active');">
+                        <img src="{% static 'img/close.png' %}" alt="Закрыть">
+                    </button>
                 </div>
-                {% include 'mainapp/includes/search-desktop.html' %}
-                {% include 'mainapp/includes/search-mobile.html' %}
-                {% include 'mainapp/includes/sory_by_price_range_MOB_DESK.html' %}
-                {% include 'mainapp/includes/dropdown-category.html' %}
-                {% include 'mainapp/includes/sort-by-dropmenu-container-desk.html' %}
-                {% include 'mainapp/includes/sort-by-dropmenu-container-mob.html' %}
             </div>
-            <button class="burger-filter HideOnDesktop"
-                    onclick="document.querySelector('.top-menu-filter').classList.toggle('active');">
-                <i class="fas fa-filter"></i>
-            </button>
-            {% request_tags request as filtred_request %}
-            {% if filtred_request %}
-                <div class="query-container">
-                    <p class="query-text">Фільтр:</p>
-                    {% for name, value in filtred_request.items %}
-                        <a class="query-item" href="?{% url_delete request name %}">{{ value }}</a>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            </div>
-            <div id="product-list">
-                <div class="card-container">
-                    {% for product in products %}
-                        {% include 'mainapp/includes/card-item.html' %}
-                    {% endfor %}
-                </div>
-
-                {% if page_obj.paginator.num_pages > 1 %}
-                    <div class="paginator-container">
-                        <div class="pagination">
-                            <div class="step-links">
-                                {% if page_obj.has_previous %}
-                                    <a class="btn-paginator"
-                                       href="?{% url_replace request 'page' page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
-                                {% endif %}
-                                <p class="btn-paginator btn-paginator-selected" href="#">{{ page_obj.number }}</p>
-                                {% if page_obj.has_next %}
-                                    <a class="btn-paginator"
-                                       href="?{% url_replace request 'page' page_obj.next_page_number %}">
-                                        {{ page_obj.next_page_number }}</a>
-                                {% endif %}
-                            </div>
-                            <div class="page-list">
-                                сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
-
-        {% else %}
-            <div class="nothing-found">
-                <p>Упс! Здається, нічого не знайшлося. Спробуйте змінити пошуковий запит.</p>
+            {% include 'mainapp/includes/search-desktop.html' %}
+            {% include 'mainapp/includes/search-mobile.html' %}
+            {% include 'mainapp/includes/sory_by_price_range_MOB_DESK.html' %}
+            {% include 'mainapp/includes/dropdown-category.html' %}
+            {% include 'mainapp/includes/sort-by-dropmenu-container-desk.html' %}
+            {% include 'mainapp/includes/sort-by-dropmenu-container-mob.html' %}
+        </div>
+        <button class="burger-filter HideOnDesktop"
+                onclick="document.querySelector('.top-menu-filter').classList.toggle('active');">
+            <i class="fas fa-filter"></i>
+        </button>
+        {% request_tags request as filtred_request %}
+        {% if filtred_request %}
+            <div class="query-container">
+                <p class="query-text">Фільтр:</p>
+                {% for name, value in filtred_request.items %}
+                    <a class="query-item" href="?{% url_delete request name %}">{{ value }}</a>
+                {% endfor %}
             </div>
         {% endif %}
     </div>
+    {% if not products %}
+        <div class="nothing-found">
+            <p>Упс! Здається, нічого не знайшлося. Спробуйте змінити пошуковий запит 🕵️‍♂️</p>
+        </div>
+    {% else %}
+        <div id="product-list">
+            <div class="card-container">
+                {% for product in products %}
+                    {% include 'mainapp/includes/card-item.html' %}
+                {% endfor %}
+            </div>
 
+            {% if page_obj.paginator.num_pages > 1 %}
+                <div class="paginator-container">
+                    <div class="pagination">
+                        <div class="step-links">
+                            {% if page_obj.has_previous %}
+                                <a class="btn-paginator"
+                                   href="?{% url_replace request 'page' page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+                            {% endif %}
+                            <p class="btn-paginator btn-paginator-selected" href="#">{{ page_obj.number }}</p>
+                            {% if page_obj.has_next %}
+                                <a class="btn-paginator"
+                                   href="?{% url_replace request 'page' page_obj.next_page_number %}">
+                                    {{ page_obj.next_page_number }}</a>
+                            {% endif %}
+                        </div>
+                        <div class="page-list">
+                            сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
     <script src="{% static 'mainapp/js/allproductsorsearch.js' %}"></script>
 {% endblock %}

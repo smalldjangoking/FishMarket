@@ -13,8 +13,6 @@ import os
 from pathlib import Path
 from django.conf.global_settings import LOGIN_URL, AUTH_USER_MODEL
 
-from FishMarket.temp import API, T_API, T_ID
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -145,20 +143,21 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 CART_SESSION_ID = 'cart'
 
+#SMTP CONFIG !
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.yandex.ru"
-EMAIL_PORT = 465
-EMAIL_HOST_USER = ... #Sender Email
-EMAIL_HOST_PASSWORD = ... #Password SMTP
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 USE_L10N = False
 
-NOVAPOST_API = API
-TELEGRAM_API = T_API
-TELEGRAM_ID = T_ID
+NOVAPOST_API = os.getenv('NOVAPOSHTA_API')
+TELEGRAM_API = os.getenv('TELEGRAM_API')
+TELEGRAM_ID = os.getenv('TELEGRAM_BOT_ID')
 
 CELERY_BROKER_URL = f"redis://{os.getenv('REDIS_HOST', 'redis')}:{os.getenv('REDIS_PORT', '6379')}/0"
 CELERY_RESULT_BACKEND = f"redis://{os.getenv('REDIS_HOST', 'redis')}:{os.getenv('REDIS_PORT', '6379')}/0"

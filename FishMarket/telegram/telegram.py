@@ -1,16 +1,18 @@
+import os
+
 from aiogram import Bot, Dispatcher, types
 from django.conf import settings
 from typing import Callable, Dict, Any, Awaitable
 
 from telegram.handlers import router
 
-API = settings.T_API
+API = settings.TELEGRAM_API
 
 bot = Bot(token=API)
 dp = Dispatcher()
 
 # Список разрешённых пользователей
-ALLOWED_USERS = {1750975759, }  # Можно заполнить из настроек или БД
+ALLOWED_USERS = (os.getenv('ALLOWED_TELEGRAM_USERS')).split(',')
 
 async def auth_middleware(
     handler: Callable[[types.TelegramObject, Dict[str, Any]], Awaitable[Any]],

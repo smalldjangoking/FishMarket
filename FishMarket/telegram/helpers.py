@@ -2,7 +2,6 @@ from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from asgiref.sync import sync_to_async
 from django.db.models import Prefetch, Q
-
 from checkout.models import Order, OrderItem
 import re
 
