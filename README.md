@@ -117,7 +117,7 @@ Follow the instructions for a quick and easy project setup.
 
 ### Installation
 
-_To quickly deploy the project, you’ll launch it using Docker after setting up the required API keys and configuration file._
+_To quickly deploy the project, you’ll launch it using Docker after setting up the required API keys and settings.py file._
 
 1. Get a Novaposhta API Key at [https://api-portal.novapost.com](https://api-portal.novapost.com/uk/api-nova-post/start/api-keys/)
 2. Create your own bot in telegram [BotFather](https://t.me/BotFather) and get the API token
@@ -125,13 +125,17 @@ _To quickly deploy the project, you’ll launch it using Docker after setting up
    ```sh
    git clone https://github.com/smalldjangoking/FishMarket.git
    ```
-4. Enter your API in [FishMarket/temp.py](https://github.com/smalldjangoking/FishMarket/blob/main/FishMarket/FishMarket/temp.py) `temp.py`
-   ```js
-    API = #NovaPoshta API KEY
-    T_API = #Telegram API KEY
-    T_ID = #Telegram ID
+4. Update the `.env` file by adding your authorization data and the API keys obtained from steps _1_ and _2_
+   ```sh
+   DJANGO_SUPERUSER_EMAIL=
+   DJANGO_SUPERUSER_PASSWORD=
+   ...
+   NOVAPOSHTA_API=YOUR_NOVAPOSHTA_API
+   TELEGRAM_API=YOUR_TELEGRAM_BOT_API_TOKEN
+   TELEGRAM_BOT_ID=BOT_TELEGRAM_ID
+   ALLOWED_TELEGRAM_USERS=SET_YOUR_PERSONAL_ID_HERE_TO_GET_ACCESS_FOR_TELEGRAM_BOT
    ```
-5. Update the `.env` file with your database login/password and admin panel credentials
+5. Update the `settings.py` _line 146_ SMTP configuration for the email client
 6. Run the application `cd FishMarket`
    ```sh
    docker-compose up --build
